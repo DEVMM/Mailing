@@ -1,0 +1,16 @@
+#aviso{
+	float: left;
+	width: 50%;
+	margin: auto;
+}
+
+#imagem{
+	float: left;
+	width: 50%;
+	margin: auto;
+}
+
+p{
+	font-size: 36px;
+	font-family: verdana, arial, 'Helvetica Narrow', sans-serif;
+}

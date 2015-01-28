@@ -1,0 +1,45 @@
+body{
+	background-color: #FFFAFA;
+}
+
+p{
+	font-size: 30px;
+	font-family: arial, verdana, sans-serif;
+}
+
+#pagina{
+	width: 70%;
+	margin: auto;
+}
+
+h1{
+	font-family: Century Gothic, sans-serif; 
+}
+
+#formulario{
+	float: left;
+	width: 100%;	
+}
+
+#botao{
+	float: right;
+}
+
+.ui-widget {  
+   font-size: 14px !important;  
+}
+
+#login{
+	width: 100%;
+	margin: auto;
+	text-align: center;
+} 
+.loader {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	background: url('img/page-loader.gif') 50% 50% no-repeat rgb(249,249,249);
+} 

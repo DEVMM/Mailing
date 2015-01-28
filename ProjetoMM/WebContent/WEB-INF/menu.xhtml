@@ -1,0 +1,28 @@
+<ui:composition 
+xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<link type="text/css" rel="stylesheet" href="estilo.css" />
+</h:head>
+<h:form>
+			<p:growl id="messages" />
+			<p:menubar>
+				<p:submenu label="Relatório">
+					<p:menuitem value="Anuários" url="anuarios.xhtml" />
+					<p:menuitem value="MM Online" url="MM.xhtml" />
+				</p:submenu>
+				<p:menuitem value="Home" url="index.xhtml" />
+				<p:menuitem value="Solicitações" url="aprovacoes.xhtml" rendered="#{permissao.permissao=='Aprovador'}"/>
+				<p:menuitem value="Gerenciamento de Usuários" url="gerenciamento.xhtml" rendered="#{permissao.permissao=='Aprovador'}"/>
+				
+				<f:facet name="options">
+					<p:commandButton action="#{loginBean.logout}" value="Logout"
+						ajax="false"></p:commandButton>
+				</f:facet>
+			</p:menubar>
+			<p>Bem vindo, #{loginBean.nome}</p>
+		</h:form>
+		</ui:composition>

@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+    <title>Gerenciamento de usuários</title>
+    <link type="text/css" rel="stylesheet" href="estilo.css" /> 	 
+</h:head>
+<h:body>
+<div id="pagina">
+
+<ui:include src="/WEB-INF/menu.xhtml" />
+<h:form id="form">
+             
+    <p:growl id="msgs" showDetail="true" />
+
+    <p:tabView>
+        <p:tab title="Novo Usuário">
+            <h:panelGrid columns="2" cellpadding="10">    
+                <p:outputLabel for="nome" value="Usuário" />
+                <p:inputText id="nome" value="#{usuarioBean.usuario.nome}"/>
+                
+                 <h:outputLabel for="senha" value="Senha" />
+                 <p:password for="senha" value="#{usuarioBean.usuario.senha}" /> 
+                
+                 <p:outputLabel for="permissao" value="Permissão" /> 
+ 			       
+ 			        <p:selectOneMenu id="permissao" value="#{usuarioBean.idPermissao}" style="width:125px">
+ 			        	<f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/>
+						<f:selectItems value="#{usuarioBean.permissoes}" var="p" itemValue="#{p.id}" itemLabel="#{p.nomePermissao}"/>
+ 			        </p:selectOneMenu> 
+			        
+				<p:commandButton value="Cadastrar" action="#{usuarioBean.gravar}" ajax="false" actionListener="#{growlView.msgAdiciona()}" />
+            </h:panelGrid>         
+        </p:tab>
+        
+        <p:tab title="Procurar">
+            <h:panelGrid columns="3" cellpadding="10">
+            	<p:outputLabel for="busca" value="Digite o usuário: " />
+                <p:inputText id="busca" value="#{usuarioBean.usuarioBusca}"/>
+                <p:commandButton value="Buscar" action="#{usuarioBean.buscaUsuario}" ajax="false"/>
+				
+                  <c:if test="#{usuarioBean.buscaUsuario().nome!=null}">
+                  <h:outputText value="#{usuarioBean.buscaUsuario().nome}" />
+                <h:link value="Editar"></h:link>
+                <h:link value="Excluir"></h:link>
+                </c:if>
+              
+            </h:panelGrid>
+        </p:tab>
+    </p:tabView>
+ 
+</h:form>
+</div>
+
+</h:body>  
+</html>

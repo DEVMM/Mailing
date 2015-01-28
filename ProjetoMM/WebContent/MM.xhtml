@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>MM Online</title>
+    <link type="text/css" rel="stylesheet" href="estilo.css" />
+    <script src="js/checkbox.js"></script> 	 
+</h:head>
+<h:body>
+<div id="pagina">
+
+<ui:include src="/WEB-INF/menu.xhtml" />
+
+
+<h1>MM Online</h1>
+<div id="formulario">
+			<h:form id="form">
+				<p:growl id="msgs" showDetail="true" />
+				<p:accordionPanel>
+					<p:tab title="Estados">
+						<div id="estado">
+							<input type="checkbox" name="checkall"
+								onclick="checkByParent('estado')" /> Selecionar Todos<br />
+							<p:dataGrid value="#{mM.estados}" var="item" columns="4">
+								<h:column>
+									<h:selectManyCheckbox id="selectCheck" 
+										valueChangeListener="#{mM.valida}">
+										<f:selectItem id="uf" itemValue="#{item}" itemLabel="#{item}" />
+									</h:selectManyCheckbox>
+								</h:column>
+
+							</p:dataGrid>
+						</div>
+					</p:tab>
+
+					<p:tab title="Nível">
+						<div id="nivelh">
+							<input type="checkbox" name="checkall"
+								onclick="checkByParent('nivelh')" /> Selecionar Todos<br />
+							<p:dataGrid value="#{mM.nivel}" var="item"
+								columns="4">
+								<h:column>
+									<h:selectManyCheckbox id="selectCheck"
+										valueChangeListener="#{mM.valida}">
+										<f:selectItem itemValue="#{item}" itemLabel="#{item.nome}" />
+									</h:selectManyCheckbox>
+								</h:column>
+
+							</p:dataGrid>
+						</div>
+					</p:tab>
+
+					<p:tab title="Área de Atuação">
+						<div id="areaA">
+							<input type="checkbox" name="checkall"
+								onclick="checkByParent('areaA')" /> Selecionar Todos<br />
+							<p:dataGrid value="#{mM.area}" var="item"
+								columns="3">
+								<h:column>
+									<h:selectManyCheckbox id="selectCheck"
+										valueChangeListener="#{mM.valida}">
+										<f:selectItem itemValue="#{item}" itemLabel="#{item.nome}" />
+									</h:selectManyCheckbox>
+								</h:column>
+							</p:dataGrid>
+						</div>
+					</p:tab>
+					<p:tab title="Ramo de Atividade">
+						<div id="ramoA">
+							<input type="checkbox" name="checkall"
+								onclick="checkByParent('ramoA')" /> Selecionar Todos<br />
+							<p:dataGrid value="#{mM.ramoAtividade}" var="item"
+								columns="4">
+								<h:column>
+									<h:selectManyCheckbox id="selectCheck"
+										valueChangeListener="#{mM.valida}">
+										<f:selectItem itemValue="#{item}" itemLabel="#{item.nome}" />
+									</h:selectManyCheckbox>
+								</h:column>
+							</p:dataGrid>
+					</div>
+					</p:tab>
+					<p:tab title="Porte">
+						<div id="porte">
+							<input type="checkbox" name="checkall"
+								onclick="checkByParent('porte')" /> Selecionar Todos<br />
+							<p:dataGrid value="#{mM.porte}" var="item" columns="1">
+								<h:column>
+									<h:selectManyCheckbox id="selectCheck"
+										valueChangeListener="#{mM.valida}">
+										<f:selectItem itemValue="#{item}" itemLabel="#{item.nome}" />
+									</h:selectManyCheckbox>
+								</h:column>
+							</p:dataGrid>
+						</div>
+					</p:tab>
+					<p:tab title="Sexo">
+						<div id="sexo">
+							<input type="checkbox" name="checkall"
+								onclick="checkByParent('sexo')" /> Selecionar Todos<br />
+							<p:dataGrid value="#{mM.sexo}" var="item" columns="1">
+								<h:column>
+									<h:selectManyCheckbox id="selectCheck"
+										valueChangeListener="#{mM.valida}">
+										<f:selectItem itemValue="#{item}" itemLabel="#{item.nome}" />
+									</h:selectManyCheckbox>
+								</h:column>
+							</p:dataGrid>
+						</div>
+					</p:tab>
+				</p:accordionPanel>
+				<br />
+				<div id="botao">
+					<p:commandButton value="Gerar Solicitação" action="#{mM.gerarRelatorio()}" ajax="false">
+						<f:setPropertyActionListener value="#{loginBean.nome}"
+							target="#{mM.vUsuario}" />
+					</p:commandButton>
+				</div>
+			</h:form>
+		</div>
+</div>
+
+
+
+</h:body>  
+</html>
