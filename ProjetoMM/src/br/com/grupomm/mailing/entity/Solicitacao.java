@@ -2,7 +2,6 @@ package br.com.grupomm.mailing.entity;
 
 import java.util.Calendar;
 
-import javax.faces.bean.ViewScoped;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -13,7 +12,6 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.Type;
 
 @Entity
-@ViewScoped
 public class Solicitacao {
 	 
 	@Id @GeneratedValue
