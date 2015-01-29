@@ -10,22 +10,7 @@
 	<link type="text/css" rel="stylesheet" href="estilo.css" />
 	<script src="js/mailing.js"></script>
 	<script>
-$(window).load(function() {
-	 $('#editor').hide();
-	 $('#usrNull').hide();
-	
-});
 
-function editar(){
-	$('#usrNull').show('slow');
-}
-function voltar(){
-	$('#editor').hide();
-	$('#busca').show('slow');
-}
-function sResult(){
-	$(".sResult").fadeIn();
-}
 </script>
 </h:head>
 <h:body>
@@ -42,8 +27,8 @@ function sResult(){
 						<p:outputLabel for="nome" value="Usuário" />
 						<p:inputText id="nome" value="#{usuarioBean.usuario.nome}" />
 
-						<h:outputLabel for="senha" value="Senha" />
-						<p:password for="senha" value="#{usuarioBean.usuario.senha}" />
+						<p:outputLabel for="pwd" value="senha" />
+						<p:password id="pwd" value="#{usuarioBean.usuario.senha}" type=""/>
 
 						<p:outputLabel for="permissao" value="Permissão" />
 
@@ -68,12 +53,12 @@ function sResult(){
 								value="#{usuarioBean.buscaUsuario().nome}" label="teste" />
 
 							<h:outputLabel for="senha2" value="Senha" />
-							<p:password for="senha2" value="#{usuarioBean.usuario.senha}" />
+							<p:password for="senha2" value="#{usuarioBean.buscaUsuario().senha}" />
 
 							<p:outputLabel for="permissao2" value="Permissão" />
 
 							<p:selectOneMenu id="permissao2"
-								value="#{usuarioBean.idPermissao}" style="width:125px">
+								value="#{usuarioBean.idPermissao2}" style="width:125px">
 								<f:selectItem itemLabel="-- Selecione --"
 									noSelectionOption="true" />
 								<f:selectItems value="#{usuarioBean.permissoes}" var="p"
@@ -111,7 +96,6 @@ function sResult(){
 									value="Excluir" />
 							</h:column>
 						</div>
-
 					</div>
 				</p:tab>
 			</p:tabView>

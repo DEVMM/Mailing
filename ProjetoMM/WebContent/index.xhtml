@@ -37,7 +37,7 @@
 					style="width:20%; margin:auto;  text-align: center;">
 
 					<p:commandButton value="Baixar" action="#{index.gerarRelatorio()}"
-						ajax="false" onclick="lonading()">
+						ajax="false"  actionListener="#{growlView.msgAdiciona()}" process="@this" update="@form" >
 						<f:setPropertyActionListener value="#{item.id}"
 							target="#{index.ids}" />
 						<f:setPropertyActionListener value="#{item.tipoSolicitacao}"
@@ -46,7 +46,7 @@
                
                <p:commandButton value="Remover"
 						action="#{index.removerSolicitacao}" disabled="false"
-						process="@this" update="@form">
+						process="@this" update="@form"  actionListener="#{growlView.msgAdiciona()}">
 						<f:setPropertyActionListener value="#{item.id}"
 							target="#{index.ids}" />
 					</p:commandButton>

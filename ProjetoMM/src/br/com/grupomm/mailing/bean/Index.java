@@ -22,6 +22,7 @@ public class Index {
 	String tipoSolicitacao;
 	IndexDAO indexDAO = new IndexDAO();
 	List<Solicitacao> provacoesList = new IndexDAO().listaAprovados(usr);
+	
 
 	public void gerarRelatorio() throws IOException {
 
