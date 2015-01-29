@@ -1,60 +1,122 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:p="http://primefaces.org/ui"
-    xmlns:c="http://java.sun.com/jsp/jstl/core">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
 <h:head>
-    <title>Gerenciamento de usuários</title>
-    <link type="text/css" rel="stylesheet" href="estilo.css" /> 	 
+	<title>Gerenciamento de usuários</title>
+	<link type="text/css" rel="stylesheet" href="estilo.css" />
+	<script src="js/mailing.js"></script>
+	<script>
+$(window).load(function() {
+	 $('#editor').hide();
+	 
+});
+
+function editar(){
+	$('#busca').hide();
+	$('#editor').show('slow');
+}
+function voltar(){
+	$('#editor').hide();
+	$('#busca').show('slow');
+}
+
+function sResult(){
+	$(".sResult").fadeIn();
+}
+</script>
 </h:head>
 <h:body>
-<div id="pagina">
+	<div id="pagina">
 
-<ui:include src="/WEB-INF/menu.xhtml" />
-<h:form id="form">
-             
-    <p:growl id="msgs" showDetail="true" />
+		<ui:include src="/WEB-INF/menu.xhtml" />
+		<h:form id="form">
 
-    <p:tabView>
-        <p:tab title="Novo Usuário">
-            <h:panelGrid columns="2" cellpadding="10">    
-                <p:outputLabel for="nome" value="Usuário" />
-                <p:inputText id="nome" value="#{usuarioBean.usuario.nome}"/>
-                
-                 <h:outputLabel for="senha" value="Senha" />
-                 <p:password for="senha" value="#{usuarioBean.usuario.senha}" /> 
-                
-                 <p:outputLabel for="permissao" value="Permissão" /> 
- 			       
- 			        <p:selectOneMenu id="permissao" value="#{usuarioBean.idPermissao}" style="width:125px">
- 			        	<f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/>
-						<f:selectItems value="#{usuarioBean.permissoes}" var="p" itemValue="#{p.id}" itemLabel="#{p.nomePermissao}"/>
- 			        </p:selectOneMenu> 
-			        
-				<p:commandButton value="Cadastrar" action="#{usuarioBean.gravar}" ajax="false" actionListener="#{growlView.msgAdiciona()}" />
-            </h:panelGrid>         
-        </p:tab>
-        
-        <p:tab title="Procurar">
-            <h:panelGrid columns="3" cellpadding="10">
-            	<p:outputLabel for="busca" value="Digite o usuário: " />
-                <p:inputText id="busca" value="#{usuarioBean.usuarioBusca}"/>
-                <p:commandButton value="Buscar" action="#{usuarioBean.buscaUsuario}" ajax="false"/>
-				
-                  <c:if test="#{usuarioBean.buscaUsuario().nome!=null}">
-                  <h:outputText value="#{usuarioBean.buscaUsuario().nome}" />
-                <h:link value="Editar"></h:link>
-                <h:link value="Excluir"></h:link>
-                </c:if>
-              
-            </h:panelGrid>
-        </p:tab>
-    </p:tabView>
- 
-</h:form>
-</div>
+			<p:growl id="msgs" showDetail="true" />
 
-</h:body>  
+			<p:tabView>
+				<p:tab title="Novo Usuário">
+					<h:panelGrid columns="2" cellpadding="10">
+						<p:outputLabel for="nome" value="Usuário" />
+						<p:inputText id="nome" value="#{usuarioBean.usuario.nome}" />
+
+						<h:outputLabel for="senha" value="Senha" />
+						<p:password for="senha" value="#{usuarioBean.usuario.senha}" />
+
+						<p:outputLabel for="permissao" value="Permissão" />
+
+						<p:selectOneMenu id="permissao" value="#{usuarioBean.idPermissao}"
+							style="width:125px">
+							<f:selectItem itemLabel="-- Selecione --"
+								noSelectionOption="true" />
+							<f:selectItems value="#{usuarioBean.permissoes}" var="p"
+								itemValue="#{p.id}" itemLabel="#{p.nomePermissao}" />
+						</p:selectOneMenu>
+
+						<p:commandButton value="Cadastrar" action="#{usuarioBean.gravar}"
+							ajax="false" actionListener="#{growlView.msgAdiciona()}" />
+					</h:panelGrid>
+				</p:tab>
+
+				<p:tab title="Editar Usuario">
+					<div id="editor" style="display: 'none';">
+						<h:panelGrid columns="2" cellpadding="10">
+							<p:outputLabel for="nome2" value="Usuário" />
+							<p:inputText id="nome2"
+								value="#{usuarioBean.buscaUsuario().nome}" label="teste" />
+
+							<h:outputLabel for="senha2" value="Senha" />
+							<p:password for="senha2" value="#{usuarioBean.usuario.senha}" />
+
+							<p:outputLabel for="permissao2" value="Permissão" />
+
+							<p:selectOneMenu id="permissao2"
+								value="#{usuarioBean.idPermissao}" style="width:125px">
+								<f:selectItem itemLabel="-- Selecione --"
+									noSelectionOption="true" />
+								<f:selectItems value="#{usuarioBean.permissoes}" var="p"
+									itemValue="#{p.id}" itemLabel="#{p.nomePermissao}" />
+							</p:selectOneMenu>
+
+							<p:commandButton value="Atualizar" ajax="false" onclick="editar()"
+								actionListener="#{growlView.msgAdiciona()}" />
+							<a href="#" onclick="voltar()">Voltar</a>
+						</h:panelGrid>
+					</div>
+
+					<div id="busca">
+						<h:panelGrid columns="3" cellpadding="10">
+
+							<p:outputLabel for="busca" value="Digite o usuário: " />
+							<p:inputText id="busca" value="#{usuarioBean.usuarioBusca}" />
+							<p:commandButton value="Buscar"
+								action="#{usuarioBean.buscaUsuario}" ajax="false"
+								onclick="editar()" />
+
+						</h:panelGrid>
+
+						<h:column rendered="#{usuarioBean.buscaUsuario().nome==null}">
+							<p>Usuario não encontrado no banco.</p>
+						</h:column>
+
+
+						<div id="sResult">
+							<h:column rendered="#{usuarioBean.buscaUsuario().nome!=null}">
+								<h:outputText value="#{usuarioBean.buscaUsuario().nome}" />
+								<a href="#" onclick="editar()">Editar</a>&nbsp;
+							    <a href="#" >Excluir</a>
+							</h:column>
+						</div>
+
+					</div>
+				</p:tab>
+			</p:tabView>
+
+		</h:form>
+	</div>
+
+</h:body>
 </html>
