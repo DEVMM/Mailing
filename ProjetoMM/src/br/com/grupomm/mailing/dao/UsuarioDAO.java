@@ -48,14 +48,11 @@ public class UsuarioDAO {
 		
 		EntityManager mysql = new JPAUtil().getMySql();
 		Query query = mysql.createQuery("from Permissao where id = :id").setParameter("id", id);
-		return (Permissao) query.getSingleResult();
-		
+		return (Permissao) query.getSingleResult();		
 	}
 	
-	
 	public Usuario listaBusca(String usuario){
-		
-		
+			
 		EntityManager mysql = new JPAUtil().getMySql();
 		Query query = mysql.createQuery("select u from Usuario u where u.nome=:pUsuario").setParameter("pUsuario", usuario);
 		 Usuario usr = new Usuario();    

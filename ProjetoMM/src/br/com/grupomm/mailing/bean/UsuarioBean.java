@@ -33,7 +33,7 @@ public class UsuarioBean {
 
 		user.adiciona(this.usuario);
 	}
-
+	
 	public void excluir() {
 		System.out.println("excluindo usuario 1 :" +this.buscaUsuario().getNome());
 		System.out.println("excluindo usuario 2 :" +this.getUsuarioBusca());
