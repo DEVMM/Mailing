@@ -23,6 +23,21 @@ public class UsuarioDAO {
 		em.close();
 	}
 	
+	public void editar(Usuario usr) {
+
+		EntityManager em = new JPAUtil().getMySql();
+		em.getTransaction().begin();
+		//Usuario usuarioEditado = em.find(Usuario.class, usr);
+		em.merge(usr);
+		em.getTransaction().commit();
+		System.out.println("dentro do dao: " +usr.getNome());
+		System.out.println("dentro do dao:"+usr.getId());
+		System.out.println("dentro do dao:"+usr.getSenha());
+		System.out.println("dentro do dao:"+usr.getPermissao().getNomePermissao());
+		em.close();
+	}
+	
+	
 	public void excluir(int usuario){
 		
 		

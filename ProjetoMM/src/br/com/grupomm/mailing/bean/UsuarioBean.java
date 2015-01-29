@@ -30,21 +30,26 @@ public class UsuarioBean {
 
 	public void gravar() {
 		this.usuario.setPermissao(user.getPermissaoByID(idPermissao));
-
 		user.adiciona(this.usuario);
+		this.usuario = new Usuario();
 	}
 	
 	public void excluir() {
-		System.out.println("excluindo usuario 1 :" +this.buscaUsuario().getNome());
-		System.out.println("excluindo usuario 2 :" +this.getUsuarioBusca());
 		user.excluir(this.buscaUsuario().getId());
 		this.usuario = new Usuario();
 	}
+	
+	public void editar() {
+//		user.editar(this.usuario);
+//		this.usuario = new Usuario();
+		System.out.println("lalalalalalLA: " +this.buscaUsuario().getNome());
+		System.out.println("LALALALALLllalalal: "+this.buscaUsuario().getSenha());
+		System.out.println("lalalalalalalalalala");
+	
+	}
 
 	public Usuario buscaUsuario(){
-		System.out.println("usuario " +this.getUsuarioBusca());
-		System.out.println("usuario 2 " +this.usuarioBusca);
-		System.out.println("usuario 3" +usuario.toString());
+		
 		return user.listaBusca(this.getUsuarioBusca());
 	}
 

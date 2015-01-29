@@ -15,7 +15,7 @@ public class GrowlView {
 	
 	public void msgAdiciona() {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuário", "Adicionado com sucesso");
-         
+       
         RequestContext.getCurrentInstance().showMessageInDialog(message);
     }
 	
