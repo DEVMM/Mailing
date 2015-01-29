@@ -16,20 +16,23 @@ public class UsuarioDAO {
 
 	public void adiciona(Usuario usuario) {
 
-		// consegue a entity manager
 		EntityManager em = new JPAUtil().getMySql();
-
-		// abre transacao
 		em.getTransaction().begin();
-
-		// persiste o objeto
 		em.persist(usuario);
-
-		// commita a transacao
 		em.getTransaction().commit();
-
-		// fecha a entity manager
 		em.close();
+	}
+	
+	public void excluir(int usuario){
+		
+		
+		EntityManager em = new JPAUtil().getMySql();
+		em.getTransaction().begin();
+		Usuario usuarioRemover = em.find(Usuario.class, usuario);
+		em.remove(usuarioRemover);
+		em.getTransaction().commit();
+		em.close();
+	System.out.println("call");
 	}
 	
 	@SuppressWarnings("unchecked")

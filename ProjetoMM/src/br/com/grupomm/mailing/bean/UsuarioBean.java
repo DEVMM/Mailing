@@ -35,10 +35,18 @@ public class UsuarioBean {
 		this.usuario = new Usuario();
 	}
 
+	public void excluir() {
+		System.out.println("excluindo usuario 1 :" +this.buscaUsuario().getNome());
+		System.out.println("excluindo usuario 2 :" +this.getUsuarioBusca());
+
+		user.excluir(this.buscaUsuario().getId());
+		this.usuario = new Usuario();
+	}
+
 	public Usuario buscaUsuario(){
-        System.out.println("usuario " +this.getUsuarioBusca());
-        System.out.println("usuario 2 " +this.usuarioBusca);
-        System.out.println("usuario 3" +usuario.toString());
+		System.out.println("usuario " +this.getUsuarioBusca());
+		System.out.println("usuario 2 " +this.usuarioBusca);
+		System.out.println("usuario 3" +usuario.toString());
 		return user.listaBusca(this.getUsuarioBusca());
 	}
 
