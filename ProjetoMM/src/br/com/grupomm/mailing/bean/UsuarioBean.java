@@ -14,11 +14,13 @@ import br.com.grupomm.mailing.entity.Usuario;
 public class UsuarioBean {
 
 	private Usuario usuario = new Usuario();
+	private Usuario usuarioEditado = new Usuario();
 	private Integer idPermissao = new Integer(0);
 	private Integer idPermissao2 = new Integer(0);
-	private String usuarioBusca = new String("");
+	private String usuarioBusca = new String();
 	private UsuarioDAO user = new UsuarioDAO();
 
+	
 
 	public Usuario getUsuario() {
 		return usuario;
@@ -33,23 +35,29 @@ public class UsuarioBean {
 		user.adiciona(this.usuario);
 		this.usuario = new Usuario();
 	}
-	
+
 	public void excluir() {
 		user.excluir(this.buscaUsuario().getId());
 		this.usuario = new Usuario();
 	}
-	
+
 	public void editar() {
-//		user.editar(this.usuario);
-//		this.usuario = new Usuario();
-		System.out.println("lalalalalalLA: " +this.buscaUsuario().getNome());
-		System.out.println("LALALALALLllalalal: "+this.buscaUsuario().getSenha());
-		System.out.println("lalalalalalalalalala");
-	
+
+        if(idPermissao2!=null){
+		this.usuarioEditado.setPermissao(user.getPermissaoByID(idPermissao2));
+        }
+        if(usuarioEditado.getSenha().equals("")){
+        	usuarioEditado.setSenha(buscaUsuario().getSenha());
+        }
+		user.editar(usuarioEditado);
+		this.usuarioEditado = new Usuario();
+		System.out.println(idPermissao2);
+		System.out.println("senha"+buscaUsuario().getSenha());
+		
 	}
 
 	public Usuario buscaUsuario(){
-		
+
 		return user.listaBusca(this.getUsuarioBusca());
 	}
 
@@ -87,5 +95,13 @@ public class UsuarioBean {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public Usuario getUsuarioEditado() {
+		return usuarioEditado;
+	}
+
+	public void setUsuarioEditado(Usuario usuarioEditado) {
+		this.usuarioEditado = usuarioEditado;
 	}
 }

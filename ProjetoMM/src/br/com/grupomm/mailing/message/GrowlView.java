@@ -13,9 +13,21 @@ public class GrowlView {
         RequestContext.getCurrentInstance().showMessageInDialog(message);
     }
 	
+	public void usarioExcluido() {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuário", "Excluído com sucesso");
+         
+        RequestContext.getCurrentInstance().showMessageInDialog(message);
+    }
+	
+	public void usarioAtualizado() {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuário", "Atualizado com sucesso");
+         
+        RequestContext.getCurrentInstance().showMessageInDialog(message);
+    }
+	
 	public void msgAdiciona() {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuário", "Adicionado com sucesso");
-       
+         
         RequestContext.getCurrentInstance().showMessageInDialog(message);
     }
 	
