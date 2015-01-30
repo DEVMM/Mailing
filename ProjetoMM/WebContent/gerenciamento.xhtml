@@ -12,7 +12,6 @@
 	<script>
 $(window).load(function() {
 	 $('#editor').hide();
-	 
 });
 
 function editar(){
@@ -24,9 +23,7 @@ function voltar(){
 	$('#busca').show('slow');
 }
 
-function sResult(){
-	$(".sResult").fadeIn();
-}
+
 </script>
 </h:head>
 <h:body>
@@ -43,8 +40,8 @@ function sResult(){
 						<p:outputLabel for="nome" value="Usuário" />
 						<p:inputText id="nome" value="#{usuarioBean.usuario.nome}" />
 
-						<h:outputLabel for="senha" value="Senha" />
-						<p:password for="senha" value="#{usuarioBean.usuario.senha}" />
+						<p:outputLabel for="pwd" value="senha" />
+						<p:password id="pwd" value="#{usuarioBean.usuario.senha}" type="" />
 
 						<p:outputLabel for="permissao" value="Permissão" />
 
@@ -57,32 +54,34 @@ function sResult(){
 						</p:selectOneMenu>
 
 						<p:commandButton value="Cadastrar" action="#{usuarioBean.gravar}"
-							ajax="false" actionListener="#{growlView.msgAdiciona()}" />
+							ajax="false" actionListener="#{growlView.msgAdiciona()}"
+							update="@form" onclick="location.reload()" />
 					</h:panelGrid>
 				</p:tab>
 
-				<p:tab title="Editar Usuario">
-					<div id="editor" style="display: 'none';">
+				<p:tab title="Procurar">
+					<div id="editor">
 						<h:panelGrid columns="2" cellpadding="10">
 							<p:outputLabel for="nome2" value="Usuário" />
 							<p:inputText id="nome2"
-								value="#{usuarioBean.buscaUsuario().nome}" label="teste" />
+								value="#{usuarioBean.usuarioEditado.nome}" label="teste" />
 
 							<h:outputLabel for="senha2" value="Senha" />
-							<p:password for="senha2" value="#{usuarioBean.usuario.senha}" />
+							<p:password for="senha2"
+								value="#{usuarioBean.usuarioEditado.senha}" />
 
 							<p:outputLabel for="permissao2" value="Permissão" />
 
 							<p:selectOneMenu id="permissao2"
-								value="#{usuarioBean.idPermissao}" style="width:125px">
+								value="#{usuarioBean.idPermissao2}" style="width:125px">
 								<f:selectItem itemLabel="-- Selecione --"
 									noSelectionOption="true" />
 								<f:selectItems value="#{usuarioBean.permissoes}" var="p"
 									itemValue="#{p.id}" itemLabel="#{p.nomePermissao}" />
 							</p:selectOneMenu>
 
-							<p:commandButton value="Atualizar" ajax="false" onclick="editar()"
-								actionListener="#{growlView.msgAdiciona()}" />
+							<p:commandButton value="Atualizar"
+								action="#{usuarioBean.editar()}" ajax="false" />
 							<a href="#" onclick="voltar()">Voltar</a>
 						</h:panelGrid>
 					</div>
@@ -93,28 +92,45 @@ function sResult(){
 							<p:outputLabel for="busca" value="Digite o usuário: " />
 							<p:inputText id="busca" value="#{usuarioBean.usuarioBusca}" />
 							<p:commandButton value="Buscar"
-								action="#{usuarioBean.buscaUsuario}" ajax="false"
-								onclick="editar()" />
+								action="#{usuarioBean.buscaUsuario}" ajax="false">
+								<f:setPropertyActionListener
+									value="#{usuarioBean.buscaUsuario().nome}"
+									target="#{usuarioBean.usuarioEditado.nome}" />
+								<f:setPropertyActionListener
+									value="#{usuarioBean.buscaUsuario().id}"
+									target="#{usuarioBean.usuarioEditado.id}" />
+								<f:setPropertyActionListener
+									value="#{usuarioBean.buscaUsuario().senha}"
+									target="#{usuarioBean.usuarioEditado.senha}" />
+								<f:setPropertyActionListener
+									value="#{usuarioBean.buscaUsuario().permissao}"
+									target="#{usuarioBean.usuarioEditado.permissao}" />
+							</p:commandButton>
 
 						</h:panelGrid>
 
-						<h:column rendered="#{usuarioBean.buscaUsuario().nome==null}">
-							<p>Usuario não encontrado no banco.</p>
-						</h:column>
-
-
-						<div id="sResult">
-							<h:column rendered="#{usuarioBean.buscaUsuario().nome!=null}">
-								<h:outputText value="#{usuarioBean.buscaUsuario().nome}" />
-								<a href="#" onclick="editar()">Editar</a>&nbsp;
-							    <a href="#" >Excluir</a>
+						<div id="usrNull">
+							<h:column
+								rendered="#{usuarioBean.buscaUsuario().nome==null and usuarioBean.usuarioBusca!=''}">
+								<p>Usuario não encontrado no banco.</p>
 							</h:column>
 						</div>
 
+						<div id="sResult">
+							<h:column rendered="#{usuarioBean.buscaUsuario().id!=null}">
+								<h:outputText value="#{usuarioBean.buscaUsuario().nome}" />
+								<a href="#" onclick="editar()">Editar</a>
+
+
+								&nbsp;
+           <h:commandLink action="#{usuarioBean.excluir()}"
+									value="Excluir" />
+
+							</h:column>
+						</div>
 					</div>
 				</p:tab>
 			</p:tabView>
-
 		</h:form>
 	</div>
 

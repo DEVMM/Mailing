@@ -1,24 +1,26 @@
 package br.com.grupomm.mailing.bean;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+
+import javax.faces.bean.ViewScoped;
 
 import br.com.grupomm.mailing.dao.UsuarioDAO;
 import br.com.grupomm.mailing.entity.Usuario;
 
 @ManagedBean
-@SessionScoped
-
+@ViewScoped
 public class UsuarioBean {
 
 	private Usuario usuario = new Usuario();
+	private Usuario usuarioEditado = new Usuario();
 	private Integer idPermissao = new Integer(0);
-	private String usuarioBusca = new String("");
+	private Integer idPermissao2 = new Integer(0);
+	private String usuarioBusca = new String();
 	private UsuarioDAO user = new UsuarioDAO();
 
+	
 
 	public Usuario getUsuario() {
 		return usuario;
@@ -30,18 +32,34 @@ public class UsuarioBean {
 
 	public void gravar() {
 		this.usuario.setPermissao(user.getPermissaoByID(idPermissao));
-		System.out.println(usuario);
 		user.adiciona(this.usuario);
 		this.usuario = new Usuario();
 	}
 
-	public Usuario buscaUsuario(){
-        System.out.println("usuario " +this.getUsuarioBusca());
-        System.out.println("usuario 2 " +this.usuarioBusca);
-        System.out.println("usuario 3" +usuario.toString());
-		return user.listaBusca(this.getUsuarioBusca());
+	public void excluir() {
+		user.excluir(this.buscaUsuario().getId());
+		this.usuario = new Usuario();
 	}
 
+	public void editar() {
+
+        if(idPermissao2!=null){
+		this.usuarioEditado.setPermissao(user.getPermissaoByID(idPermissao2));
+        }
+        if(usuarioEditado.getSenha().equals("")){
+        	usuarioEditado.setSenha(buscaUsuario().getSenha());
+        }
+		user.editar(usuarioEditado);
+		this.usuarioEditado = new Usuario();
+		System.out.println(idPermissao2);
+		System.out.println("senha"+buscaUsuario().getSenha());
+		
+	}
+
+	public Usuario buscaUsuario(){
+
+		return user.listaBusca(this.getUsuarioBusca());
+	}
 
 	public Integer getIdPermissao() {
 		return idPermissao;
@@ -49,6 +67,14 @@ public class UsuarioBean {
 
 	public void setIdPermissao(Integer idPermissao) {
 		this.idPermissao = idPermissao;
+	}
+
+	public Integer getIdPermissao2() {
+		return idPermissao2;
+	}
+
+	public void setIdPermissao2(Integer idPermissao2) {
+		this.idPermissao2 = idPermissao2;
 	}
 
 	public String getUsuarioBusca() {
@@ -71,4 +97,11 @@ public class UsuarioBean {
 		this.usuario = usuario;
 	}
 
+	public Usuario getUsuarioEditado() {
+		return usuarioEditado;
+	}
+
+	public void setUsuarioEditado(Usuario usuarioEditado) {
+		this.usuarioEditado = usuarioEditado;
+	}
 }
