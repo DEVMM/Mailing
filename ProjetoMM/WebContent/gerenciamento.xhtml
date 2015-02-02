@@ -23,43 +23,18 @@ function voltar(){
 	$('#busca').show('slow');
 }
 
-
 </script>
 </h:head>
 <h:body>
+
 	<div id="pagina">
-
 		<ui:include src="/WEB-INF/menu.xhtml" />
-		<h:form id="form">
 
-			<p:growl id="msgs" showDetail="true" />
-
-			<p:tabView>
-				<p:tab title="Novo Usuário">
-					<h:panelGrid columns="2" cellpadding="10">
-						<p:outputLabel for="nome" value="Usuário" />
-						<p:inputText id="nome" value="#{usuarioBean.usuario.nome}" />
-
-						<p:outputLabel for="pwd" value="senha" />
-						<p:password id="pwd" value="#{usuarioBean.usuario.senha}" type="" />
-
-						<p:outputLabel for="permissao" value="Permissão" />
-
-						<p:selectOneMenu id="permissao" value="#{usuarioBean.idPermissao}"
-							style="width:125px">
-							<f:selectItem itemLabel="-- Selecione --"
-								noSelectionOption="true" />
-							<f:selectItems value="#{usuarioBean.permissoes}" var="p"
-								itemValue="#{p.id}" itemLabel="#{p.nomePermissao}" />
-						</p:selectOneMenu>
-
-						<p:commandButton value="Cadastrar" action="#{usuarioBean.gravar}"
-							ajax="false" actionListener="#{growlView.msgAdiciona()}"
-							update="@form" onclick="location.reload()" />
-					</h:panelGrid>
-				</p:tab>
-
-				<p:tab title="Procurar">
+		<p:growl id="msgs" showDetail="true" />
+		<p:tabView>
+			
+				<p:tab title="Busca">
+				<h:form>
 					<div id="editor">
 						<h:panelGrid columns="2" cellpadding="10">
 							<p:outputLabel for="nome2" value="Usuário" />
@@ -79,20 +54,19 @@ function voltar(){
 								<f:selectItems value="#{usuarioBean.permissoes}" var="p"
 									itemValue="#{p.id}" itemLabel="#{p.nomePermissao}" />
 							</p:selectOneMenu>
-
 							<p:commandButton value="Atualizar"
 								action="#{usuarioBean.editar()}" ajax="false" />
 							<a href="#" onclick="voltar()">Voltar</a>
 						</h:panelGrid>
 					</div>
-
 					<div id="busca">
-						<h:panelGrid columns="3" cellpadding="10">
 
+						<h:panelGrid columns="3" cellpadding="10">
 							<p:outputLabel for="busca" value="Digite o usuário: " />
 							<p:inputText id="busca" value="#{usuarioBean.usuarioBusca}" />
 							<p:commandButton value="Buscar"
-								action="#{usuarioBean.buscaUsuario}" ajax="false">
+								action="#{usuarioBean.buscaUsuario()}" ajax="false">
+
 								<f:setPropertyActionListener
 									value="#{usuarioBean.buscaUsuario().nome}"
 									target="#{usuarioBean.usuarioEditado.nome}" />
@@ -106,32 +80,60 @@ function voltar(){
 									value="#{usuarioBean.buscaUsuario().permissao}"
 									target="#{usuarioBean.usuarioEditado.permissao}" />
 							</p:commandButton>
-
+							<div id="usrNull">
+								<h:column
+									rendered="#{usuarioBean.buscaUsuario().nome==null and usuarioBean.usuarioBusca!=''}">
+									<p>Usuario não encontrado no banco.</p>
+								</h:column>
+							</div>
 						</h:panelGrid>
-
-						<div id="usrNull">
-							<h:column
-								rendered="#{usuarioBean.buscaUsuario().nome==null and usuarioBean.usuarioBusca!=''}">
-								<p>Usuario não encontrado no banco.</p>
-							</h:column>
-						</div>
-
 						<div id="sResult">
 							<h:column rendered="#{usuarioBean.buscaUsuario().id!=null}">
 								<h:outputText value="#{usuarioBean.buscaUsuario().nome}" />
 								<a href="#" onclick="editar()">Editar</a>
-
-
 								&nbsp;
            <h:commandLink action="#{usuarioBean.excluir()}"
 									value="Excluir" />
-
 							</h:column>
 						</div>
 					</div>
+					</h:form>
 				</p:tab>
-			</p:tabView>
-		</h:form>
+		
+
+
+			<div id="nUsuario">
+				<p:tab title="Novo Usuário">
+					<h:form>
+						<h:panelGrid columns="2" cellpadding="10">
+							<p:outputLabel for="nome" value="Usuário" />
+							<p:inputText id="nome" value="#{usuarioBean.usuario.nome}"
+								required="true" requiredMessage="Infome o Usuario" />
+
+							<p:outputLabel for="pwd" value="senha" />
+							<p:password id="pwd" value="#{usuarioBean.usuario.senha}" type=""
+								required="true" requiredMessage="A senha não pode ser em branco" />
+
+							<p:outputLabel for="permissao" value="Permissão" />
+
+							<p:selectOneMenu id="permissao"
+								value="#{usuarioBean.idPermissao}" style="width:125px"
+								required="true" requiredMessage="Selessione o tipo de permissão">
+								<f:selectItem itemLabel="--Selecione--" noSelectionOption="true" />
+								<f:selectItems value="#{usuarioBean.permissoes}" var="p"
+									itemValue="#{p.id}" itemLabel="#{p.nomePermissao}" />
+							</p:selectOneMenu>
+
+							<p:commandButton value="Cadastrar" action="#{usuarioBean.gravar}"
+								ajax="false" actionListener="#{growlView.msgAdiciona()}"
+								update="@form" onclick="location.reload()" />
+						</h:panelGrid>
+					</h:form>
+				</p:tab>
+			</div>
+
+		</p:tabView>
+
 	</div>
 
 </h:body>

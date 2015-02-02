@@ -3,14 +3,11 @@ package br.com.grupomm.mailing.controller;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
-
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
 import br.com.grupomm.mailing.dao.IndexDAO;
 import br.com.grupomm.mailing.entity.Mapeamento;
 import br.com.grupomm.mailing.entity.MapeamentoMM;
@@ -49,7 +46,6 @@ public class IndexControl {
 
 		int i = 1;
 		for(Mapeamento p : solicitacao){
-			int cellnum = 0;
 			Row row2 = sheet.createRow(i++);
 
 			row2.createCell(0).setCellValue(p.getCNPJ());
@@ -83,14 +79,13 @@ public class IndexControl {
 			workbook.write(ec.getResponseOutputStream());  
 			out.flush();
 			out.close();
-			//ec.redirect("index.xhtml");
-			//fc.responseComplete();
-			//ec.redirect("index.xhtml");
-			FacesContext.getCurrentInstance().getExternalContext().redirect("anuarios.xhtml");
+			fc.responseComplete();
+			
+					
 	}
    
 	
-	public void excelMM(int ids){          
+	public void excelMM(int ids) throws IOException{          
 		FacesContext fc = FacesContext.getCurrentInstance();
 		ExternalContext ec = fc.getExternalContext();       
 		String filename = "Mailing.xlsx";
@@ -118,7 +113,6 @@ public class IndexControl {
 		int i = 1;
 
 		for(MapeamentoMM p : solicitacao){
-			int cellnum = 0;
 
 			Row row2 = sheet.createRow(i++);
 			row2.createCell(0).setCellValue(p.getID_USUARIO());
@@ -134,24 +128,19 @@ public class IndexControl {
 			row2.createCell(10).setCellValue(p.getAREA_DE_ATUACAO());
 			row2.createCell(11).setCellValue(p.getRAMO_DE_ATIVIDADE());
 			row2.createCell(12).setCellValue(p.getPORTE_EMPRESA()); 
-		}
-		try{
+		
 			ec.responseReset();         
 			ec.setResponseContentType("text/xlsx");
 			ec.setResponseHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");     
 
-			//to align column vertically
-			sheet.autoSizeColumn(0);
-			sheet.autoSizeColumn(1);
-			sheet.autoSizeColumn(3); 
+//			//to align column vertically
+//			sheet.autoSizeColumn(0);
+//			sheet.autoSizeColumn(1);
+//			sheet.autoSizeColumn(3); 
 
 			workbook.write(ec.getResponseOutputStream()); 
-            
 			fc.responseComplete();                    
-		} 
-		catch (Exception e){
-			e.printStackTrace();
-		}
+	
 	}
-
+	}
 }

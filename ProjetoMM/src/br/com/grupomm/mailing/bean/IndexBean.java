@@ -14,7 +14,7 @@ import br.com.grupomm.mailing.entity.Solicitacao;
 
 @ManagedBean
 @ViewScoped
-public class Index {
+public class IndexBean {
 
 	HttpSession session = Util.getSession();
 	String usr = session.getAttribute("nome").toString();

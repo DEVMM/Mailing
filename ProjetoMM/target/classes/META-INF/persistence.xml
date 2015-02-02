@@ -1,0 +1,57 @@
+<persistence version="2.0"
+ xmlns="http://java.sun.com/xml/ns/persistence"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
+http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+
+ <persistence-unit name="grupomm-anuarios" transaction-type="RESOURCE_LOCAL">
+ <provider>org.hibernate.ejb.HibernatePersistence</provider>
+ <class>br.com.grupomm.mailing.enty.Mapeamento</class>
+ <properties>
+ <property name ="hibernate.dialect"
+ value="org.hibernate.dialect.Oracle10gDialect"/>
+
+ <property name="hibernate.show_sql" value="true"/>
+ <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver"/>
+ <property name ="javax.persistence.jdbc.user" value ="mm"/>
+ <property name ="javax.persistence.jdbc.password" value="mm"/>
+ <property name ="javax.persistence.jdbc.url"
+ value ="jdbc:oracle:thin:@10.33.5.11:1527:MMHM" />
+ </properties>
+ </persistence-unit>
+ 
+ <persistence-unit name="grupomm-mmonline" transaction-type="RESOURCE_LOCAL">
+ <provider>org.hibernate.ejb.HibernatePersistence</provider>
+ <class>br.com.grupomm.mailing.enty.Mapeamento</class>
+ <properties>
+ <property name ="hibernate.dialect"
+ value="org.hibernate.dialect.Oracle10gDialect"/>
+
+ <property name="hibernate.show_sql" value="true"/>
+ <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver"/>
+ <property name ="javax.persistence.jdbc.user" value ="mmonline"/>
+ <property name ="javax.persistence.jdbc.password" value="MMONLINE2345"/>
+ <property name ="javax.persistence.jdbc.url"
+ value ="jdbc:oracle:thin:@10.33.5.11:1527:MMHM" />
+ </properties>
+ </persistence-unit>
+ 
+ <persistence-unit name="grupomm-mysql" transaction-type="RESOURCE_LOCAL">
+ <provider>org.hibernate.ejb.HibernatePersistence</provider>
+ <class>br.com.grupomm.mailing.enty.Solicitacao</class>
+ <class>br.com.grupomm.mailing.enty.Usuario</class>
+ <properties>
+ <property name ="hibernate.dialect"
+ value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
+ <property name ="hibernate.hbm2ddl.auto" value="update"/>
+ <property name="hibernate.show_sql" value="true"/>
+ <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+ <property name ="javax.persistence.jdbc.user" value ="root"/>
+ <property name ="javax.persistence.jdbc.password" value="root"/>
+ <property name ="javax.persistence.jdbc.url"
+ value ="jdbc:mysql://localhost:3306/mailing" />
+ </properties>
+ </persistence-unit>
+ </persistence>
+ 
+ 

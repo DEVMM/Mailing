@@ -14,7 +14,7 @@ import br.com.grupomm.mailing.dao.LoginDAO;
 
 @ManagedBean
 @ViewScoped
-public class Permissao {
+public class PermissaoBean {
 
 	private List<String> valida = new ArrayList<String>();
 	String vUsuario;

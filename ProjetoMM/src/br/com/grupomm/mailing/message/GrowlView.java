@@ -35,6 +35,16 @@ public static void  msgValidaCheckBox(){
     
     RequestContext.getCurrentInstance().showMessageInDialog(message);
 }
+public void usarioExcluido() {
+    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuário", "Excluído com sucesso");
+     
+    RequestContext.getCurrentInstance().showMessageInDialog(message);
+}
 
+public void usarioAtualizado() {
+    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuário", "Atualizado com sucesso");
+     
+    RequestContext.getCurrentInstance().showMessageInDialog(message);
+}
 
 }

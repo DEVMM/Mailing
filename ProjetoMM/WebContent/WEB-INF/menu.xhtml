@@ -15,8 +15,8 @@ xmlns="http://www.w3.org/1999/xhtml"
 					<p:menuitem value="MM Online" url="MM.xhtml" />
 				</p:submenu>
 				<p:menuitem value="Home" url="index.xhtml" />
-				<p:menuitem value="Solicitações" url="aprovacoes.xhtml" rendered="#{permissao.permissao=='Aprovador'}"/>
-				<p:menuitem value="Gerenciamento de Usuários" url="gerenciamento.xhtml" rendered="#{permissao.permissao=='Aprovador'}"/>
+				<p:menuitem value="Solicitações" url="aprovacoes.xhtml" rendered="#{permissaoBean.permissao=='Aprovador'}"/>
+				<p:menuitem value="Gerenciamento de Usuários" url="gerenciamento.xhtml" rendered="#{permissaoBean.permissao=='Aprovador'}"/>
 				
 				<f:facet name="options">
 					<p:commandButton action="#{loginBean.logout}" value="Logout"
@@ -24,5 +24,6 @@ xmlns="http://www.w3.org/1999/xhtml"
 				</f:facet>
 			</p:menubar>
 			<p>Bem vindo, #{loginBean.nome}</p>
+		
 		</h:form>
 		</ui:composition>

@@ -11,18 +11,18 @@
 	<script src="js/mailing.js"></script>
 </h:head>
 <h:body>
-	<div class="loader"></div>
+	<!--  <div class="loader"></div>-->
 
 	<div id="pagina">
 		<ui:include src="/WEB-INF/menu.xhtml" />
 
 		<h:form id="formulario" method="get">
 			<p:growl id="msgs" showDetail="true" />
-			<p:dataTable value="#{index.provacoesList}" id="myDataTable"
+			<p:dataTable value="#{indexBean.provacoesList}" id="myDataTable"
 				var="item"
 				emptyMessage="Você não tem solicitacões para serem baixadas">
 
-				<p:column headerText="Solicitação"
+				<p:column headerText="Numero da Solicitação"
 					style="width:10%; margin:auto; text-align: center;">
 					<h:outputText value="#{item.id}" />
 				</p:column>
@@ -33,22 +33,26 @@
 							timeZone="America/Sao_Paulo" />
 					</h:outputText>
 				</p:column>
+				<p:column headerText="Tipo da Solicitação"
+					style="width:10%; margin:auto; text-align: center;">
+					<h:outputText value="#{item.tipoSolicitacao}" />
+				</p:column>
 				<p:column headerText=""
 					style="width:20%; margin:auto;  text-align: center;">
 
-					<p:commandButton value="Baixar" action="#{index.gerarRelatorio()}"
+					<p:commandButton value="Baixar" action="#{indexBean.gerarRelatorio()}"
 						ajax="false" onclick="lonading()">
 						<f:setPropertyActionListener value="#{item.id}"
-							target="#{index.ids}" />
+							target="#{indexBean.ids}" />
 						<f:setPropertyActionListener value="#{item.tipoSolicitacao}"
-							target="#{index.tipoSolicitacao}" />
+							target="#{indexBean.tipoSolicitacao}" />
 					</p:commandButton>&nbsp;
                
                <p:commandButton value="Remover"
-						action="#{index.removerSolicitacao}" disabled="false"
+						action="#{indexBean.removerSolicitacao}" disabled="false"
 						process="@this" update="@form">
 						<f:setPropertyActionListener value="#{item.id}"
-							target="#{index.ids}" />
+							target="#{indexBean.ids}" />
 					</p:commandButton>
 				</p:column>
 			</p:dataTable>
