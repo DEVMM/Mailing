@@ -12,21 +12,16 @@
 <h:body>
 	<div id="pagina">
 
-
-
 		<ui:include src="/WEB-INF/menu.xhtml" />
-
 
 		<h:form id="form">
 			<p:dataTable value="#{aprovacoes.solicitacaoList}" var="item"
 				emptyMessage="Não há solicitações para serem aprovadas">
-
-
 				<p:column headerText="Usuario">
 					<h:outputText value="#{item.usuario.nome}" />
 				</p:column>
-				<p:column headerText="Status">
-					<h:outputText value="#{item.status}" />
+				<p:column headerText="Tipo da Solicitação">
+					<h:outputText value="#{item.tipoSolicitacao}" />
 				</p:column>
 				<p:column headerText="Data">
 					<h:outputText value="#{item.dt.time}">
@@ -46,7 +41,6 @@
 								target="#{aprovacoes.id}" />
 							<f:setPropertyActionListener value="Aprovado"
 								target="#{aprovacoes.status}" />
-
 						</p:commandButton>
 					</p:commandLink>
 
@@ -60,13 +54,11 @@
 								target="#{aprovacoes.id}" />
 							<f:setPropertyActionListener value="Reprovado"
 								target="#{aprovacoes.status}" />
-
 						</p:commandButton>
 					</p:commandLink>
 				</p:column>
 			</p:dataTable>
 		</h:form>
 	</div>
-
 </h:body>
 </html>

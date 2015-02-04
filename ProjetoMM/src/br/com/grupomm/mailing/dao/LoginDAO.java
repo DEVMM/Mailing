@@ -3,26 +3,26 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
-import br.com.grupomm.mailing.database.JPAUtil;
-import br.com.grupomm.mailing.entity.Usuario;
+import br.com.grupomm.mailing.model.entity.Usuario;
+import br.com.grupomm.mailing.util.JPAUtil;
 
 public class LoginDAO {      
 
-	public static boolean login(String nome, String senha) {
+	public static Usuario login(Usuario usr) {
 
 		EntityManager mysql = new JPAUtil().getMySql();
 
-		Query query = mysql.createQuery("SELECT c FROM Usuario c where c.nome=:pUsuario and c.senha=:pSenha", Usuario.class).setParameter("pUsuario", nome).setParameter("pSenha",senha);
+		Query query = mysql.createQuery("SELECT c FROM Usuario c where c.nome=:pUsuario and c.senha=:pSenha", Usuario.class).setParameter("pUsuario", usr.getNome()).setParameter("pSenha",usr.getSenha());
 
 		@SuppressWarnings("unused")
 		Usuario usuario = null;
 
 		try{
 			usuario = (Usuario)query.getSingleResult();
-			return true;
+			return usuario;
 
 		}catch(NoResultException e){
-			return false;
+			return null;
 		}
 
 		finally{

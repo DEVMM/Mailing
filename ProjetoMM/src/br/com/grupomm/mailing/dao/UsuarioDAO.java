@@ -5,9 +5,9 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import br.com.grupomm.mailing.database.JPAUtil;
-import br.com.grupomm.mailing.entity.Permissao;
-import br.com.grupomm.mailing.entity.Usuario;
+import br.com.grupomm.mailing.model.entity.Permissao;
+import br.com.grupomm.mailing.model.entity.Usuario;
+import br.com.grupomm.mailing.util.JPAUtil;
 
 public class UsuarioDAO {
 

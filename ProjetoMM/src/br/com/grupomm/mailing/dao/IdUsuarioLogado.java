@@ -4,8 +4,8 @@ package br.com.grupomm.mailing.dao;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
-import br.com.grupomm.mailing.database.JPAUtil;
-import br.com.grupomm.mailing.entity.Usuario;
+import br.com.grupomm.mailing.model.entity.Usuario;
+import br.com.grupomm.mailing.util.JPAUtil;
 
 public class IdUsuarioLogado {
     

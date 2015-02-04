@@ -3,7 +3,7 @@ package br.com.grupomm.mailing.dao;
 
 import javax.persistence.EntityManager;
 
-import br.com.grupomm.mailing.database.JPAUtil;
+import br.com.grupomm.mailing.util.JPAUtil;
 
 
 

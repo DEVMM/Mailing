@@ -15,7 +15,7 @@
 <h:body>
 	<div id="pagina">
 
-<h:message for="selectCheck" />
+		<h:message for="selectCheck" />
 
 		<ui:include src="/WEB-INF/menu.xhtml" />
 
@@ -30,7 +30,7 @@
 								onclick="checkByParent('estado')" /> Selecionar Todos<br />
 							<p:dataGrid value="#{anuarios.estados}" var="item" columns="4">
 								<h:column>
-									<h:selectManyCheckbox id="selectCheck" 
+									<h:selectManyCheckbox id="selectCheck"
 										valueChangeListener="#{anuarios.valida}">
 										<f:selectItem id="uf" itemValue="#{item}" itemLabel="#{item}" />
 									</h:selectManyCheckbox>
@@ -85,7 +85,7 @@
 									</h:selectManyCheckbox>
 								</h:column>
 							</p:dataGrid>
-					</div>
+						</div>
 					</p:tab>
 					<p:tab title="Porte">
 						<div id="porte">
@@ -104,9 +104,8 @@
 				</p:accordionPanel>
 				<br />
 				<div id="botao">
-					<p:commandButton value="Gerar Solicitação" action="#{anuarios.gerarRelatorio()}" ajax="false">
-						<f:setPropertyActionListener value="#{loginBean.nome}"
-							target="#{anuarios.vUsuario}" />
+					<p:commandButton value="Gerar Solicitação"
+						action="#{anuarios.gerarRelatorio()}" ajax="false">
 					</p:commandButton>
 				</div>
 			</h:form>

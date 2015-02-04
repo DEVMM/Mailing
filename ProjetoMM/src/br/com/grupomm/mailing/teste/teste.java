@@ -14,9 +14,9 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
 import br.com.grupomm.mailing.dao.IndexDAO;
-import br.com.grupomm.mailing.entity.Mapeamento;
-import br.com.grupomm.mailing.entity.Solicitacao;
-import br.com.grupomm.mailing.enuns.Estados;
+import br.com.grupomm.mailing.model.entity.Mapeamento;
+import br.com.grupomm.mailing.model.entity.Solicitacao;
+import br.com.grupomm.mailing.model.enuns.Estados;
 @ManagedBean
 @ViewScoped
 public class teste {

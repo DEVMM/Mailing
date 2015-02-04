@@ -5,8 +5,8 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import br.com.grupomm.mailing.database.JPAUtil;
-import br.com.grupomm.mailing.entity.Solicitacao;
+import br.com.grupomm.mailing.model.entity.Solicitacao;
+import br.com.grupomm.mailing.util.JPAUtil;
 
 public class AprovacaoDAO {
 
@@ -17,7 +17,6 @@ public class AprovacaoDAO {
 		EntityManager mysql = new JPAUtil().getMySql();
 		Query query = mysql.createQuery("select c from Solicitacao c where c.status='Aguardando'");
 		List<Solicitacao> list = query.getResultList();
-
 		mysql.close();
 		return list;
 	}
@@ -31,6 +30,4 @@ public class AprovacaoDAO {
 		mysql.close();
 
 	}
-
-
 }

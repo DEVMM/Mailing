@@ -32,30 +32,30 @@ function voltar(){
 
 		<p:growl id="msgs" showDetail="true" />
 		<p:tabView>
-			
-				<p:tab title="Busca">
+
+			<p:tab title="Busca">
 				<h:form>
 					<div id="editor">
 						<h:panelGrid columns="2" cellpadding="10">
 							<p:outputLabel for="nome2" value="Usuário" />
-							<p:inputText id="nome2"
-								value="#{usuarioBean.usuarioEditado.nome}" label="teste" />
+							<p:inputText id="nome2" value="#{usuarioMB.usuarioEditado.nome}"
+								label="teste" />
 
 							<h:outputLabel for="senha2" value="Senha" />
 							<p:password for="senha2"
-								value="#{usuarioBean.usuarioEditado.senha}" />
+								value="#{usuarioMB.usuarioEditado.senha}" />
 
 							<p:outputLabel for="permissao2" value="Permissão" />
 
 							<p:selectOneMenu id="permissao2"
-								value="#{usuarioBean.idPermissao2}" style="width:125px">
+								value="#{usuarioMB.idPermissao2}" style="width:125px">
 								<f:selectItem itemLabel="-- Selecione --"
 									noSelectionOption="true" />
-								<f:selectItems value="#{usuarioBean.permissoes}" var="p"
+								<f:selectItems value="#{usuarioMB.permissoes}" var="p"
 									itemValue="#{p.id}" itemLabel="#{p.nomePermissao}" />
 							</p:selectOneMenu>
-							<p:commandButton value="Atualizar"
-								action="#{usuarioBean.editar()}" ajax="false" />
+							<p:commandButton value="Atualizar" action="#{usuarioMB.editar()}"
+								ajax="false" />
 							<a href="#" onclick="voltar()">Voltar</a>
 						</h:panelGrid>
 					</div>
@@ -63,78 +63,72 @@ function voltar(){
 
 						<h:panelGrid columns="3" cellpadding="10">
 							<p:outputLabel for="busca" value="Digite o usuário: " />
-							<p:inputText id="busca" value="#{usuarioBean.usuarioBusca}" />
+							<p:inputText id="busca" value="#{usuarioMB.usuarioBusca}" />
 							<p:commandButton value="Buscar"
-								action="#{usuarioBean.buscaUsuario()}" ajax="false">
+								action="#{usuarioMB.buscaUsuario()}" ajax="false">
 
 								<f:setPropertyActionListener
-									value="#{usuarioBean.buscaUsuario().nome}"
-									target="#{usuarioBean.usuarioEditado.nome}" />
+									value="#{usuarioMB.buscaUsuario().nome}"
+									target="#{usuarioMB.usuarioEditado.nome}" />
 								<f:setPropertyActionListener
-									value="#{usuarioBean.buscaUsuario().id}"
-									target="#{usuarioBean.usuarioEditado.id}" />
+									value="#{usuarioMB.buscaUsuario().id}"
+									target="#{usuarioMB.usuarioEditado.id}" />
 								<f:setPropertyActionListener
-									value="#{usuarioBean.buscaUsuario().senha}"
-									target="#{usuarioBean.usuarioEditado.senha}" />
+									value="#{usuarioMB.buscaUsuario().senha}"
+									target="#{usuarioMB.usuarioEditado.senha}" />
 								<f:setPropertyActionListener
-									value="#{usuarioBean.buscaUsuario().permissao}"
-									target="#{usuarioBean.usuarioEditado.permissao}" />
+									value="#{usuarioMB.buscaUsuario().permissao}"
+									target="#{usuarioMB.usuarioEditado.permissao}" />
 							</p:commandButton>
 							<div id="usrNull">
 								<h:column
-									rendered="#{usuarioBean.buscaUsuario().nome==null and usuarioBean.usuarioBusca!=''}">
+									rendered="#{usuarioMB.buscaUsuario().nome==null and usuarioMB.usuarioBusca!=''}">
 									<p>Usuario não encontrado no banco.</p>
 								</h:column>
 							</div>
 						</h:panelGrid>
 						<div id="sResult">
-							<h:column rendered="#{usuarioBean.buscaUsuario().id!=null}">
-								<h:outputText value="#{usuarioBean.buscaUsuario().nome}" />
+							<h:column rendered="#{usuarioMB.buscaUsuario().id!=null}">
+								<h:outputText value="#{usuarioMB.buscaUsuario().nome}" />
 								<a href="#" onclick="editar()">Editar</a>
 								&nbsp;
-           <h:commandLink action="#{usuarioBean.excluir()}"
+           <h:commandLink action="#{usuarioMB.excluir()}"
 									value="Excluir" />
 							</h:column>
 						</div>
 					</div>
-					</h:form>
-				</p:tab>
-		
-
-
+				</h:form>
+			</p:tab>
 			<div id="nUsuario">
 				<p:tab title="Novo Usuário">
 					<h:form>
 						<h:panelGrid columns="2" cellpadding="10">
 							<p:outputLabel for="nome" value="Usuário" />
-							<p:inputText id="nome" value="#{usuarioBean.usuario.nome}"
+							<p:inputText id="nome" value="#{usuarioMB.usuario.nome}"
 								required="true" requiredMessage="Infome o Usuario" />
 
 							<p:outputLabel for="pwd" value="senha" />
-							<p:password id="pwd" value="#{usuarioBean.usuario.senha}" type=""
+							<p:password id="pwd" value="#{usuarioMB.usuario.senha}" type=""
 								required="true" requiredMessage="A senha não pode ser em branco" />
 
 							<p:outputLabel for="permissao" value="Permissão" />
 
-							<p:selectOneMenu id="permissao"
-								value="#{usuarioBean.idPermissao}" style="width:125px"
-								required="true" requiredMessage="Selessione o tipo de permissão">
+							<p:selectOneMenu id="permissao" value="#{usuarioMB.idPermissao}"
+								style="width:125px" required="true"
+								requiredMessage="Selessione o tipo de permissão">
 								<f:selectItem itemLabel="--Selecione--" noSelectionOption="true" />
-								<f:selectItems value="#{usuarioBean.permissoes}" var="p"
+								<f:selectItems value="#{usuarioMB.permissoes}" var="p"
 									itemValue="#{p.id}" itemLabel="#{p.nomePermissao}" />
 							</p:selectOneMenu>
 
-							<p:commandButton value="Cadastrar" action="#{usuarioBean.gravar}"
+							<p:commandButton value="Cadastrar" action="#{usuarioMB.gravar}"
 								ajax="false" actionListener="#{growlView.msgAdiciona()}"
 								update="@form" onclick="location.reload()" />
 						</h:panelGrid>
 					</h:form>
 				</p:tab>
 			</div>
-
 		</p:tabView>
-
 	</div>
-
 </h:body>
 </html>

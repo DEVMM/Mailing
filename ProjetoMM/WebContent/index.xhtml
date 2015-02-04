@@ -18,7 +18,7 @@
 
 		<h:form id="formulario" method="get">
 			<p:growl id="msgs" showDetail="true" />
-			<p:dataTable value="#{indexBean.provacoesList}" id="myDataTable"
+			<p:dataTable value="#{indexMB.provacoesList}" id="myDataTable"
 				var="item"
 				emptyMessage="Você não tem solicitacões para serem baixadas">
 
@@ -40,19 +40,19 @@
 				<p:column headerText=""
 					style="width:20%; margin:auto;  text-align: center;">
 
-					<p:commandButton value="Baixar" action="#{indexBean.gerarRelatorio()}"
+					<p:commandButton value="Baixar" action="#{indexMB.gerarRelatorio()}"
 						ajax="false" onclick="lonading()">
 						<f:setPropertyActionListener value="#{item.id}"
-							target="#{indexBean.ids}" />
+							target="#{indexMB.ids}" />
 						<f:setPropertyActionListener value="#{item.tipoSolicitacao}"
-							target="#{indexBean.tipoSolicitacao}" />
+							target="#{indexMB.tipoSolicitacao}" />
 					</p:commandButton>&nbsp;
                
                <p:commandButton value="Remover"
-						action="#{indexBean.removerSolicitacao}" disabled="false"
+						action="#{indexMB.removerSolicitacao}" disabled="false"
 						process="@this" update="@form">
 						<f:setPropertyActionListener value="#{item.id}"
-							target="#{indexBean.ids}" />
+							target="#{indexMB.ids}" />
 					</p:commandButton>
 				</p:column>
 			</p:dataTable>
