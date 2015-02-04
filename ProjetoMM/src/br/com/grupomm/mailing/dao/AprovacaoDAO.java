@@ -1,12 +1,17 @@
 package br.com.grupomm.mailing.dao;
 
+import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import br.com.grupomm.mailing.model.entity.Permissao;
 import br.com.grupomm.mailing.model.entity.Solicitacao;
+import br.com.grupomm.mailing.model.entity.Usuario;
+import br.com.grupomm.mailing.model.entity.logRegistro;
 import br.com.grupomm.mailing.util.JPAUtil;
+import br.com.grupomm.mailing.util.Util;
 
 public class AprovacaoDAO {
 
@@ -26,6 +31,14 @@ public class AprovacaoDAO {
 		mysql.getTransaction().begin();
 		Solicitacao solicitacao = mysql.find(Solicitacao.class, id);
 		solicitacao.setStatus(status);
+		
+		Usuario usuario = new Usuario();
+		usuario.setId(Util.getUserId());
+		logRegistro log = new logRegistro();
+		log.setUsuario(usuario);
+		log.setSolicitacao(solicitacao);
+		log.setDt(Calendar.getInstance());
+		mysql.persist(log);
 		mysql.getTransaction().commit();
 		mysql.close();
 

@@ -21,7 +21,7 @@ public class GerarRelatorios {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		ExternalContext ec = fc.getExternalContext();       
 		OutputStream out = ec.getResponseOutputStream();
-		String filename = "Mailing.xlsx";
+		String filename = "Mailing-anuarios.xlsx";
 
 		XSSFWorkbook workbook = new XSSFWorkbook(); 
 		XSSFSheet sheet = workbook.createSheet("Mailing Anuarios");  
@@ -69,15 +69,10 @@ public class GerarRelatorios {
 			row2.createCell(16).setCellValue(p.getUF());   
 		}
 
-
 		ec.responseReset();         
 		ec.setResponseContentType("text/xlsx");
 		ec.setResponseHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");     
-		//			//to align column vertically
-		//			sheet.autoSizeColumn(0);
-		//			sheet.autoSizeColumn(1);
-		//			sheet.autoSizeColumn(3); 
-
+		
 		workbook.write(ec.getResponseOutputStream());  
 		out.flush();
 		out.close();
@@ -87,10 +82,10 @@ public class GerarRelatorios {
 	public void excelMM(int ids) throws IOException{          
 		FacesContext fc = FacesContext.getCurrentInstance();
 		ExternalContext ec = fc.getExternalContext();       
-		String filename = "Mailing.xlsx";
+		String filename = "Mailing-mm.xlsx";
 
 		XSSFWorkbook workbook = new XSSFWorkbook(); 
-		XSSFSheet sheet = workbook.createSheet("Mailing Anuarios");  
+		XSSFSheet sheet = workbook.createSheet("Mailing MMOnline");  
 		List<MapeamentoMM> solicitacao = IndexDAO.selectSolicitacaoMM(ids);
 
 		Row row1 = sheet.createRow((short) 0);
@@ -130,11 +125,6 @@ public class GerarRelatorios {
 			ec.responseReset();         
 			ec.setResponseContentType("text/xlsx");
 			ec.setResponseHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");     
-
-			//			//to align column vertically
-			//			sheet.autoSizeColumn(0);
-			//			sheet.autoSizeColumn(1);
-			//			sheet.autoSizeColumn(3); 
 
 			workbook.write(ec.getResponseOutputStream()); 
 			fc.responseComplete();                    
