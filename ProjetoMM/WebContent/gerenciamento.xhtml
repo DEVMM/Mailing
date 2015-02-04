@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+	<title>Gerenciamento de usuários</title>
+	<link type="text/css" rel="stylesheet" href="estilo.css" />
+	<script src="js/mailing.js"></script>
+	<script>
+$(window).load(function() {
+	 $('#editor').hide();
+});
+
+function editar(){
+	$('#busca').hide();
+	$('#editor').show('slow');
+}
+function voltar(){
+	$('#editor').hide();
+	$('#busca').show('slow');
+}
+
+</script>
+</h:head>
+<h:body>
+
+	<div id="pagina">
+		<ui:include src="/WEB-INF/menu.xhtml" />
+
+		<p:growl id="msgs" showDetail="true" />
+		<p:tabView>
+
+			<p:tab title="Busca">
+				<h:form>
+					<div id="editor">
+						<h:panelGrid columns="2" cellpadding="10">
+							<p:outputLabel for="nome2" value="Usuário" />
+							<p:inputText id="nome2" value="#{usuarioMB.usuarioEditado.nome}"
+								label="teste" />
+
+							<h:outputLabel for="senha2" value="Senha" />
+							<p:password for="senha2"
+								value="#{usuarioMB.usuarioEditado.senha}" />
+
+							<p:outputLabel for="permissao2" value="Permissão" />
+
+							<p:selectOneMenu id="permissao2"
+								value="#{usuarioMB.idPermissao2}" style="width:125px">
+								<f:selectItem itemLabel="-- Selecione --"
+									noSelectionOption="true" />
+								<f:selectItems value="#{usuarioMB.permissoes}" var="p"
+									itemValue="#{p.id}" itemLabel="#{p.nomePermissao}" />
+							</p:selectOneMenu>
+							<p:commandButton value="Atualizar" action="#{usuarioMB.editar()}"
+								ajax="false" />
+							<a href="#" onclick="voltar()">Voltar</a>
+						</h:panelGrid>
+					</div>
+					<div id="busca">
+
+						<h:panelGrid columns="3" cellpadding="10">
+							<p:outputLabel for="busca" value="Digite o usuário: " />
+							<p:inputText id="busca" value="#{usuarioMB.usuarioBusca}" />
+							<p:commandButton value="Buscar"
+								action="#{usuarioMB.buscaUsuario()}" ajax="false">
+
+								<f:setPropertyActionListener
+									value="#{usuarioMB.buscaUsuario().nome}"
+									target="#{usuarioMB.usuarioEditado.nome}" />
+								<f:setPropertyActionListener
+									value="#{usuarioMB.buscaUsuario().id}"
+									target="#{usuarioMB.usuarioEditado.id}" />
+								<f:setPropertyActionListener
+									value="#{usuarioMB.buscaUsuario().senha}"
+									target="#{usuarioMB.usuarioEditado.senha}" />
+								<f:setPropertyActionListener
+									value="#{usuarioMB.buscaUsuario().permissao}"
+									target="#{usuarioMB.usuarioEditado.permissao}" />
+							</p:commandButton>
+							<div id="usrNull">
+
+								<h:outputText value="Usuario não encontrado."
+									rendered="#{usuarioMB.buscaUsuario().nome==null and usuarioMB.usuarioBusca!=''}" />
+
+							</div>
+						</h:panelGrid>
+						<div id="sResult">
+							<h:column rendered="#{usuarioMB.buscaUsuario().id!=null}">
+								<h:outputText value="#{usuarioMB.buscaUsuario().nome}" />
+								<a href="#" onclick="editar()">Editar</a>
+								&nbsp;
+           <h:commandLink action="#{usuarioMB.excluir()}"
+									value="Excluir" />
+							</h:column>
+						</div>
+					</div>
+				</h:form>
+			</p:tab>
+			<div id="nUsuario">
+				<p:tab title="Novo Usuário">
+					<h:form>
+						<h:panelGrid columns="2" cellpadding="10">
+							<p:outputLabel for="nome" value="Usuário" />
+							<p:inputText id="nome" value="#{usuarioMB.usuario.nome}"
+								required="true" requiredMessage="Infome o Usuario" />
+
+							<p:outputLabel for="pwd" value="senha" />
+							<p:password id="pwd" value="#{usuarioMB.usuario.senha}" type=""
+								required="true" requiredMessage="A senha não pode ser em branco" />
+
+							<p:outputLabel for="permissao" value="Permissão" />
+
+							<p:selectOneMenu id="permissao" value="#{usuarioMB.idPermissao}"
+								style="width:125px" required="true"
+								requiredMessage="Selessione o tipo de permissão">
+								<f:selectItem itemLabel="--Selecione--" noSelectionOption="true" />
+								<f:selectItems value="#{usuarioMB.permissoes}" var="p"
+									itemValue="#{p.id}" itemLabel="#{p.nomePermissao}" />
+							</p:selectOneMenu>
+
+							<p:commandButton value="Cadastrar" action="#{usuarioMB.gravar}"
+								ajax="false" actionListener="#{growlView.msgAdiciona()}"
+								update="@form" onclick="location.reload()" />
+						</h:panelGrid>
+					</h:form>
+				</p:tab>
+			</div>
+		</p:tabView>
+	</div>
+</h:body>
+</html>
