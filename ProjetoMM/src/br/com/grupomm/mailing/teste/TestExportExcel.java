@@ -13,7 +13,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import br.com.grupomm.mailing.dao.IndexDAO;
-import br.com.grupomm.mailing.entity.Mapeamento;
+import br.com.grupomm.mailing.model.entity.Mapeamento;
 
 @ManagedBean
 @ViewScoped

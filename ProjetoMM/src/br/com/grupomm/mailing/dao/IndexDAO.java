@@ -5,20 +5,21 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import br.com.grupomm.mailing.database.JPAUtil;
-import br.com.grupomm.mailing.entity.Mapeamento;
-import br.com.grupomm.mailing.entity.MapeamentoMM;
-import br.com.grupomm.mailing.entity.Solicitacao;
+import br.com.grupomm.mailing.model.entity.Mapeamento;
+import br.com.grupomm.mailing.model.entity.MapeamentoMM;
+import br.com.grupomm.mailing.model.entity.Solicitacao;
+import br.com.grupomm.mailing.util.JPAUtil;
+import br.com.grupomm.mailing.util.Util;
 
 public class IndexDAO {
 
 	@SuppressWarnings("unchecked")
-	public  List<Solicitacao> listaAprovados(String usuario){
+	public  List<Solicitacao> listaAprovados(/*String usuario*/){
 
 		EntityManager mysql = new JPAUtil().getMySql();
 
 		Query query = mysql.createQuery("select s from Solicitacao s where s.usuario.nome = :pUsuario and s.status = 'Aprovado'");
-		query.setParameter("pUsuario", usuario);
+		query.setParameter("pUsuario", Util.getUserName());
 		List<Solicitacao> solicitacao = query.getResultList();
 
 		return solicitacao;
