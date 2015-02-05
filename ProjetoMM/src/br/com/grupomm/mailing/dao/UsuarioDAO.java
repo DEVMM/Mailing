@@ -3,8 +3,10 @@ package br.com.grupomm.mailing.dao;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
+import br.com.grupomm.mailing.message.GrowlView;
 import br.com.grupomm.mailing.model.entity.Permissao;
 import br.com.grupomm.mailing.model.entity.Usuario;
 import br.com.grupomm.mailing.util.JPAUtil;
@@ -14,10 +16,20 @@ public class UsuarioDAO {
 	public void adiciona(Usuario usuario) {
 
 		EntityManager em = new JPAUtil().getMySql();
-		em.getTransaction().begin();
-		em.persist(usuario);
-		em.getTransaction().commit();
-		em.close();
+
+		Query query = null;
+		query = em.createQuery("select u from Usuario u where u.nome=:pUsuario").setParameter("pUsuario", usuario.getNome());
+
+		Object result = null;
+		try {
+			result= query.getSingleResult();
+			GrowlView.validaLogin();
+		} catch (NoResultException e) {
+			em.getTransaction().begin();
+			em.persist(usuario);
+			em.getTransaction().commit();
+			em.close();
+		} 
 	}
 
 	@SuppressWarnings("unchecked")
@@ -64,9 +76,7 @@ public class UsuarioDAO {
 		em.close();
 	}
 
-
 	public void excluir(int usuario){
-
 
 		EntityManager em = new JPAUtil().getMySql();
 		em.getTransaction().begin();

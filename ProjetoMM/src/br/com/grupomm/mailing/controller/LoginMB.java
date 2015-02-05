@@ -30,7 +30,7 @@ public class LoginMB implements Serializable {
 			session.setAttribute("permissao", result.getPermissao().getNomePermissao().toString());
 
 			System.out.println(result.getPermissao().getNomePermissao());
-			if(result.getNome().equalsIgnoreCase("Aprovador")){
+			if(result.getPermissao().getNomePermissao().equalsIgnoreCase("Aprovador")){
 				return "aprovacoes";
 			}else{
 				return "index";

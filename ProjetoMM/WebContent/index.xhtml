@@ -11,7 +11,7 @@
 	<script src="js/mailing.js"></script>
 </h:head>
 <h:body>
-	<!--  <div class="loader"></div>-->
+	 <div class="loader"></div>
 
 	<div id="pagina">
 		<ui:include src="/WEB-INF/menu.xhtml" />
@@ -41,7 +41,7 @@
 					style="width:20%; margin:auto;  text-align: center;">
 
 					<p:commandButton value="Baixar" action="#{indexMB.gerarRelatorio()}"
-						ajax="false" onclick="lonading()">
+						ajax="false" onclick="lonading()" immediate="true">
 						<f:setPropertyActionListener value="#{item.id}"
 							target="#{indexMB.ids}" />
 						<f:setPropertyActionListener value="#{item.tipoSolicitacao}"

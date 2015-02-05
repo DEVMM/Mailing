@@ -1,4 +1,3 @@
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -8,8 +7,6 @@
 <h:head>
 	<title>Relatório Anuários</title>
 	<link type="text/css" rel="stylesheet" href="estilo.css" />
-
-
 	<script src="js/checkbox.js"></script>
 </h:head>
 <h:body>
@@ -26,8 +23,8 @@
 				<p:accordionPanel>
 					<p:tab title="Estados">
 						<div id="estado">
-							<input type="checkbox" name="checkall"
-								onclick="checkByParent('estado')" /> Selecionar Todos<br />
+							<input type="checkbox" name="checkall" id="estad"
+								onclick="checkByParent('estado', 'estad')" /> Selecionar Todos<br />
 							<p:dataGrid value="#{anuarios.estados}" var="item" columns="4">
 								<h:column>
 									<h:selectManyCheckbox id="selectCheck"
@@ -42,8 +39,8 @@
 
 					<p:tab title="Nível Hierárquico">
 						<div id="nivelh">
-							<input type="checkbox" name="checkall"
-								onclick="checkByParent('nivelh')" /> Selecionar Todos<br />
+							<input type="checkbox" name="checkall" id="nivh"
+								onclick="checkByParent('nivelh', 'nivh')" /> Selecionar Todos<br />
 							<p:dataGrid value="#{anuarios.nivelAnuarios}" var="item"
 								columns="4">
 								<h:column>
@@ -59,8 +56,8 @@
 
 					<p:tab title="Área de Atuação">
 						<div id="areaA">
-							<input type="checkbox" name="checkall"
-								onclick="checkByParent('areaA')" /> Selecionar Todos<br />
+							<input type="checkbox" name="checkall" id="areaat"
+								onclick="checkByParent('areaA', 'areaat')" /> Selecionar Todos<br />
 							<p:dataGrid value="#{anuarios.areaAnuarios}" var="item"
 								columns="5">
 								<h:column>
@@ -74,8 +71,8 @@
 					</p:tab>
 					<p:tab title="Ramo de Atividade">
 						<div id="ramoA">
-							<input type="checkbox" name="checkall"
-								onclick="checkByParent('ramoA')" /> Selecionar Todos<br />
+							<input type="checkbox" name="checkall" id="ramoa"
+								onclick="checkByParent('ramoA', 'ramoa')" /> Selecionar Todos<br />
 							<p:dataGrid value="#{anuarios.ramoAtividadeAnuarios}" var="item"
 								columns="4">
 								<h:column>
@@ -89,8 +86,8 @@
 					</p:tab>
 					<p:tab title="Porte">
 						<div id="porte">
-							<input type="checkbox" name="checkall"
-								onclick="checkByParent('porte')" /> Selecionar Todos<br />
+							<input type="checkbox" name="checkall" id="prt"
+								onclick="checkByParent('porte', 'prt')" /> Selecionar Todos<br />
 							<p:dataGrid value="#{anuarios.porte}" var="item" columns="1">
 								<h:column>
 									<h:selectManyCheckbox id="selectCheck"
@@ -111,6 +108,5 @@
 			</h:form>
 		</div>
 	</div>
-
 </h:body>
 </html>

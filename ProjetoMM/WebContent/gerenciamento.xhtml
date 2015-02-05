@@ -11,16 +11,16 @@
 	<script src="js/mailing.js"></script>
 	<script>
 $(window).load(function() {
-	 $('#editor').hide();
+  $('#editor').hide();
 });
 
 function editar(){
-	$('#busca').hide();
-	$('#editor').show('slow');
+ $('#busca').hide();
+ $('#editor').show('slow');
 }
 function voltar(){
-	$('#editor').hide();
-	$('#busca').show('slow');
+ $('#editor').hide();
+ $('#busca').show('slow');
 }
 
 </script>
@@ -81,17 +81,17 @@ function voltar(){
 									target="#{usuarioMB.usuarioEditado.permissao}" />
 							</p:commandButton>
 							<div id="usrNull">
-								<h:column
-									rendered="#{usuarioMB.buscaUsuario().nome==null and usuarioMB.usuarioBusca!=''}">
-									<p>Usuario não encontrado no banco.</p>
-								</h:column>
+
+								<h:outputText value="Usuario não encontrado."
+									rendered="#{usuarioMB.buscaUsuario().nome==null and usuarioMB.usuarioBusca!=''}" />
+
 							</div>
 						</h:panelGrid>
 						<div id="sResult">
 							<h:column rendered="#{usuarioMB.buscaUsuario().id!=null}">
 								<h:outputText value="#{usuarioMB.buscaUsuario().nome}" />
 								<a href="#" onclick="editar()">Editar</a>
-								&nbsp;
+        &nbsp;
            <h:commandLink action="#{usuarioMB.excluir()}"
 									value="Excluir" />
 							</h:column>

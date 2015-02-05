@@ -87,7 +87,7 @@ public class MmBO {
 		String pIdArea  = idArea.toString().replace("[","").replace("]", "");  
 		String pSexo = ckSexo.toString().replace("[", "'").replace(",", "','").replace("]", "'").replace(" ", "");
 
-		String query =   			   
+		String query =    
 				"SELECT CB.ID_USUARIO, CB.PRI_NOME, CB.SOBRENOME, CA.EMAIL_LOGIN, CB.AREA_ATUACAO, CB.CARGO, CB.ESTADO, CB.SEXO, CB.NASCIMENTO, "
 						+ " DECODE ( CB.NIVEL,"
 						+ "  1,'Assistente Auxiliar',"
@@ -120,10 +120,10 @@ public class MmBO {
 						+ "19,'Sistemas / Tecnologia / Informática / CPD')"
 						+ " AS Area_de_ATUACAO"
 						+ ",DECODE(CB.IDRAMOATIVIDADE_USUARIO,"
-						+ "1,'Veículo Comunicação',"
-						+ " 2,'Agência',"
+						+ "4,'Veículo Comunicação',"
+						+ " 1,'Agência',"
 						+ "3,'Fornecedor da Comunicação',"
-						+ " 4,'Comércio / Indústria / Serviço')"
+						+ " 5,'Comércio / Indústria / Serviço')"
 						+ " AS RAMO_DE_ATIVIDADE"
 						+ " , DECODE (CB.PORTE,"
 						+ " 1,'1 A 9 Funcionários',"
