@@ -16,7 +16,7 @@
 	<div id="pagina">
 		<ui:include src="/WEB-INF/menu.xhtml" />
 
-		<h:form id="formulario" method="get">
+		<h:form id="formulario" method="get" >
 			<p:growl id="msgs" showDetail="true" />
 			<p:dataTable value="#{indexMB.provacoesList}" id="myDataTable"
 				var="item"
@@ -40,14 +40,15 @@
 				<p:column headerText=""
 					style="width:20%; margin:auto;  text-align: center;">
 
-					<p:commandButton value="Baixar" action="#{indexMB.gerarRelatorio()}"
-						ajax="false" onclick="lonading()" immediate="true">
+					<p:commandButton value="Baixar" action="#{indexMB.gerarRelatorio()}" 
+						ajax="false" onclick="lonading()" >
 						<f:setPropertyActionListener value="#{item.id}"
 							target="#{indexMB.ids}" />
 						<f:setPropertyActionListener value="#{item.tipoSolicitacao}"
 							target="#{indexMB.tipoSolicitacao}" />
+							
 					</p:commandButton>&nbsp;
-               
+               <p:remoteCommand name="testeira" onstart="alert('teste2')" ></p:remoteCommand>
                <p:commandButton value="Remover"
 						action="#{indexMB.removerSolicitacao}" disabled="false"
 						process="@this" update="@form">

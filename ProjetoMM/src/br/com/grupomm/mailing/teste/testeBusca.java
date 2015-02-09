@@ -9,7 +9,7 @@ public class testeBusca {
 		
 		UsuarioDAO usuarioDAO = new UsuarioDAO();
 	
-		System.out.println(usuarioDAO.listaBusca("").getNome());  
+		System.out.println(usuarioDAO.listaBusca("").getLogin());  
 		
 	}
 }
