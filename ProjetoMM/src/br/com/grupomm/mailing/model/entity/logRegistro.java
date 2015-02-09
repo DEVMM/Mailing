@@ -16,6 +16,7 @@ public class logRegistro {
 	Integer id;
 	 @Temporal(TemporalType.DATE)
 	 Calendar dt;
+	String motivoRejeicao;
 	@ManyToOne
 	Usuario usuario;
 	@ManyToOne
@@ -44,5 +45,11 @@ public class logRegistro {
 	}
 	public void setSolicitacao(Solicitacao solicitacao) {
 		this.solicitacao = solicitacao;
+	}
+	public String getMotivoRejeicao() {
+		return motivoRejeicao;
+	}
+	public void setMotivoRejeicao(String motivoRejeicao) {
+		this.motivoRejeicao = motivoRejeicao;
 	}	
 }

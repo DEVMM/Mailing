@@ -19,7 +19,7 @@
 		<h:form id="formulario" method="get" >
 			<p:growl id="msgs" showDetail="true" />
 			<p:dataTable value="#{indexMB.provacoesList}" id="myDataTable"
-				var="item"
+				var="item" paginator="true" rows="10"
 				emptyMessage="Você não tem solicitacões para serem baixadas">
 
 				<p:column headerText="Numero da Solicitação"

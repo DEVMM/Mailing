@@ -47,11 +47,7 @@ http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
  <property name="hibernate.show_sql" value="true"/>
  <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
  <property name ="javax.persistence.jdbc.user" value ="root"/>
-<<<<<<< HEAD
  <property name ="javax.persistence.jdbc.password" value="123@456@"/>
-=======
- <property name ="javax.persistence.jdbc.password" value="root"/>
->>>>>>> c5bdd4ed38b1802425ad37dc4af9d6978ea49b12
  <property name ="javax.persistence.jdbc.url"
  value ="jdbc:mysql://localhost:3306/mailing" />
  </properties>

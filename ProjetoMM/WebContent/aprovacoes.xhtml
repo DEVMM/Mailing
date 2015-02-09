@@ -15,7 +15,7 @@
 		<ui:include src="/WEB-INF/menu.xhtml" />
 
 		<h:form id="form">
-			<p:dataTable value="#{aprovacoes.solicitacaoList}" var="item"
+			<p:dataTable value="#{aprovacoes.solicitacaoList}" var="item"  paginator="true" rows="10"
 				emptyMessage="Não há solicitações para serem aprovadas">
 				<p:column headerText="Usuario">
 					<h:outputText value="#{item.usuario.login}" />
