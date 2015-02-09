@@ -16,7 +16,7 @@ public class IndexMB {
 	IndexDAO indexDAO = new IndexDAO();
 	List<Solicitacao> provacoesList = new IndexDAO().listaAprovados();
 
-	public String gerarRelatorio() throws IOException {
+	public void gerarRelatorio() throws IOException {
 
 		GerarRelatorios indexControl = new GerarRelatorios();
 
@@ -26,7 +26,6 @@ public class IndexMB {
 		if(this.getTipoSolicitacao().equalsIgnoreCase("MM-online")){
 			 indexControl.excelMM(this.getIds());  
 		}
-	  return "anuarios";
 	}
 
 	public String removerSolicitacao(){
