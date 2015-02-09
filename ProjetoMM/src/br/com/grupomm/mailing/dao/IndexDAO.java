@@ -18,8 +18,8 @@ public class IndexDAO {
 
 		EntityManager mysql = new JPAUtil().getMySql();
 
-		Query query = mysql.createQuery("select s from Solicitacao s where s.usuario.nome = :pUsuario and s.status = 'Aprovado'");
-		query.setParameter("pUsuario", Util.getUserName());
+		Query query = mysql.createQuery("select s from Solicitacao s where s.usuario.login = :pUsuario and s.status = 'Aprovado'");
+		query.setParameter("pUsuario", "wfreitas");
 		List<Solicitacao> solicitacao = query.getResultList();
 
 		return solicitacao;

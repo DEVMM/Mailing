@@ -14,7 +14,7 @@ public class IndexMB {
 	int ids;
 	String tipoSolicitacao;
 	IndexDAO indexDAO = new IndexDAO();
-	List<Solicitacao> provacoesList = new IndexDAO().listaAprovados();
+	List<Solicitacao> provacoesList = indexDAO.listaAprovados();
 
 	public void gerarRelatorio() throws IOException {
 
@@ -33,7 +33,6 @@ public class IndexMB {
 	     indexDAO.removerSolicitacao(this.getIds());
 	     return "index";
 	}
-	//getts and setts
 	public IndexDAO getIndexDAO() {
 		return indexDAO;
 	}
@@ -41,7 +40,6 @@ public class IndexMB {
 	public void setIndexDAO(IndexDAO indexDAO) {
 		this.indexDAO = indexDAO;
 	}
-
 	public List<Solicitacao> getProvacoesList() {
 		return provacoesList;
 	}
@@ -67,4 +65,5 @@ public class IndexMB {
 	public void setTipoSolicitacao(String tipoSolicitacao) {
 		this.tipoSolicitacao = tipoSolicitacao;
 	}	
+
 }
