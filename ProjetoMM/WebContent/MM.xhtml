@@ -1,22 +1,22 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:p="http://primefaces.org/ui">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
 <h:head>
-    <title>MM Online</title>
-    <link type="text/css" rel="stylesheet" href="estilo.css" />
-    <script src="js/checkbox.js"></script> 	 
+	<title>MM Online</title>
+	<link type="text/css" rel="stylesheet" href="estilo.css" />
+	<script src="js/checkbox.js"></script>
 </h:head>
 <h:body>
-<div id="pagina">
+	<div id="pagina">
 
-<ui:include src="/WEB-INF/menu.xhtml" />
+		<ui:include src="/WEB-INF/menu.xhtml" />
 
 
-<h1>MM Online</h1>
-<div id="formulario">
+		<h1>MM Online</h1>
+		<div id="formulario">
 			<h:form id="form">
 				<p:growl id="msgs" showDetail="true" />
 				<p:accordionPanel>
@@ -26,7 +26,7 @@
 								onclick="checkByParent('estado', 'est')" /> Selecionar Todos<br />
 							<p:dataGrid value="#{mM.estados}" var="item" columns="4">
 								<h:column>
-									<h:selectManyCheckbox id="selectCheck" 
+									<h:selectManyCheckbox id="selectCheck"
 										valueChangeListener="#{mM.valida}">
 										<f:selectItem id="uf" itemValue="#{item}" itemLabel="#{item}" />
 									</h:selectManyCheckbox>
@@ -40,8 +40,7 @@
 						<div id="nivelh">
 							<input type="checkbox" name="checkall" id="niv"
 								onclick="checkByParent('nivelh', 'niv')" /> Selecionar Todos<br />
-							<p:dataGrid value="#{mM.nivel}" var="item"
-								columns="4">
+							<p:dataGrid value="#{mM.nivel}" var="item" columns="4">
 								<h:column>
 									<h:selectManyCheckbox id="selectCheck"
 										valueChangeListener="#{mM.valida}">
@@ -57,8 +56,7 @@
 						<div id="areaA">
 							<input type="checkbox" name="checkall" id="are"
 								onclick="checkByParent('areaA', 'are')" /> Selecionar Todos<br />
-							<p:dataGrid value="#{mM.area}" var="item"
-								columns="3">
+							<p:dataGrid value="#{mM.area}" var="item" columns="3">
 								<h:column>
 									<h:selectManyCheckbox id="selectCheck"
 										valueChangeListener="#{mM.valida}">
@@ -72,8 +70,7 @@
 						<div id="ramoA">
 							<input type="checkbox" name="checkall" id="ram"
 								onclick="checkByParent('ramoA', 'ram')" /> Selecionar Todos<br />
-							<p:dataGrid value="#{mM.ramoAtividade}" var="item"
-								columns="4">
+							<p:dataGrid value="#{mM.ramoAtividade}" var="item" columns="4">
 								<h:column>
 									<h:selectManyCheckbox id="selectCheck"
 										valueChangeListener="#{mM.valida}">
@@ -81,7 +78,7 @@
 									</h:selectManyCheckbox>
 								</h:column>
 							</p:dataGrid>
-					</div>
+						</div>
 					</p:tab>
 					<p:tab title="Porte">
 						<div id="porte">
@@ -114,14 +111,15 @@
 				</p:accordionPanel>
 				<br />
 				<div id="botao">
-					<p:commandButton value="Gerar Solicitação" action="#{mM.gerarRelatorio()}" ajax="false">
+					<p:commandButton value="Gerar Solicitação"
+						action="#{mM.gerarRelatorio()}" ajax="false">
 					</p:commandButton>
 				</div>
 			</h:form>
 		</div>
-</div>
+	</div>
 
 
 
-</h:body>  
+</h:body>
 </html>

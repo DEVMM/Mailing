@@ -17,17 +17,21 @@ public class Usuario implements Serializable  {
 
 	@Id @GeneratedValue
 	Integer id;
-	String nome;
+	String login;
 	String senha;
+	String nome;
+	String email;
 	
 	@ManyToOne
 	Permissao permissao;
 	
-	public String getNome() {
-		return nome;
+	@ManyToOne
+	Departamento departamento;
+	public String getLogin() {
+		return login;
 	}
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setLogin(String login) {
+		this.login = login;
 	}
 	public String getSenha() {
 		return senha;
@@ -47,5 +51,22 @@ public class Usuario implements Serializable  {
 	public void setPermissao(Permissao permissao) {
 		this.permissao = permissao;
 	}
-	
+	public String getNome() {
+		return nome;
+	}
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public Departamento getDepartamento() {
+		return departamento;
+	}
+	public void setDepartamento(Departamento departamento) {
+		this.departamento = departamento;
+	}
 }

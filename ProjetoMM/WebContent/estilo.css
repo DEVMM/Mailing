@@ -1,5 +1,5 @@
 body{
-	background-color: #FFFAFA;
+	background-color: #F8F8FF;
 }
 
 p{
@@ -43,3 +43,6 @@ h1{
 	z-index: 9999;
 	background: url('img/page-loader.gif') 50% 50% no-repeat rgb(249,249,249);
 } 
+
+.welcome { float: left; }
+.logo { float: right; padding: 26px 0;}

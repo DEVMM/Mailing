@@ -6,6 +6,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import br.com.grupomm.mailing.dao.UsuarioDAO;
+import br.com.grupomm.mailing.model.entity.Departamento;
 import br.com.grupomm.mailing.model.entity.Permissao;
 import br.com.grupomm.mailing.model.entity.Usuario;
 
@@ -16,6 +17,8 @@ public class UsuarioMB {
 	private Usuario usuario = new Usuario();
 	private Usuario usuarioEditado = new Usuario();
 	private Integer idPermissao = new Integer(0);
+	private Integer idDepartamento = new Integer(0);
+	private Integer idDepartamento2 = new Integer(0);
 	private Integer idPermissao2 = new Integer(0);
 	private String usuarioBusca = new String();
 	private UsuarioDAO user = new UsuarioDAO();
@@ -27,10 +30,13 @@ public class UsuarioMB {
 	public  List<Permissao> getPermissoes() {
 		return user.getPermissoes();
 	}
-
+	public  List<Departamento> getDepartamento() {
+		return user.getDepartamento();
+	}
+	
 	public void gravar() {
-		this.usuario.setPermissao(user.getPermissaoByID(idPermissao));
-		user.adiciona(this.usuario);
+		//this.usuario.setPermissao(user.getPermissaoByID(idPermissao));
+		user.adiciona(this.usuario, this.idPermissao, this.idDepartamento);
 		this.usuario = new Usuario();
 	}
 
@@ -41,17 +47,26 @@ public class UsuarioMB {
 
 	public void editar() {
 
-        if(idPermissao2!=null){
-		this.usuarioEditado.setPermissao(user.getPermissaoByID(idPermissao2));
-        }
-        if(usuarioEditado.getSenha().equals("")){
-        	usuarioEditado.setSenha(buscaUsuario().getSenha());
-        }
+		if(idPermissao2!=null){
+			//this.usuarioEditado.setPermissao(user.getPermissaoByID(idPermissao2));
+			Permissao permissao = new Permissao();
+			permissao.setId(idPermissao2);
+			usuarioEditado.setPermissao(permissao);
+		}
+		if(idDepartamento2!=null){
+			//this.usuarioEditado.setPermissao(user.getPermissaoByID(idPermissao2));
+			Departamento departamento = new Departamento();
+			departamento.setId(idDepartamento2);
+			usuarioEditado.setDepartamento(departamento);
+		}
+		
+		if(usuarioEditado.getSenha().equals("")){
+			usuarioEditado.setSenha(buscaUsuario().getSenha());
+		}
 		user.editar(usuarioEditado);
 		this.usuarioEditado = new Usuario();
 		System.out.println(idPermissao2);
 		System.out.println("senha"+buscaUsuario().getSenha());
-		
 	}
 
 	public Usuario buscaUsuario(){
@@ -101,5 +116,21 @@ public class UsuarioMB {
 
 	public void setUsuarioEditado(Usuario usuarioEditado) {
 		this.usuarioEditado = usuarioEditado;
+	}
+
+	public Integer getIdDepartamento() {
+		return idDepartamento;
+	}
+
+	public void setIdDepartamento(Integer idDepartamento) {
+		this.idDepartamento = idDepartamento;
+	}
+
+	public Integer getIdDepartamento2() {
+		return idDepartamento2;
+	}
+
+	public void setIdDepartamento2(Integer idDepartamento2) {
+		this.idDepartamento2 = idDepartamento2;
 	}
 }

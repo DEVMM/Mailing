@@ -19,18 +19,19 @@ public class LoginMB implements Serializable {
 
 	private static final long serialVersionUID = -5165511376450230953L;
 	Usuario usr = new Usuario();
+	String nome;
 
 	public String loginProject() {
 		Usuario result = LoginDAO.login(this.usr);
 		if (result!=null) {
 
 			HttpSession session = Util.getSession();
-			session.setAttribute("nomeUsuario", result.getNome());
+			session.setAttribute("nomeUsuario", result.getLogin());
 			session.setAttribute("idUsuario", result.getId());
 			session.setAttribute("permissao", result.getPermissao().getNomePermissao().toString());
-
+			this.setNome(result.getNome());
 			System.out.println(result.getPermissao().getNomePermissao());
-			if(result.getNome().equalsIgnoreCase("Aprovador")){
+			if(result.getPermissao().getNomePermissao().equalsIgnoreCase("Aprovador")){
 				return "aprovacoes";
 			}else{
 				return "index";
@@ -58,5 +59,11 @@ public class LoginMB implements Serializable {
 
 	public void setUsr(Usuario usr) {
 		this.usr = usr;
+	}
+	public String getNome() {
+		return nome;
+	}
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 }

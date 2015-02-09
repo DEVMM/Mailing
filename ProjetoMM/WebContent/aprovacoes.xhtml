@@ -18,7 +18,7 @@
 			<p:dataTable value="#{aprovacoes.solicitacaoList}" var="item"
 				emptyMessage="Não há solicitações para serem aprovadas">
 				<p:column headerText="Usuario">
-					<h:outputText value="#{item.usuario.nome}" />
+					<h:outputText value="#{item.usuario.login}" />
 				</p:column>
 				<p:column headerText="Tipo da Solicitação">
 					<h:outputText value="#{item.tipoSolicitacao}" />

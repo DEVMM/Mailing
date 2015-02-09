@@ -11,16 +11,16 @@
 	<script src="js/mailing.js"></script>
 	<script>
 $(window).load(function() {
-	 $('#editor').hide();
+  $('#editor').hide();
 });
 
 function editar(){
-	$('#busca').hide();
-	$('#editor').show('slow');
+ $('#busca').hide();
+ $('#editor').show('slow');
 }
 function voltar(){
-	$('#editor').hide();
-	$('#busca').show('slow');
+ $('#editor').hide();
+ $('#busca').show('slow');
 }
 
 </script>
@@ -37,22 +37,41 @@ function voltar(){
 				<h:form>
 					<div id="editor">
 						<h:panelGrid columns="2" cellpadding="10">
-							<p:outputLabel for="nome2" value="Usuário" />
-							<p:inputText id="nome2" value="#{usuarioMB.usuarioEditado.nome}"
-								label="teste" />
+							<p:outputLabel for="nome2" value="Nome" />
+							<p:inputText id="nome2" value="#{usuarioMB.usuario.nome}"
+								required="true" requiredMessage="Infome o Usuario" />
 
-							<h:outputLabel for="senha2" value="Senha" />
-							<p:password for="senha2"
-								value="#{usuarioMB.usuarioEditado.senha}" />
+							<p:outputLabel for="email2" value="Email" />
+							<p:inputText id="email2" value="#{usuarioMB.usuario.email}"
+								required="true" requiredMessage="Informe o email" validatorMessage="Email invalido" >
+								<f:validateRegex
+									pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+							</p:inputText>
+
+							<p:outputLabel for="login2" value="Login" />
+							<p:inputText id="login2" value="#{usuarioMB.usuario.login}"
+								required="true" requiredMessage="Infome o Usuario" />
+
+							<p:outputLabel for="pwd2" value="senha" />
+							<p:password id="pwd2" value="#{usuarioMB.usuario.senha}" type=""
+								required="true" requiredMessage="A senha não pode ser em branco" />
 
 							<p:outputLabel for="permissao2" value="Permissão" />
 
-							<p:selectOneMenu id="permissao2"
-								value="#{usuarioMB.idPermissao2}" style="width:125px">
-								<f:selectItem itemLabel="-- Selecione --"
-									noSelectionOption="true" />
+							<p:selectOneMenu id="permissao2" value="#{usuarioMB.idPermissao2}"
+								style="width:125px" required="true"
+								requiredMessage="Selessione o tipo de permissão">
+								<f:selectItem itemLabel="--Selecione--" noSelectionOption="true" />
 								<f:selectItems value="#{usuarioMB.permissoes}" var="p"
 									itemValue="#{p.id}" itemLabel="#{p.nomePermissao}" />
+							</p:selectOneMenu>
+							<p:outputLabel for="departamento2" value="Departamento" />
+							<p:selectOneMenu id="departamento2"
+								value="#{usuarioMB.idDepartamento2}" style="width:125px"
+								required="true" requiredMessage="Selessione o tipo de permissão">
+								<f:selectItem itemLabel="--Selecione--" noSelectionOption="true" />
+								<f:selectItems value="#{usuarioMB.departamento}" var="p"
+									itemValue="#{p.id}" itemLabel="#{p.nome}" />
 							</p:selectOneMenu>
 							<p:commandButton value="Atualizar" action="#{usuarioMB.editar()}"
 								ajax="false" />
@@ -68,8 +87,8 @@ function voltar(){
 								action="#{usuarioMB.buscaUsuario()}" ajax="false">
 
 								<f:setPropertyActionListener
-									value="#{usuarioMB.buscaUsuario().nome}"
-									target="#{usuarioMB.usuarioEditado.nome}" />
+									value="#{usuarioMB.buscaUsuario().login}"
+									target="#{usuarioMB.usuarioEditado.login}" />
 								<f:setPropertyActionListener
 									value="#{usuarioMB.buscaUsuario().id}"
 									target="#{usuarioMB.usuarioEditado.id}" />
@@ -83,15 +102,15 @@ function voltar(){
 							<div id="usrNull">
 
 								<h:outputText value="Usuario não encontrado."
-									rendered="#{usuarioMB.buscaUsuario().nome==null and usuarioMB.usuarioBusca!=''}" />
+									rendered="#{usuarioMB.buscaUsuario().login==null and usuarioMB.usuarioBusca!=''}" />
 
 							</div>
 						</h:panelGrid>
 						<div id="sResult">
 							<h:column rendered="#{usuarioMB.buscaUsuario().id!=null}">
-								<h:outputText value="#{usuarioMB.buscaUsuario().nome}" />
+								<h:outputText value="#{usuarioMB.buscaUsuario().login}" />
 								<a href="#" onclick="editar()">Editar</a>
-								&nbsp;
+        &nbsp;
            <h:commandLink action="#{usuarioMB.excluir()}"
 									value="Excluir" />
 							</h:column>
@@ -103,8 +122,20 @@ function voltar(){
 				<p:tab title="Novo Usuário">
 					<h:form>
 						<h:panelGrid columns="2" cellpadding="10">
-							<p:outputLabel for="nome" value="Usuário" />
+
+							<p:outputLabel for="nome" value="Nome" />
 							<p:inputText id="nome" value="#{usuarioMB.usuario.nome}"
+								required="true" requiredMessage="Infome o Usuario" />
+
+							<p:outputLabel for="email" value="Email" />
+							<p:inputText id="email" value="#{usuarioMB.usuario.email}"
+								required="true" requiredMessage="Informe o email" validatorMessage="Email invalido" >
+								<f:validateRegex
+									pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+							</p:inputText>
+
+							<p:outputLabel for="login" value="Login" />
+							<p:inputText id="login" value="#{usuarioMB.usuario.login}"
 								required="true" requiredMessage="Infome o Usuario" />
 
 							<p:outputLabel for="pwd" value="senha" />
@@ -119,6 +150,14 @@ function voltar(){
 								<f:selectItem itemLabel="--Selecione--" noSelectionOption="true" />
 								<f:selectItems value="#{usuarioMB.permissoes}" var="p"
 									itemValue="#{p.id}" itemLabel="#{p.nomePermissao}" />
+							</p:selectOneMenu>
+							<p:outputLabel for="departamento" value="Departamento" />
+							<p:selectOneMenu id="departamento"
+								value="#{usuarioMB.idDepartamento}" style="width:125px"
+								required="true" requiredMessage="Selessione o tipo de permissão">
+								<f:selectItem itemLabel="--Selecione--" noSelectionOption="true" />
+								<f:selectItems value="#{usuarioMB.departamento}" var="p"
+									itemValue="#{p.id}" itemLabel="#{p.nome}" />
 							</p:selectOneMenu>
 
 							<p:commandButton value="Cadastrar" action="#{usuarioMB.gravar}"

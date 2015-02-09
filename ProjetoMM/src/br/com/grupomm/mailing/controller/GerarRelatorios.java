@@ -12,6 +12,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import br.com.grupomm.mailing.dao.IndexDAO;
+import br.com.grupomm.mailing.message.GrowlView;
 import br.com.grupomm.mailing.model.entity.Mapeamento;
 import br.com.grupomm.mailing.model.entity.MapeamentoMM;
 
@@ -72,7 +73,7 @@ public class GerarRelatorios {
 		ec.responseReset();         
 		ec.setResponseContentType("text/xlsx");
 		ec.setResponseHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");     
-		
+
 		workbook.write(ec.getResponseOutputStream());  
 		out.flush();
 		out.close();
@@ -80,8 +81,10 @@ public class GerarRelatorios {
 	}
 
 	public void excelMM(int ids) throws IOException{          
+
 		FacesContext fc = FacesContext.getCurrentInstance();
 		ExternalContext ec = fc.getExternalContext();       
+		OutputStream out = ec.getResponseOutputStream();
 		String filename = "Mailing-mm.xlsx";
 
 		XSSFWorkbook workbook = new XSSFWorkbook(); 
@@ -122,12 +125,16 @@ public class GerarRelatorios {
 			row2.createCell(11).setCellValue(p.getRAMO_DE_ATIVIDADE());
 			row2.createCell(12).setCellValue(p.getPORTE_EMPRESA()); 
 
-			ec.responseReset();         
-			ec.setResponseContentType("text/xlsx");
-			ec.setResponseHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");     
-
-			workbook.write(ec.getResponseOutputStream()); 
-			fc.responseComplete();                    
 		}
+		ec.responseReset();         
+		ec.setResponseContentType("text/xlsx");
+		ec.setResponseHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");     
+
+		workbook.write(ec.getResponseOutputStream());  
+		out.flush();
+		out.close();
+		fc.responseComplete();
+
 	}
 }
+
