@@ -25,7 +25,7 @@ public class AprovacoesBO {
 					+ " </body> \n "
 					+ "</html> \n";
 			try {
-				enviaEmail.enviarEmailSolicitante(Util.getEmail(),msgUsr, solicitacao);
+				enviaEmail.enviarEmailSolicitante(solicitacao.getUsuario().getEmail(),msgUsr, solicitacao);
 			} catch (EmailException e) {
 				e.printStackTrace();
 			}
@@ -42,7 +42,7 @@ public class AprovacoesBO {
 					+ " </body> \n "
 					+ "</html> \n";
 			try {
-				enviaEmail.enviarEmailSolicitante(Util.getEmail(),msgUsr, solicitacao);
+				enviaEmail.enviarEmailSolicitante(solicitacao.getUsuario().getEmail(),msgUsr, solicitacao);
 			} catch (EmailException e) {
 				e.printStackTrace();
 			}
