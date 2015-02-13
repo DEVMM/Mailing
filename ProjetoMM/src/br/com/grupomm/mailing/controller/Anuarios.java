@@ -34,7 +34,7 @@ public class Anuarios {
 	}
 	
 	public String gerarRelatorio(){
-		System.out.println("TEste");
+
 		System.out.println("solicitacao"+this.getSolicitacao().getId());
 		AnuariosBO anuariosBO = new AnuariosBO();
 		anuariosBO.gerar(valida, this.getSolicitacao());

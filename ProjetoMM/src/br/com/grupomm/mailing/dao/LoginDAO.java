@@ -39,16 +39,19 @@ public class LoginDAO {
 
 		Query query = mysql.createQuery("select u from Usuario u where u.nome=:pUsuario").setParameter("pUsuario", usr);
 		Usuario usuario = (Usuario)query.getSingleResult();
-		return usuario.getPermissao().getNomePermissao();
+		String permissao =usuario.getPermissao().getNomePermissao();
+
+		mysql.close();
+		return permissao;
 	}
 
 	public static void expira() {
-  System.out.println("chamou o expira");
+		System.out.println("chamou o expira");
 		EntityManager mysql = new JPAUtil().getMySql();
-		Query query = mysql.createQuery("select c from logRegistro c  where CURDATE()-c.dt = 2 and c.solicitacao.usuario.id= :pUsuario and c.solicitacao.status <> 'Expirado'");
+		Query query = mysql.createQuery("select c from logRegistro c  where CURDATE()-c.dt >= 2 and c.solicitacao.usuario.id= :pUsuario and c.solicitacao.status <> 'Expirado'");
 		query.setParameter("pUsuario", Util.getUserId());
 		List<logRegistro> list = query.getResultList();
-        
+
 		for (logRegistro logRegistro : list) {
 			mysql.getTransaction().begin();
 			Solicitacao solicitacao = mysql.find(Solicitacao.class, logRegistro.getSolicitacao().getId());
@@ -56,8 +59,9 @@ public class LoginDAO {
 			mysql.persist(solicitacao);
 			mysql.getTransaction().commit();
 		}
-		
+	
 		mysql.close();
+		
 	}
 }
 
