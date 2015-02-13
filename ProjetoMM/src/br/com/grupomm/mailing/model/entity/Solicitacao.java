@@ -1,5 +1,6 @@
 package br.com.grupomm.mailing.model.entity;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 import javax.persistence.Entity;
@@ -12,23 +13,23 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.Type;
 
 @Entity
-public class Solicitacao {
-	 
+public class Solicitacao implements Serializable{
+	
+	private static final long serialVersionUID = -1340155712400685744L;
 	@Id @GeneratedValue
 	   Integer id;
 	   String status;
 	   @Type(type="text")
 	   String query;
-	   int quantidade;
+	  String quantidade;
+	  String descricao;
 	   @Temporal(TemporalType.DATE)
 	   Calendar dt;
 	   @ManyToOne
 	   Usuario usuario;
 	   String tipoSolicitacao;
 	   
-	   public int getQuantidade() {
-		return quantidade;
-	}
+	   
 	public Integer getId() {
 		return id;
 	}
@@ -48,12 +49,8 @@ public class Solicitacao {
 	public void setQuery(String query) {
 		this.query = query;
 	}
-	public int aguardando() {
+	public String aguardando() {
 		return quantidade;
-	}
-	
-	public void setQuantidade(int quantidade) {
-		this.quantidade = quantidade;
 	}
 	
 	public Usuario getUsuario() {
@@ -73,5 +70,17 @@ public class Solicitacao {
 	}
 	public void setTipoSolicitacao(String tipoSolicitacao) {
 		this.tipoSolicitacao = tipoSolicitacao;
+	}
+	public String getQuantidade() {
+		return quantidade;
+	}
+	public void setQuantidade(String quantidade) {
+		this.quantidade = quantidade;
+	}
+	public String getDescricao() {
+		return descricao;
+	}
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 }

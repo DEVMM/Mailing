@@ -1,7 +1,6 @@
 
 package br.com.grupomm.mailing.dao;
 import java.util.Calendar;
-import java.util.List;
 
 import javax.persistence.EntityManager;
 
@@ -11,20 +10,18 @@ import br.com.grupomm.mailing.util.JPAUtil;
 import br.com.grupomm.mailing.util.Util;
 
 public class AnuariosDAO {
+	
+	EntityManager  manager = new JPAUtil().getEntituManager();
 
-
-	public void TesteMap(String query){
-
+	public void gerarSolicitacao(String query, Solicitacao solicitacao){
 		EntityManager  manager = new JPAUtil().getEntituManager();
-		List q = manager.createNativeQuery(query).getResultList();
 
-		Solicitacao solicitacao = new Solicitacao();
+		//Solicitacao solicitacao = new Solicitacao();
 		Usuario usuario = new Usuario();
 		usuario.setId(Util.getUserId());
 
 		solicitacao.setDt(Calendar.getInstance());
 		solicitacao.setQuery(query);
-		solicitacao.setQuantidade(q.size());
 		solicitacao.setStatus("Aguardando");
 		solicitacao.setTipoSolicitacao("Anuarios");
 
@@ -36,6 +33,13 @@ public class AnuariosDAO {
 
 		manager.close();
 		mysql.close();
+	}
+
+	public Object count(String query) {
+		EntityManager  manager = new JPAUtil().getEntituManager();
+		Object q =  manager.createNativeQuery(query).getSingleResult();
+		manager.close();
+		return q;
 	}
 }
 

@@ -12,36 +12,36 @@ import br.com.grupomm.mailing.model.entity.Solicitacao;
 @ManagedBean
 @ViewScoped
 public class Aprovacoes {
-    
-	private int id;
-	private String status; 
+
+	Solicitacao solicitacao;
+	String motivo;
 	
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}	
-
 	List<Solicitacao> solicitacaoList = new AprovacaoDAO().listaSolicitacao();
 
 	public List<Solicitacao> getSolicitacaoList() {
 		return solicitacaoList;
 	}
+ 
+	public String aprovar(){
+		AprovacoesBO aprovacoesBO = new AprovacoesBO();
+		aprovacoesBO.gravarAprovacao(this.getSolicitacao(),this.getMotivo());
 
-    public String aprovar(){
-    	AprovacoesBO aprovacaoDAO = new AprovacoesBO();
-    	aprovacaoDAO.gravarAprovacao(this.getId(), this.getStatus());
-    	
-    	return "/aprovacoes.xhtml";
-    }
-
-	public String getStatus() {
-		return status;
+		return "aprovacoes";
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public Solicitacao getSolicitacao() {
+		return solicitacao;
+	}
+
+	public void setSolicitacao(Solicitacao solicitacao) {
+		this.solicitacao = solicitacao;
+	}
+
+	public String getMotivo() {
+		return motivo;
+	}
+
+	public void setMotivo(String motivo) {
+		this.motivo = motivo;
 	}
 }

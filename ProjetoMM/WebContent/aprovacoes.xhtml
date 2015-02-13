@@ -8,14 +8,16 @@
 <h:head>
 	<title>Aprovações</title>
 	<link type="text/css" rel="stylesheet" href="estilo.css" />
+	<script src="js/mailing.js"></script>
 </h:head>
 <h:body>
 	<div id="pagina">
-
+		<div class="loader"></div>
 		<ui:include src="/WEB-INF/menu.xhtml" />
 
 		<h:form id="form">
 			<p:dataTable value="#{aprovacoes.solicitacaoList}" var="item"
+				paginator="true" rows="10"
 				emptyMessage="Não há solicitações para serem aprovadas">
 				<p:column headerText="Usuario">
 					<h:outputText value="#{item.usuario.login}" />
@@ -33,31 +35,36 @@
 					<h:outputText value="#{item.quantidade}" />
 				</p:column>
 				<p:column>
-					<p:commandLink id="aprovar">
-						<p:commandButton value="Aprovar"
-							actionListener="#{growlView.showMessage}"
-							action="#{aprovacoes.aprovar}" update="@form">
-							<f:setPropertyActionListener value="#{item.id}"
-								target="#{aprovacoes.id}" />
-							<f:setPropertyActionListener value="Aprovado"
-								target="#{aprovacoes.status}" />
-						</p:commandButton>
-					</p:commandLink>
-
+					<p:commandButton value="Aprovar"
+						actionListener="#{growlView.showMessage}"
+						action="#{aprovacoes.aprovar}" ajax="false" immediate="true">
+						<f:setPropertyActionListener value="#{item}"
+							target="#{aprovacoes.solicitacao}" />
+						<f:setPropertyActionListener value="Aprovado"
+							target="#{aprovacoes.solicitacao.status}" />
+					</p:commandButton>
 				</p:column>
 				<p:column>
-					<p:commandLink id="naoAprovar">
-						<p:commandButton value="Não aprovar"
-							actionListener="#{growlView.naoAprovada}"
-							action="#{aprovacoes.aprovar}" update="@form">
-							<f:setPropertyActionListener value="#{item.id}"
-								target="#{aprovacoes.id}" />
-							<f:setPropertyActionListener value="Reprovado"
-								target="#{aprovacoes.status}" />
-						</p:commandButton>
-					</p:commandLink>
+					<p:commandButton value="Não aprovar" onclick="PF('dlg1').show();"
+						update=":form:popUp" process="@this">
+						<f:setPropertyActionListener value="#{item}"
+							target="#{aprovacoes.solicitacao}" />
+						<f:setPropertyActionListener value="Reprovado"
+							target="#{aprovacoes.solicitacao.status}" />
+					</p:commandButton>
 				</p:column>
 			</p:dataTable>
+			<p:dialog header="Informe o Motivo da reprovação" modal="true"
+				widgetVar="dlg1" minHeight="40">
+				<p:panel id="popUp" style="text-align:center">
+					<p:inputTextarea value="#{aprovacoes.motivo}" cols="40" rows="5"
+						required="true" requiredMessage="Informe o motivo"></p:inputTextarea>
+					<br />
+
+					<p:commandButton value="Ok" action="#{aprovacoes.aprovar}"
+						ajax="false"></p:commandButton>
+				</p:panel>
+			</p:dialog>
 		</h:form>
 	</div>
 </h:body>

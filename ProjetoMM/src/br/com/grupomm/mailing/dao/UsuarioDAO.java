@@ -3,18 +3,18 @@ package br.com.grupomm.mailing.dao;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 import br.com.grupomm.mailing.message.GrowlView;
 import br.com.grupomm.mailing.model.entity.Departamento;
 import br.com.grupomm.mailing.model.entity.Permissao;
+import br.com.grupomm.mailing.model.entity.Solicitacao;
 import br.com.grupomm.mailing.model.entity.Usuario;
 import br.com.grupomm.mailing.util.JPAUtil;
 
 public class UsuarioDAO {
 
-	public void adiciona(Usuario usuario, Integer idPermissao, Integer idDepartamento) {
+	public void adiciona(Usuario usuario, Integer idPermissao, Integer idDepartamento, String descricao) {
 
 		EntityManager em = new JPAUtil().getMySql();
 
@@ -32,6 +32,8 @@ public class UsuarioDAO {
 			departamento.setId(idDepartamento);
 			usuario.setDepartamento(departamento);
 			usuario.setPermissao(permissao);
+			Solicitacao solicitacao = new Solicitacao();
+			solicitacao.setDescricao(descricao);
 			em.persist(usuario);
 			em.getTransaction().commit();
 			em.close();
@@ -40,19 +42,6 @@ public class UsuarioDAO {
 		{
 			GrowlView.validaLogin();
 		}
-
-		//		try {
-		//			result= query.getSingleResult();
-		//			GrowlView.validaLogin();
-		//		} catch (NoResultException e) {
-		//			em.getTransaction().begin();
-		//			Permissao permissao = new Permissao();
-		//			permissao.setId(idPermissao);
-		//			usuario.setPermissao(permissao);
-		//			em.persist(usuario);
-		//			em.getTransaction().commit();
-		//			em.close();
-		//		} 
 	}
 
 	@SuppressWarnings("unchecked")
@@ -76,13 +65,24 @@ public class UsuarioDAO {
 		EntityManager mysql = new JPAUtil().getMySql();
 		Query query = mysql.createQuery("from Permissao where id = :id").setParameter("id", id);
 		return (Permissao) query.getSingleResult();
+
 	}
 
-
-	public Usuario listaBusca(String usuario){
+	@SuppressWarnings("unchecked")
+	public List<Usuario> listaUsuario(){
 
 		EntityManager mysql = new JPAUtil().getMySql();
-		Query query = mysql.createQuery("select u from Usuario u where u.nome=:pUsuario").setParameter("pUsuario", usuario);
+		Query query = mysql.createQuery("select u from Usuario u");
+		List<Usuario> list = query.getResultList();
+		mysql.close();
+		return list;
+	}
+
+	public Usuario listaBusca(int usuario){
+
+
+		EntityManager mysql = new JPAUtil().getMySql();
+		Query query = mysql.createQuery("select u from Usuario u where u.id=:PIdUsuario").setParameter("PIdUsuario", usuario);
 		Usuario usr = new Usuario();    
 		try {
 			usr = (Usuario) query.getSingleResult();
@@ -114,5 +114,27 @@ public class UsuarioDAO {
 		em.close();
 		System.out.println("call");
 	}
-
+	public List<Usuario> usuarioADM(){
+		EntityManager em = new JPAUtil().getMySql();
+		Query query = em.createQuery("select c from Usuario c where c.permissao.id=1");
+		List<Usuario> list = query.getResultList();
+		em.close();
+		
+		return list;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

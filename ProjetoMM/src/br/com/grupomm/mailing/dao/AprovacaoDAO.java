@@ -26,21 +26,22 @@ public class AprovacaoDAO {
 		return list;
 	}
 
-	public void alterAprovacao(int id, String status){
+	public void alterAprovacao(Solicitacao soli, String motivo){
+		
+		
 		EntityManager mysql = new JPAUtil().getMySql();
 		mysql.getTransaction().begin();
-		Solicitacao solicitacao = mysql.find(Solicitacao.class, id);
-		solicitacao.setStatus(status);
-		
+		Solicitacao solicitacao = mysql.find(Solicitacao.class, soli.getId());
+		solicitacao.setStatus(soli.getStatus());
 		Usuario usuario = new Usuario();
 		usuario.setId(Util.getUserId());
 		logRegistro log = new logRegistro();
 		log.setUsuario(usuario);
+		log.setMotivoRejeicao(motivo);
 		log.setSolicitacao(solicitacao);
 		log.setDt(Calendar.getInstance());
 		mysql.persist(log);
 		mysql.getTransaction().commit();
 		mysql.close();
-
 	}
 }

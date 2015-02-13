@@ -54,4 +54,10 @@ public class GrowlView {
 		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Erro", "Usuario ja cadastrado");
 		RequestContext.getCurrentInstance().showMessageInDialog(message);
 	}
+
+	public static void nulo() {
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Erro", "Resultado em branco");
+		RequestContext.getCurrentInstance().showMessageInDialog(message);
+		
+	}
 }

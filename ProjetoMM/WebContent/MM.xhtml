@@ -19,6 +19,7 @@
 		<div id="formulario">
 			<h:form id="form">
 				<p:growl id="msgs" showDetail="true" />
+				<p:column rendered="#{mM.solicitacao.quantidade==null || mM.solicitacao.quantidade==''}">
 				<p:accordionPanel>
 					<p:tab title="Estados">
 						<div id="estado">
@@ -110,11 +111,30 @@
 					</p:tab>
 				</p:accordionPanel>
 				<br />
-				<div id="botao">
-					<p:commandButton value="Gerar Solicitação"
-						action="#{mM.gerarRelatorio()}" ajax="false">
+				
+				<p:commandButton value="Gerar Relatório" icon="ui-icon-circle-check" 
+						action="#{mM.validacao()}"  update="@form">
 					</p:commandButton>
-				</div>
+				</p:column>
+				
+					<div id="resultado">
+					<p:column rendered="#{not empty mM.solicitacao.quantidade}" >			
+						<p>Sua busca retornou ${mM.solicitacao.quantidade} registros</p>
+						<div id="confirmacao">
+							<p>Informe a descrição do Cliente/Campanha</p>
+							<p:inputTextarea rows="3" cols="50" value="#{mM.solicitacao.descricao}" required="true" requiredMessage="A descrição não pode ficar em branco" />
+						</div>
+						<br/>
+						<p:commandButton value="Continuar" 
+						action="#{mM.gerarRelatorio()}" ajax="false" icon="ui-icon-check">
+						</p:commandButton>
+						<p:commandButton value="Voltar" update="@parent @form" process="@this" icon="ui-icon-arrowreturnthick-1-w">
+								
+								<f:setPropertyActionListener value="#{null}"
+								target="#{mM.solicitacao.quantidade}" />
+						</p:commandButton>
+						</p:column>
+					</div>
 			</h:form>
 		</div>
 	</div>
