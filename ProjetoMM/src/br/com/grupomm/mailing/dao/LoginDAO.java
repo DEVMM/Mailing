@@ -17,7 +17,7 @@ public class LoginDAO {
 
 		EntityManager mysql = new JPAUtil().getMySql();
 
-		Query query = mysql.createQuery("SELECT c FROM Usuario c where c.login=:pLogin and c.senha=:pSenha", Usuario.class).setParameter("pLogin", usr.getLogin()).setParameter("pSenha",usr.getSenha());
+		Query query = mysql.createQuery("SELECT c FROM Usuario c where c.login=:pLogin and c.senha=:pSenha and c.status='Ativo'" , Usuario.class).setParameter("pLogin", usr.getLogin()).setParameter("pSenha",usr.getSenha());
 
 		Usuario usuario = null;
 

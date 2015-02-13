@@ -2,6 +2,7 @@ package br.com.grupomm.mailing.controller;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -10,8 +11,8 @@ import javax.faces.bean.ViewScoped;
 import br.com.grupomm.mailing.dao.UsuarioDAO;
 import br.com.grupomm.mailing.model.entity.Departamento;
 import br.com.grupomm.mailing.model.entity.Permissao;
-import br.com.grupomm.mailing.model.entity.Solicitacao;
 import br.com.grupomm.mailing.model.entity.Usuario;
+import br.com.grupomm.mailing.model.enuns.Status;
 
 @ManagedBean
 @ViewScoped
@@ -56,6 +57,18 @@ public class UsuarioMB {
 		user.inativarUsuario(this.usuarioBusca);
 		this.usuario = new Usuario();
 	 return "gerenciamento";
+	}
+	
+	public String ativar() {
+		user.ativarUsuario(this.usuarioBusca);
+		this.usuario = new Usuario();
+	 return "gerenciamento";
+	}
+	
+	
+	
+	public List<Status> getStatus(){
+		return (List<Status>) Arrays.asList(Status.values());
 	}
 
 	public String editar() throws Exception {
@@ -137,6 +150,7 @@ public class UsuarioMB {
 		this.usuarioEditado = usuarioEditado;
 		this.idPermissao2 = usuarioEditado.getPermissao().getId();
 		this.idDepartamento2 = usuarioEditado.getDepartamento().getId();
+
 	}
 
 	public Integer getIdDepartamento() {

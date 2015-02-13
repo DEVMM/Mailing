@@ -74,6 +74,7 @@ function voltar(){
 								<f:selectItems value="#{usuarioMB.departamento}" var="p"
 									itemValue="#{p.id}" itemLabel="#{p.nome}" />
 							</p:selectOneMenu>
+							
 							<p:commandButton value="Atualizar" action="#{usuarioMB.editar()}"
 								ajax="false" />
 							<a href="#" onclick="voltar()">Voltar</a>
@@ -118,6 +119,7 @@ function voltar(){
 									itemValue="#{p.id}" itemLabel="#{p.nomePermissao}" />
 							</p:selectOneMenu>
 							<p:outputLabel for="departamento" value="Departamento" />
+							
 							<p:selectOneMenu id="departamento"
 								value="#{usuarioMB.idDepartamento}" style="width:125px"
 								required="true" requiredMessage="Selessione o tipo de permissão">
@@ -158,10 +160,6 @@ function voltar(){
 			    <p:column filterBy="#{item.departamento.nome}" headerText="Departamento" filterMatchMode="contains">
 			        <h:outputText value="#{item.departamento.nome}" />
 			    </p:column>
-			    
-			    <p:column filterBy="#{item.status}" headerText="Status" filterMatchMode="contains">
-			        <h:outputText value="#{item.status}" />
-			    </p:column>
 			 
 			    <p:column style="width:80px">
 			    	
@@ -177,12 +175,18 @@ function voltar(){
 						</p:column>
 					<br />	
 					<p:column style="width:35px">
-					<p:commandButton id="inativar" action="#{usuarioMB.inativar()}" icon="ui-icon-closethick" actionListener="#{growlView.usarioExcluido()}" >
+					
+					<p:commandButton id="inativar" action="#{usuarioMB.inativar()}" icon="ui-icon-closethick" actionListener="#{growlView.usarioExcluido()}" rendered="#{item.status!='Inativo'}" >
 					<p:tooltip id="toolTipFade" for="inativar" value="Inativar Usuário" />
-					<f:setPropertyActionListener value="#{item.id}"
-								target="#{usuarioMB.usuarioBusca}" />
+					<f:setPropertyActionListener value="#{item.id}" target="#{usuarioMB.usuarioBusca}" />								
+					</p:commandButton>
+					
+					<p:commandButton id="ativar" action="#{usuarioMB.ativar()}" icon="ui-icon-circle-check" actionListener="#{growlView.usarioAtivo()}" rendered="#{item.status!='Ativo'}">
+					<p:tooltip id="toolTipFadeAtivar" for="ativar" value="Ativar Usuário" />
+					<f:setPropertyActionListener value="#{item.id}" target="#{usuarioMB.usuarioBusca}" />
 					</p:commandButton>
 					</p:column>
+					
         		
 			</p:dataTable>
 		</h:form>

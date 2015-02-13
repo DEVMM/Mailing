@@ -39,6 +39,16 @@ public class GrowlView {
 		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuário", "Inativo");
 
 		RequestContext.getCurrentInstance().showMessageInDialog(message);
+		
+	
+	}
+	
+	public static String usarioAtivo() {
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuário", "Ativado");
+
+		RequestContext.getCurrentInstance().showMessageInDialog(message);
+		
+		return "gerenciamento";
 	}
 
 	public static void usarioAtualizado() {
