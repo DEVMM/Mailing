@@ -1,12 +1,15 @@
 package br.com.grupomm.mailing.model.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class MapeamentoMM {
+public class MapeamentoMM implements Serializable{
  
-     @Id 
+	private static final long serialVersionUID = -3295587505943017241L;
+	@Id 
 	private String ID_USUARIO;
 	private String PRI_NOME;
 	private String SOBRENOME;

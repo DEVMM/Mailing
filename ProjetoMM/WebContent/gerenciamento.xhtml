@@ -12,6 +12,7 @@
 	<script>
 $(window).load(function() {
   $('#editor').hide();
+  
 });
 
 function editar(){
@@ -31,29 +32,29 @@ function voltar(){
 		<ui:include src="/WEB-INF/menu.xhtml" />
 
 		<p:growl id="msgs" showDetail="true" />
-		<p:tabView>
+		<p:tabView id="table">
 
 			<p:tab title="Busca">
-				<h:form>
+				<h:form id="formEdit">
 					<div id="editor">
 						<h:panelGrid columns="2" cellpadding="10">
 							<p:outputLabel for="nome2" value="Nome" />
-							<p:inputText id="nome2" value="#{usuarioMB.usuario.nome}"
+							<p:inputText id="nome2" value="#{usuarioMB.usuarioEditado.nome}"
 								required="true" requiredMessage="Infome o Usuario" />
 
 							<p:outputLabel for="email2" value="Email" />
-							<p:inputText id="email2" value="#{usuarioMB.usuario.email}"
+							<p:inputText id="email2" value="#{usuarioMB.usuarioEditado.email}"
 								required="true" requiredMessage="Informe o email" validatorMessage="Email invalido" >
 								<f:validateRegex
 									pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
 							</p:inputText>
 
 							<p:outputLabel for="login2" value="Login" />
-							<p:inputText id="login2" value="#{usuarioMB.usuario.login}"
+							<p:inputText id="login2" value="#{usuarioMB.usuarioEditado.login}"
 								required="true" requiredMessage="Infome o Usuario" />
 
-							<p:outputLabel for="pwd2" value="senha" />
-							<p:password id="pwd2" value="#{usuarioMB.usuario.senha}" type=""
+							<p:outputLabel for="pwd2" value="Senha" />
+							<p:password id="pwd2" value="#{usuarioMB.usuarioEditado.senha}" type=""
 								required="true" requiredMessage="A senha não pode ser em branco" />
 
 							<p:outputLabel for="permissao2" value="Permissão" />
@@ -61,7 +62,7 @@ function voltar(){
 							<p:selectOneMenu id="permissao2" value="#{usuarioMB.idPermissao2}"
 								style="width:125px" required="true"
 								requiredMessage="Selessione o tipo de permissão">
-								<f:selectItem itemLabel="--Selecione--" noSelectionOption="true" />
+								<f:selectItem itemLabel="-- Selecione --" noSelectionOption="true" />
 								<f:selectItems value="#{usuarioMB.permissoes}" var="p"
 									itemValue="#{p.id}" itemLabel="#{p.nomePermissao}" />
 							</p:selectOneMenu>
@@ -69,7 +70,7 @@ function voltar(){
 							<p:selectOneMenu id="departamento2"
 								value="#{usuarioMB.idDepartamento2}" style="width:125px"
 								required="true" requiredMessage="Selessione o tipo de permissão">
-								<f:selectItem itemLabel="--Selecione--" noSelectionOption="true" />
+								<f:selectItem itemLabel="-- Selecione --" noSelectionOption="true" />
 								<f:selectItems value="#{usuarioMB.departamento}" var="p"
 									itemValue="#{p.id}" itemLabel="#{p.nome}" />
 							</p:selectOneMenu>
@@ -79,42 +80,7 @@ function voltar(){
 						</h:panelGrid>
 					</div>
 					<div id="busca">
-
-						<h:panelGrid columns="3" cellpadding="10">
-							<p:outputLabel for="busca" value="Digite o usuário: " />
-							<p:inputText id="busca" value="#{usuarioMB.usuarioBusca}" />
-							<p:commandButton value="Buscar"
-								action="#{usuarioMB.buscaUsuario()}" ajax="false">
-
-								<f:setPropertyActionListener
-									value="#{usuarioMB.buscaUsuario().login}"
-									target="#{usuarioMB.usuarioEditado.login}" />
-								<f:setPropertyActionListener
-									value="#{usuarioMB.buscaUsuario().id}"
-									target="#{usuarioMB.usuarioEditado.id}" />
-								<f:setPropertyActionListener
-									value="#{usuarioMB.buscaUsuario().senha}"
-									target="#{usuarioMB.usuarioEditado.senha}" />
-								<f:setPropertyActionListener
-									value="#{usuarioMB.buscaUsuario().permissao}"
-									target="#{usuarioMB.usuarioEditado.permissao}" />
-							</p:commandButton>
-							<div id="usrNull">
-
-								<h:outputText value="Usuario não encontrado."
-									rendered="#{usuarioMB.buscaUsuario().login==null and usuarioMB.usuarioBusca!=''}" />
-
-							</div>
-						</h:panelGrid>
-						<div id="sResult">
-							<h:column rendered="#{usuarioMB.buscaUsuario().id!=null}">
-								<h:outputText value="#{usuarioMB.buscaUsuario().login}" />
-								<a href="#" onclick="editar()">Editar</a>
-        &nbsp;
-           <h:commandLink action="#{usuarioMB.excluir()}"
-									value="Excluir" />
-							</h:column>
-						</div>
+						<h2>Nenhum usuário foi selecionado</h2>
 					</div>
 				</h:form>
 			</p:tab>
@@ -138,7 +104,7 @@ function voltar(){
 							<p:inputText id="login" value="#{usuarioMB.usuario.login}"
 								required="true" requiredMessage="Infome o Usuario" />
 
-							<p:outputLabel for="pwd" value="senha" />
+							<p:outputLabel for="pwd" value="Senha" />
 							<p:password id="pwd" value="#{usuarioMB.usuario.senha}" type=""
 								required="true" requiredMessage="A senha não pode ser em branco" />
 
@@ -147,7 +113,7 @@ function voltar(){
 							<p:selectOneMenu id="permissao" value="#{usuarioMB.idPermissao}"
 								style="width:125px" required="true"
 								requiredMessage="Selessione o tipo de permissão">
-								<f:selectItem itemLabel="--Selecione--" noSelectionOption="true" />
+								<f:selectItem itemLabel="-- Selecione --" noSelectionOption="true" />
 								<f:selectItems value="#{usuarioMB.permissoes}" var="p"
 									itemValue="#{p.id}" itemLabel="#{p.nomePermissao}" />
 							</p:selectOneMenu>
@@ -155,10 +121,11 @@ function voltar(){
 							<p:selectOneMenu id="departamento"
 								value="#{usuarioMB.idDepartamento}" style="width:125px"
 								required="true" requiredMessage="Selessione o tipo de permissão">
-								<f:selectItem itemLabel="--Selecione--" noSelectionOption="true" />
+								<f:selectItem itemLabel="-- Selecione --" noSelectionOption="true" />
 								<f:selectItems value="#{usuarioMB.departamento}" var="p"
 									itemValue="#{p.id}" itemLabel="#{p.nome}" />
 							</p:selectOneMenu>
+							
 
 							<p:commandButton value="Cadastrar" action="#{usuarioMB.gravar}"
 								ajax="false" actionListener="#{growlView.msgAdiciona()}"
@@ -168,6 +135,51 @@ function voltar(){
 				</p:tab>
 			</div>
 		</p:tabView>
+		<div>
+		<br />
+		<h:form >
+			<p:dataTable var="item" value="#{usuarioMB.solicitacaoList}" paginator="true" emptyMessage="Nenhum resultado encontrado" 
+			rows="10">
+			    <f:facet name="header">
+			        Lista de Usuários
+			    </f:facet>
+			 
+			    <p:column filterBy="#{item.id}"  headerText="Id" filterMatchMode="contains">
+			        <h:outputText value="#{item.id}" />
+			    </p:column>
+			 
+			    <p:column filterBy="#{item.login}" headerText="Usuário" filterMatchMode="contains" >
+			        <h:outputText value="#{item.login}" />
+			    </p:column>
+			 
+			    <p:column filterBy="#{item.nome}" headerText="Nome" filterMatchMode="contains">
+			        <h:outputText value="#{item.nome}" />
+			    </p:column>
+			 
+			    <p:column style="width:80px">
+			    	
+			    	
+						<p:commandButton onclick="editar()" value="Editar" ajax="true" icon="ui-icon-refresh">
+					
+						<f:setPropertyActionListener value="#{item}"
+								target="#{usuarioMB.usuarioEditado}" />
+							
+						<f:ajax execute="@this" render=":table:formEdit" ></f:ajax>		
+							
+						</p:commandButton>
+						</p:column>
+					<br />	
+					<p:column style="width:35px">
+					<p:commandButton id="inativar" action="#{usuarioMB.inativar()}" icon="ui-icon-closethick" actionListener="#{growlView.usarioExcluido()}" >
+					<p:tooltip id="toolTipFade" for="inativar" value="Inativar Usuário" />
+					<f:setPropertyActionListener value="#{item.id}"
+								target="#{usuarioMB.usuarioBusca}" />
+					</p:commandButton>
+					</p:column>
+        		
+			</p:dataTable>
+		</h:form>
+		</div>
 	</div>
 </h:body>
 </html>

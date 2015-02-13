@@ -32,9 +32,9 @@
 				<p:column headerText="Quant. de Dados">
 					<h:outputText value="#{item.quantidade}" />
 				</p:column>
-				<p:column>
-					<p:commandLink id="aprovar">
-						<p:commandButton value="Aprovar"
+				<p:column style="width:80px;">
+					<p:commandLink id="aprovar" >
+						<p:commandButton icon="ui-icon-check" 
 							actionListener="#{growlView.showMessage}"
 							action="#{aprovacoes.aprovar}" update="@form">
 							<f:setPropertyActionListener value="#{item.id}"
@@ -44,10 +44,8 @@
 						</p:commandButton>
 					</p:commandLink>
 
-				</p:column>
-				<p:column>
 					<p:commandLink id="naoAprovar">
-						<p:commandButton value="Não aprovar"
+						<p:commandButton icon="ui-icon-closethick"
 							actionListener="#{growlView.naoAprovada}"
 							action="#{aprovacoes.aprovar}" update="@form">
 							<f:setPropertyActionListener value="#{item.id}"

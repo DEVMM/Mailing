@@ -21,6 +21,7 @@ public class Usuario implements Serializable  {
 	String senha;
 	String nome;
 	String email;
+	String status;
 	
 	@ManyToOne
 	Permissao permissao;
@@ -68,5 +69,11 @@ public class Usuario implements Serializable  {
 	}
 	public void setDepartamento(Departamento departamento) {
 		this.departamento = departamento;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 }

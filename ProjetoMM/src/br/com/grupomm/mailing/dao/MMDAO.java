@@ -12,20 +12,16 @@ import br.com.grupomm.mailing.util.Util;
 
 public class MMDAO {
 
+	EntityManager  manager = new JPAUtil().getEntituManager();
 
-      public void solicitacao(String query){
-    	  
+      public void gerarSolicitacao(String query, Solicitacao solicitacao){
     	   EntityManager  manager = new JPAUtil().getMMonline();
     	   
-    	   List q = manager.createNativeQuery(query).getResultList();
-    	   
-    	   Solicitacao solicitacao = new Solicitacao();
            Usuario usuario = new Usuario();
            
     	   usuario.setId(Util.getUserId());
     	   solicitacao.setDt(Calendar.getInstance());
     	   solicitacao.setQuery(query);
-    	   solicitacao.setQuantidade(q.size());
     	   solicitacao.setStatus("Aguardando");
     	   solicitacao.setTipoSolicitacao("MM-online");
     	  
@@ -39,5 +35,12 @@ public class MMDAO {
     	   mysql.close();
 
        }
+      
+      public Object count(String query) {
+  		EntityManager  manager = new JPAUtil().getMMonline();
+  		Object q =  manager.createNativeQuery(query).getSingleResult();
+  		manager.close();
+  		return q;
+  	}
 }
 

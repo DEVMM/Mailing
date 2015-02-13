@@ -7,11 +7,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Permissao /*implements Serializable*/ {
+public class Permissao implements Serializable {
 
-	
-//	private static final long serialVersionUID = 196096744346170597L;
-	
+	private static final long serialVersionUID = -2874388727134926782L;
 	@Id @GeneratedValue
 	Integer id;
 	String nomePermissao;
@@ -28,9 +26,4 @@ public class Permissao /*implements Serializable*/ {
 	public void setNomePermissao(String nomePermissao) {
 		this.nomePermissao = nomePermissao;
 	}
-//	public static long getSerialversionuid() {
-//		return serialVersionUID;
-//	}
-	
-	
 }

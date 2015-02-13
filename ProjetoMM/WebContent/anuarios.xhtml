@@ -22,6 +22,8 @@
 		<div id="formulario">
 			<h:form id="form">
 				<p:growl id="msgs" showDetail="true" />
+				<p:column rendered="#{anuarios.solicitacao.quantidade==null || anuarios.solicitacao.quantidade==''}">
+				<div id="accord">
 				<p:accordionPanel>
 					<p:tab title="Estados">
 						<div id="estado">
@@ -31,7 +33,7 @@
 								<h:column>
 									<h:selectManyCheckbox id="selectCheck"
 										valueChangeListener="#{anuarios.valida}">
-										<f:selectItem id="uf" itemValue="#{item}" itemLabel="#{item}" />
+										<f:selectItem id="uf" itemValue="#{item}" itemLabel="#{item}"  />
 									</h:selectManyCheckbox>
 								</h:column>
 
@@ -100,15 +102,44 @@
 							</p:dataGrid>
 						</div>
 					</p:tab>
+				
 				</p:accordionPanel>
-				<br />
-				<div id="botao">
-					<p:commandButton value="Gerar Solicitação"
-						action="#{anuarios.gerarRelatorio()}" ajax="false">
-					</p:commandButton>
 				</div>
+				<br />
+				
+				<p:commandButton value="Gerar Relatório" icon="ui-icon-circle-check"
+						 action="#{anuarios.validacao()}" update="@form" onclick="mostrar()">
+					</p:commandButton>
+				</p:column>
+				
+				
+				
+				
+					<div id="resultado">	
+					<p:column rendered="#{not empty anuarios.solicitacao.quantidade}" >
+							
+						<p>Sua busca retornou ${anuarios.solicitacao.quantidade} registros</p>
+						<div id="confirmacao">
+							<p>Informe a descrição do Cliente/Campanha</p>
+							<p:inputTextarea rows="3" cols="50" value="#{anuarios.solicitacao.descricao}" required="true" requiredMessage="A descrição não pode ficar em branco"/>
+						</div>
+						<br/>
+						<p:commandButton value="Continuar" action="#{anuarios.gerarRelatorio()}" ajax="false" icon="ui-icon-check"/>
+						<p:commandButton value="Voltar" update="@parent @form" process="@this" icon="ui-icon-arrowreturnthick-1-w">
+								<f:setPropertyActionListener value="#{null}" target="#{anuarios.solicitacao.quantidade}" />
+						</p:commandButton>
+			
+					</p:column>
+					</div>
+<!-- 				<div id="botao"> -->
+					
+<!-- 				</div> -->
+
 			</h:form>
 		</div>
+				
+			
 	</div>
 </h:body>
+
 </html>

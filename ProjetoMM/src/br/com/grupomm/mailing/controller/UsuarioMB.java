@@ -8,6 +8,7 @@ import javax.faces.bean.ViewScoped;
 import br.com.grupomm.mailing.dao.UsuarioDAO;
 import br.com.grupomm.mailing.model.entity.Departamento;
 import br.com.grupomm.mailing.model.entity.Permissao;
+import br.com.grupomm.mailing.model.entity.Solicitacao;
 import br.com.grupomm.mailing.model.entity.Usuario;
 
 @ManagedBean
@@ -15,12 +16,13 @@ import br.com.grupomm.mailing.model.entity.Usuario;
 public class UsuarioMB {
 
 	private Usuario usuario = new Usuario();
+	private String solicitacao = new String();
 	private Usuario usuarioEditado = new Usuario();
 	private Integer idPermissao = new Integer(0);
 	private Integer idDepartamento = new Integer(0);
 	private Integer idDepartamento2 = new Integer(0);
 	private Integer idPermissao2 = new Integer(0);
-	private String usuarioBusca = new String();
+	private int usuarioBusca;
 	private UsuarioDAO user = new UsuarioDAO();
 
 	public Usuario getUsuario() {
@@ -36,13 +38,14 @@ public class UsuarioMB {
 	
 	public void gravar() {
 		//this.usuario.setPermissao(user.getPermissaoByID(idPermissao));
-		user.adiciona(this.usuario, this.idPermissao, this.idDepartamento);
+		user.adiciona(this.usuario, this.idPermissao, this.idDepartamento, this.solicitacao);
 		this.usuario = new Usuario();
 	}
 
-	public void excluir() {
-		user.excluir(this.buscaUsuario().getId());
+	public String inativar() {
+		user.inativarUsuario(this.usuarioBusca);
 		this.usuario = new Usuario();
+	 return "gerenciamento";
 	}
 
 	public void editar() {
@@ -68,10 +71,16 @@ public class UsuarioMB {
 		System.out.println(idPermissao2);
 		System.out.println("senha"+buscaUsuario().getSenha());
 	}
+	
+	List<Usuario> usuarioLista = new UsuarioDAO().listaUsuario();
+
+	public List<Usuario> getSolicitacaoList() {
+		return usuarioLista;
+	}
 
 	public Usuario buscaUsuario(){
 
-		return user.listaBusca(this.getUsuarioBusca());
+		return user.listaBusca(this.usuarioBusca);
 	}
 
 	public Integer getIdPermissao() {
@@ -89,15 +98,7 @@ public class UsuarioMB {
 	public void setIdPermissao2(Integer idPermissao2) {
 		this.idPermissao2 = idPermissao2;
 	}
-
-	public String getUsuarioBusca() {
-		return usuarioBusca;
-	}
-
-	public void setUsuarioBusca(String usuarioBusca) {
-		this.usuarioBusca = usuarioBusca;
-	}
-
+	
 	public UsuarioDAO getUser() {
 		return user;
 	}
@@ -116,6 +117,8 @@ public class UsuarioMB {
 
 	public void setUsuarioEditado(Usuario usuarioEditado) {
 		this.usuarioEditado = usuarioEditado;
+		this.idPermissao2 = usuarioEditado.getPermissao().getId();
+		this.idDepartamento2 = usuarioEditado.getDepartamento().getId();
 	}
 
 	public Integer getIdDepartamento() {
@@ -133,4 +136,21 @@ public class UsuarioMB {
 	public void setIdDepartamento2(Integer idDepartamento2) {
 		this.idDepartamento2 = idDepartamento2;
 	}
+
+	public int getUsuarioBusca() {
+		return usuarioBusca;
+	}
+
+	public void setUsuarioBusca(int usuarioBusca) {
+		this.usuarioBusca = usuarioBusca;
+	}
+
+	public List<Usuario> getUsuarioLista() {
+		return usuarioLista;
+	}
+
+	public void setUsuarioLista(List<Usuario> usuarioLista) {
+		this.usuarioLista = usuarioLista;
+	}
 }
+

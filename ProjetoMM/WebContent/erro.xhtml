@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"  
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
       
 <h:head>
     <title>Login</title>
@@ -11,12 +12,10 @@
 
 <h:body>
 	<div id="pagina">
+	<ui:include src="/WEB-INF/menu.xhtml" />
 	    <div id="aviso">
 			<p>Desculpe, não será possível continuar :(</p>
 			<p>Contate a equipe de Desenvolvimento.</p>
-		</div>
-		<div id="imagem">
-			<img alt="Homer" src="img/homer.png" />
 		</div>    	
  	</div>
 </h:body>

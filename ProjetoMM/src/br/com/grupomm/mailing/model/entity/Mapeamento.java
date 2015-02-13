@@ -3,6 +3,8 @@ package br.com.grupomm.mailing.model.entity;
 
 
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -11,9 +13,10 @@ import javax.persistence.Id;
 
 
 @Entity
-public class Mapeamento {
+public class Mapeamento implements Serializable {
  
-      @Id 
+	private static final long serialVersionUID = -6780269429079617083L;
+	@Id 
 	private String CNPJ;
 	private String RAZAOSOCIAL;
 	private String NOMEFANTASIA;
