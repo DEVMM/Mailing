@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.mail.EmailException;
-import org.apache.poi.hssf.util.HSSFColor.GOLD;
 
 import br.com.grupomm.mailing.controller.Anuarios;
 import br.com.grupomm.mailing.dao.AnuariosDAO;
@@ -62,6 +61,7 @@ public class AnuariosBO {
 		}	
 
 		AnuariosDAO anuariosDAO = new AnuariosDAO();
+
 		anuariosDAO.gerarSolicitacao(gerarSolicitacao(ckEstados, ckRamoAtividade, ckNivel, ckPorte, ckArea),solicitacao);
 		
 		EnviaEmail enviaEmail = new EnviaEmail();
@@ -98,6 +98,7 @@ public class AnuariosBO {
 	}
 
 	public String Valida(List<String> valida){
+
 
 		List<String> ckEstados = new ArrayList<String>();
 		List<Integer> ckNivel= new ArrayList<Integer>();
@@ -138,12 +139,15 @@ public class AnuariosBO {
 			}
 		}	
 
+
 		if(ckEstados.isEmpty() || ckArea.isEmpty() || ckNivel.isEmpty() || ckPorte.isEmpty() || ckRamoAtividade.isEmpty()){
+			System.out.println("e vazio");
 			GrowlView.msgValidaCheckBox();
 			return null;
 		}
 		if(this.count(ckEstados, ckRamoAtividade, ckNivel, ckPorte, ckArea).toString().equals("0")){
 			GrowlView.nulo();
+
 			return null;
 		}
 		else{
@@ -212,6 +216,7 @@ public class AnuariosBO {
 				+ "AND AA.IDAREA IN("+pIdArea+")";
 
 		AnuariosDAO anuarios = new AnuariosDAO();
+
 		return anuarios.count(query);
 	}
 }

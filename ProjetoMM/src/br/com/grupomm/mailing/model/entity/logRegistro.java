@@ -1,5 +1,6 @@
 package br.com.grupomm.mailing.model.entity;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 import javax.persistence.Entity;
@@ -10,8 +11,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-public class logRegistro {
+public class logRegistro implements Serializable{
 	
+	private static final long serialVersionUID = -5558689463757464464L;
 	@Id @GeneratedValue
 	Integer id;
 	 @Temporal(TemporalType.DATE)

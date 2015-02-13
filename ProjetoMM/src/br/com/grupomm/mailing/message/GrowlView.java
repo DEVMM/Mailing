@@ -36,7 +36,7 @@ public class GrowlView {
 		RequestContext.getCurrentInstance().showMessageInDialog(message);
 	}
 	public static void usarioExcluido() {
-		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuário", "Excluído com sucesso");
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuário", "Inativo");
 
 		RequestContext.getCurrentInstance().showMessageInDialog(message);
 	}
@@ -56,7 +56,7 @@ public class GrowlView {
 	}
 
 	public static void nulo() {
-		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Erro", "Resultado em branco");
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Resultado em branco ", "A busca não encontrou resultados");
 		RequestContext.getCurrentInstance().showMessageInDialog(message);
 		
 	}

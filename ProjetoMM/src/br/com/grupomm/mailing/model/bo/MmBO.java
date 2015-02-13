@@ -6,24 +6,21 @@ import java.util.List;
 import org.apache.commons.mail.EmailException;
 
 import br.com.grupomm.mailing.controller.MM;
-import br.com.grupomm.mailing.dao.AnuariosDAO;
 import br.com.grupomm.mailing.dao.MMDAO;
 import br.com.grupomm.mailing.message.GrowlView;
 import br.com.grupomm.mailing.model.entity.Solicitacao;
 import br.com.grupomm.mailing.model.enuns.Area;
-import br.com.grupomm.mailing.model.enuns.AreaAnuarios;
 import br.com.grupomm.mailing.model.enuns.Estados;
 import br.com.grupomm.mailing.model.enuns.Nivel;
-import br.com.grupomm.mailing.model.enuns.NivelAnuarios;
 import br.com.grupomm.mailing.model.enuns.Porte;
 import br.com.grupomm.mailing.model.enuns.RamoAtividade;
-import br.com.grupomm.mailing.model.enuns.RamoAtividadeAnuarios;
 import br.com.grupomm.mailing.model.enuns.Sexo;
 import br.com.grupomm.mailing.util.Util;
 
 public class MmBO {
-
+	
 	MM mm = new MM();
+
 
 	public String gerar(List<String> valida, Solicitacao solicitacao){
 		List<String> ckEstados = new ArrayList<String>();
@@ -172,7 +169,6 @@ public class MmBO {
 			return "index";
 		}	
 	}
-
 	public String gerarSolicitacao(List<String> estados, List<Integer> ckRamoAtividade, List<Integer>ckNivel, List<Integer> idPorte, List<Integer> idArea, List<String> ckSexo){
 
 		String pEstados = estados.toString().replace("[", "'").replace(",", "','").replace("]", "'").replace(" ", "");
@@ -237,6 +233,7 @@ public class MmBO {
 						+ " AND CA.CAD_ATIVO = 'S'"
 						+ " AND CB.sexo in ("+pSexo+")"
 						+ " order by cb.nivel";
+	
 
 
 		System.out.println("chamado o gerarSolicitação");
@@ -304,9 +301,6 @@ public class MmBO {
 		if(this.count(ckEstados, ckRamoAtividade, ckNivel, ckPorte, ckArea, ckSexo).toString().equals("0")){
 			GrowlView.nulo();
 			//System.out.println("e zerooooooooooo"+this.count(ckEstados, ckRamoAtividade, ckNivel, ckPorte, ckArea, ckSexo).toString());
-
-
-
 			return null;
 		}
 		else{
@@ -314,7 +308,6 @@ public class MmBO {
 		}
 
 	}
-
 	public Object count(List<String> estados, List<Integer> ckRamoAtividade, List<Integer>ckNivel, List<Integer> idPorte, List<Integer> idArea, List<String> ckSexo){
 
 
@@ -324,7 +317,6 @@ public class MmBO {
 		String pIdPorte = idPorte.toString().replace("[","").replace("]", "");
 		String pIdArea  = idArea.toString().replace("[","").replace("]", "");  
 		String pSexo = ckSexo.toString().replace("[", "'").replace(",", "','").replace("]", "'").replace(" ", "");
-
 		String query = "select count(*) FROM "
 				+ "CAD_MMNETWORK CA "
 				+ "INNER JOIN CAD_MMNETWORK_DADOS CB"

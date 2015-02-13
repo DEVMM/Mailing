@@ -10,6 +10,7 @@ import javax.faces.bean.ViewScoped;
 import br.com.grupomm.mailing.dao.UsuarioDAO;
 import br.com.grupomm.mailing.model.entity.Departamento;
 import br.com.grupomm.mailing.model.entity.Permissao;
+import br.com.grupomm.mailing.model.entity.Solicitacao;
 import br.com.grupomm.mailing.model.entity.Usuario;
 
 @ManagedBean
@@ -37,7 +38,7 @@ public class UsuarioMB {
 		return user.getDepartamento();
 	}
 	
-	public void gravar() throws Exception{
+	public String gravar() throws Exception{
 	    
 		String s = this.usuario.getSenha();
 		MessageDigest m=MessageDigest.getInstance("MD5");
@@ -47,10 +48,12 @@ public class UsuarioMB {
 		
 		user.adiciona(this.usuario, this.idPermissao, this.idDepartamento, this.solicitacao);
 		this.usuario = new Usuario();
+		
+		return "gerenciamento";
 	}
 
-	public String excluir() {
-		user.excluir(this.usuarioBusca);
+	public String inativar() {
+		user.inativarUsuario(this.usuarioBusca);
 		this.usuario = new Usuario();
 	 return "gerenciamento";
 	}
@@ -112,9 +115,6 @@ public class UsuarioMB {
 	public void setIdPermissao2(Integer idPermissao2) {
 		this.idPermissao2 = idPermissao2;
 	}
-
-
-
 	public UsuarioDAO getUser() {
 		return user;
 	}

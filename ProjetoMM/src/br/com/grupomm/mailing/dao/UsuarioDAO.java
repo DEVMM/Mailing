@@ -68,6 +68,7 @@ public class UsuarioDAO {
 
 	}
 
+
 	@SuppressWarnings("unchecked")
 	public List<Usuario> listaUsuario(){
 
@@ -104,12 +105,13 @@ public class UsuarioDAO {
 		em.close();
 	}
 
-	public void excluir(int usuario){
+	public void inativarUsuario(int usuario){
 
 		EntityManager em = new JPAUtil().getMySql();
 		em.getTransaction().begin();
 		Usuario usuarioRemover = em.find(Usuario.class, usuario);
-		em.remove(usuarioRemover);
+		usuarioRemover.setStatus("Inativo");
+		em.merge(usuarioRemover);
 		em.getTransaction().commit();
 		em.close();
 		System.out.println("call");
