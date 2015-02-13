@@ -58,7 +58,7 @@ public class UsuarioMB {
 	 return "gerenciamento";
 	}
 
-	public void editar() throws Exception {
+	public String editar() throws Exception {
 
 		if(idPermissao2!=null){
 			//this.usuarioEditado.setPermissao(user.getPermissaoByID(idPermissao2));
@@ -87,6 +87,8 @@ public class UsuarioMB {
 		this.usuarioEditado = new Usuario();
 		System.out.println(idPermissao2);
 		System.out.println("senha"+buscaUsuario().getSenha());
+		
+		return "gerenciamento";
 	}
 	
 	List<Usuario> usuarioLista = new UsuarioDAO().listaUsuario();

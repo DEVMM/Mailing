@@ -74,12 +74,6 @@ function voltar(){
 								<f:selectItems value="#{usuarioMB.departamento}" var="p"
 									itemValue="#{p.id}" itemLabel="#{p.nome}" />
 							</p:selectOneMenu>
-							<p:selectOneMenu id="status2"
-								value="#{usuarioMB.usuarioEditado.status}" style="width:125px"
-								required="true" requiredMessage="Selessione o tipo de permissão">
-								<f:selectItem itemLabel="-- Selecione --" noSelectionOption="true" />
-								<f:selectItem itemValue="Ativo" itemLabel="Ativo" />
-							</p:selectOneMenu>
 							<p:commandButton value="Atualizar" action="#{usuarioMB.editar()}"
 								ajax="false" />
 							<a href="#" onclick="voltar()">Voltar</a>
