@@ -32,6 +32,7 @@ public class UsuarioDAO {
 			departamento.setId(idDepartamento);
 			usuario.setDepartamento(departamento);
 			usuario.setPermissao(permissao);
+			usuario.setStatus(usuario.getStatus());
 			Solicitacao solicitacao = new Solicitacao();
 			solicitacao.setDescricao(descricao);
 			em.persist(usuario);
@@ -105,16 +106,18 @@ public class UsuarioDAO {
 		em.close();
 	}
 
-	public void inativarUsuario(int usuario){
+	public String inativarUsuario(int usuario){
 
 		EntityManager em = new JPAUtil().getMySql();
 		em.getTransaction().begin();
-		Usuario usuarioRemover = em.find(Usuario.class, usuario);
-		usuarioRemover.setStatus("Inativo");
-		em.merge(usuarioRemover);
+		Usuario usuarioInativado = em.find(Usuario.class, usuario);
+		usuarioInativado.setStatus("Inativo");
+		em.merge(usuarioInativado);
 		em.getTransaction().commit();
 		em.close();
 		System.out.println("call");
+		
+		return "gerenciamento";
 	}
 	public List<Usuario> usuarioADM(){
 		EntityManager em = new JPAUtil().getMySql();
