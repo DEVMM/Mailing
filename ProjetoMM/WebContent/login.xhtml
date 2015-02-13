@@ -5,10 +5,12 @@
       
 <h:head>
     <title>Login</title>
-    <link type="text/css" rel="stylesheet" href="estilo.css" /> 	 
+    <link type="text/css" rel="stylesheet" href="estilo.css" /> 	
+    <script src="js/mailing.js"></script> 
 </h:head>
 
 <h:body>
+<script src="js/mailing.js"></script>
     <div id="pagina">
     	<div id="formulario">
 	        <h:form id="loginForm">         
@@ -24,7 +26,7 @@
 	                    <p:spacer></p:spacer>
 	                    <p:message for="senha"></p:message>
 	                    <p:spacer></p:spacer>
-	                    <p:commandButton action="#{loginMB.loginProject}" value="Entrar" update="loginForm" ajax="true"></p:commandButton>
+	                    <p:commandButton action="#{loginMB.loginProject}" value="Entrar" ajax="false"></p:commandButton>
 	                </h:panelGrid>
 	            </p:panel>
 	        </h:form>

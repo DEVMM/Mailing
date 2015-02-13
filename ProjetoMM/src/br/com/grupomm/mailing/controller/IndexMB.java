@@ -1,16 +1,21 @@
 package br.com.grupomm.mailing.controller;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.List;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+
 import br.com.grupomm.mailing.dao.IndexDAO;
 import br.com.grupomm.mailing.model.entity.Solicitacao;
 
 @ManagedBean
 @ViewScoped
-public class IndexMB {
+public class IndexMB implements Serializable{
 
+	private static final long serialVersionUID = 3648115893925054320L;
+	
 	int ids;
 	String tipoSolicitacao;
 	IndexDAO indexDAO = new IndexDAO();
