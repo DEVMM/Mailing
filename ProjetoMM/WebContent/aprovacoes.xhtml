@@ -34,8 +34,8 @@
 				<p:column headerText="Quant. de Dados">
 					<h:outputText value="#{item.quantidade}" />
 				</p:column>
-				<p:column>
-					<p:commandButton value="Aprovar"
+				<p:column style="width:80px;">
+					<p:commandButton icon="ui-icon-check"
 						actionListener="#{growlView.showMessage}"
 						action="#{aprovacoes.aprovar}" ajax="false" immediate="true">
 						<f:setPropertyActionListener value="#{item}"
@@ -43,9 +43,7 @@
 						<f:setPropertyActionListener value="Aprovado"
 							target="#{aprovacoes.solicitacao.status}" />
 					</p:commandButton>
-				</p:column>
-				<p:column>
-					<p:commandButton value="Não aprovar" onclick="PF('dlg1').show();"
+					<p:commandButton icon="ui-icon-closethick" onclick="PF('dlg1').show();"
 						update=":form:popUp" process="@this">
 						<f:setPropertyActionListener value="#{item}"
 							target="#{aprovacoes.solicitacao}" />

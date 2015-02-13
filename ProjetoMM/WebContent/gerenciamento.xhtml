@@ -74,12 +74,6 @@ function voltar(){
 								<f:selectItems value="#{usuarioMB.departamento}" var="p"
 									itemValue="#{p.id}" itemLabel="#{p.nome}" />
 							</p:selectOneMenu>
-							<p:selectOneMenu id="status2"
-								value="#{usuarioMB.usuarioEditado.status}" style="width:125px"
-								required="true" requiredMessage="Selessione o tipo de permissão">
-								<f:selectItem itemLabel="-- Selecione --" noSelectionOption="true" />
-								<f:selectItem itemValue="Ativo" itemLabel="Ativo" />
-							</p:selectOneMenu>
 							<p:commandButton value="Atualizar" action="#{usuarioMB.editar()}"
 								ajax="false" />
 							<a href="#" onclick="voltar()">Voltar</a>
@@ -131,7 +125,6 @@ function voltar(){
 								<f:selectItems value="#{usuarioMB.departamento}" var="p"
 									itemValue="#{p.id}" itemLabel="#{p.nome}" />
 							</p:selectOneMenu>
-							
 
 							<p:commandButton value="Cadastrar" action="#{usuarioMB.gravar}"
 								ajax="false" actionListener="#{growlView.msgAdiciona()}"
@@ -145,7 +138,7 @@ function voltar(){
 		<br />
 		<h:form >
 			<p:dataTable var="item" value="#{usuarioMB.solicitacaoList}" paginator="true" emptyMessage="Nenhum resultado encontrado" 
-			rows="10">
+			rows="10" >
 			    <f:facet name="header">
 			        Lista de Usuários
 			    </f:facet>
@@ -160,6 +153,14 @@ function voltar(){
 			 
 			    <p:column filterBy="#{item.nome}" headerText="Nome" filterMatchMode="contains">
 			        <h:outputText value="#{item.nome}" />
+			    </p:column>
+			    
+			    <p:column filterBy="#{item.departamento.nome}" headerText="Departamento" filterMatchMode="contains">
+			        <h:outputText value="#{item.departamento.nome}" />
+			    </p:column>
+			    
+			    <p:column filterBy="#{item.status}" headerText="Status" filterMatchMode="contains">
+			        <h:outputText value="#{item.status}" />
 			    </p:column>
 			 
 			    <p:column style="width:80px">
