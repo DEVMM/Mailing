@@ -3,26 +3,26 @@ package br.com.grupomm.mailing.model.bo;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.mail.EmailException;
+
 import br.com.grupomm.mailing.controller.MM;
-import br.com.grupomm.mailing.dao.AnuariosDAO;
 import br.com.grupomm.mailing.dao.MMDAO;
 import br.com.grupomm.mailing.message.GrowlView;
 import br.com.grupomm.mailing.model.entity.Solicitacao;
 import br.com.grupomm.mailing.model.enuns.Area;
-import br.com.grupomm.mailing.model.enuns.AreaAnuarios;
 import br.com.grupomm.mailing.model.enuns.Estados;
 import br.com.grupomm.mailing.model.enuns.Nivel;
-import br.com.grupomm.mailing.model.enuns.NivelAnuarios;
 import br.com.grupomm.mailing.model.enuns.Porte;
 import br.com.grupomm.mailing.model.enuns.RamoAtividade;
-import br.com.grupomm.mailing.model.enuns.RamoAtividadeAnuarios;
 import br.com.grupomm.mailing.model.enuns.Sexo;
+import br.com.grupomm.mailing.util.Util;
 
 public class MmBO {
 	
 	MM mm = new MM();
-	
-	public String gerar(List<String> valida, Solicitacao quantidade){
+
+
+	public String gerar(List<String> valida, Solicitacao solicitacao){
 		List<String> ckEstados = new ArrayList<String>();
 		List<Integer> ckNivel= new ArrayList<Integer>();
 		List<Integer> ckRamoAtividade = new ArrayList<Integer>();
@@ -69,16 +69,44 @@ public class MmBO {
 				if(v.equals(chkBox)){
 					ckSexo.add(s.toString());
 				}
-			}
-			
-
-			
+			}			
 		}	
 
-		MMDAO mmDAO = new MMDAO();
-		mmDAO.gerarSolicitacao(gerarSolicitacao(ckEstados, ckRamoAtividade, ckNivel, ckPorte, ckArea, ckSexo),quantidade);
+		EnviaEmail enviaEmail = new EnviaEmail();
+
+		String msgUsr="<html>\n "
+				+ "<body>\n  "
+				+ "<h1>Solicitação gerada com sucesso!</h1>\n "
+				+ "<br/>\n"
+				+ " Numero: "+solicitacao.getId()+""
+				+ "<p>descricao: "+solicitacao.getDescricao()+"</p>"
+				+ "<br/> \n  <a>www.meioemensagem.com.br/mailing/n</a>\n"
+				+ " </body> \n "
+				+ "</html> \n";
+
+		String msgAdm="<html>\n "
+				+ "<body>\n  "
+				+ "<h1>foi gerado uma nova solicitação</h1>\n "
+				+ "<br/><br/>\n"
+				+ " Numero: "+solicitacao.getId()+""
+				+ "<p>descricao: "+solicitacao.getDescricao()+"</p>"
+				+ "<p>solicitante: "+Util.getEmail()+"</p>"
+				+ "<br/> \n  <a>www.meioemensagem.com.br/mailing/n</a>\n"
+				+ " </body> \n "
+				+ "</html> \n";
+
+		try {
+			enviaEmail.enviarEmailSolicitante(Util.getEmail(),msgUsr, solicitacao);
+			enviaEmail.enviarEmailAdm(msgAdm, solicitacao);
+		} catch (EmailException e) {
+			e.printStackTrace();
+		}
 		GrowlView.msgRelatorio();
-		return "";	
+
+		MMDAO mmDAO = new MMDAO();
+		mmDAO.gerarSolicitacao(gerarSolicitacao(ckEstados, ckRamoAtividade, ckNivel, ckPorte, ckArea, ckSexo),solicitacao);
+		GrowlView.msgRelatorio();
+		return "index";	
 	}
 
 	public  String gerarRelatorio(List<String> valida){
@@ -144,7 +172,6 @@ public class MmBO {
 			return "index";
 		}	
 	}
-	
 	public String gerarSolicitacao(List<String> estados, List<Integer> ckRamoAtividade, List<Integer>ckNivel, List<Integer> idPorte, List<Integer> idArea, List<String> ckSexo){
 
 		String pEstados = estados.toString().replace("[", "'").replace(",", "','").replace("]", "'").replace(" ", "");
@@ -211,20 +238,21 @@ public class MmBO {
 						+ " order by cb.nivel";
 	
 
+
 		System.out.println("chamado o gerarSolicitação");
 		return query;
 	}
-	
+
 	public String Valida(List<String> valida){
 
-		
-		
+
+
 		List<String> ckEstados = new ArrayList<String>();
-		  List<Integer> ckNivel= new ArrayList<Integer>();
-		  List<Integer> ckRamoAtividade = new ArrayList<Integer>();
-		  List<Integer> ckArea = new ArrayList<Integer>();
-		  List<Integer> ckPorte= new ArrayList<Integer>();
-		  List<String> ckSexo= new ArrayList<String>();
+		List<Integer> ckNivel= new ArrayList<Integer>();
+		List<Integer> ckRamoAtividade = new ArrayList<Integer>();
+		List<Integer> ckArea = new ArrayList<Integer>();
+		List<Integer> ckPorte= new ArrayList<Integer>();
+		List<String> ckSexo= new ArrayList<String>();
 
 		for(String v : valida){
 			for(Estados s : mm.getEstados()){
@@ -276,9 +304,6 @@ public class MmBO {
 		if(this.count(ckEstados, ckRamoAtividade, ckNivel, ckPorte, ckArea, ckSexo).toString().equals("0")){
 			GrowlView.nulo();
 			//System.out.println("e zerooooooooooo"+this.count(ckEstados, ckRamoAtividade, ckNivel, ckPorte, ckArea, ckSexo).toString());
-			
-			
-			
 			return null;
 		}
 		else{
@@ -286,7 +311,6 @@ public class MmBO {
 		}
 
 	}
-	
 	public Object count(List<String> estados, List<Integer> ckRamoAtividade, List<Integer>ckNivel, List<Integer> idPorte, List<Integer> idArea, List<String> ckSexo){
 
 
@@ -296,10 +320,6 @@ public class MmBO {
 		String pIdPorte = idPorte.toString().replace("[","").replace("]", "");
 		String pIdArea  = idArea.toString().replace("[","").replace("]", "");  
 		String pSexo = ckSexo.toString().replace("[", "'").replace(",", "','").replace("]", "'").replace(" ", "");
-
-
-		
-		
 		String query = "select count(*) FROM "
 				+ "CAD_MMNETWORK CA "
 				+ "INNER JOIN CAD_MMNETWORK_DADOS CB"
@@ -312,8 +332,6 @@ public class MmBO {
 				+ " AND CA.CAD_ATIVO = 'S' "
 				+ "AND CB.sexo in ("+pSexo+")";
 
-	
-		
 		MMDAO mm = new MMDAO();
 
 		return mm.count(query);

@@ -36,6 +36,16 @@ public class Util {
 		else
 			return "sem permissao";
 	}
+	
+	public static String getEmail()
+	{
+		HttpSession session = getSession();
+		if ( session != null ){
+			return  (String) session.getAttribute("email");
+		}
+		return "";	
+			
+	}
 
 	public static Integer getUserId()
 	{

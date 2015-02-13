@@ -3,7 +3,7 @@ package br.com.grupomm.mailing.model.bo;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.poi.hssf.util.HSSFColor.GOLD;
+import org.apache.commons.mail.EmailException;
 
 import br.com.grupomm.mailing.controller.Anuarios;
 import br.com.grupomm.mailing.dao.AnuariosDAO;
@@ -14,12 +14,13 @@ import br.com.grupomm.mailing.model.enuns.Estados;
 import br.com.grupomm.mailing.model.enuns.NivelAnuarios;
 import br.com.grupomm.mailing.model.enuns.Porte;
 import br.com.grupomm.mailing.model.enuns.RamoAtividadeAnuarios;
+import br.com.grupomm.mailing.util.Util;
 
 public class AnuariosBO {
 
 	Anuarios anuarios = new Anuarios();	
 
-	public String gerar(List<String> valida, Solicitacao quantidade){
+	public String gerar(List<String> valida, Solicitacao solicitacao){
 		List<String> ckEstados = new ArrayList<String>();
 		List<Integer> ckNivel= new ArrayList<Integer>();
 		List<String> ckRamoAtividade = new ArrayList<String>();
@@ -60,13 +61,43 @@ public class AnuariosBO {
 		}	
 
 		AnuariosDAO anuariosDAO = new AnuariosDAO();
-		anuariosDAO.gerarSolicitacao(gerarSolicitacao(ckEstados, ckRamoAtividade, ckNivel, ckPorte, ckArea),quantidade);
+
+		anuariosDAO.gerarSolicitacao(gerarSolicitacao(ckEstados, ckRamoAtividade, ckNivel, ckPorte, ckArea),solicitacao);
+		
+		EnviaEmail enviaEmail = new EnviaEmail();
+		
+		String msgUsr="<html>\n "
+				+ "<body>\n  "
+				+ "<h1>Solicitação gerada com sucesso!</h1>\n "
+				+ "<br/>\n"
+				+ " Numero: "+solicitacao.getId()+""
+				+ "<p>descricao: "+solicitacao.getDescricao()+"</p>"
+				+ "<br/> \n  <a>www.meioemensagem.com.br/mailing</a>\n"
+				+ " </body> \n "
+				+ "</html> \n";
+		
+		String msgAdm="<html>\n "
+				+ "<body>\n  "
+				+ "<h1>Gerado uma nova solicitação</h1>\n "
+				+ "<br/>\n"
+				+ " Numero: "+solicitacao.getId()+""
+				+ "<p>descricao: "+solicitacao.getDescricao()+"</p>"
+				+ "<p>solicitante: "+Util.getEmail()+"</p>"
+				+ "<br/> \n<a>www.meioemensagem.com.br/mailing</a>\n"
+				+ " </body> \n "
+				+ "</html> \n";
+		
+		try {
+			enviaEmail.enviarEmailSolicitante(Util.getEmail(),msgUsr, solicitacao);
+			enviaEmail.enviarEmailAdm(msgAdm, solicitacao);
+		} catch (EmailException e) {
+			e.printStackTrace();
+		}
 		GrowlView.msgRelatorio();
-		return "";	
+		return "index";	
 	}
 
 	public String Valida(List<String> valida){
-
 
 
 		List<String> ckEstados = new ArrayList<String>();
@@ -108,8 +139,6 @@ public class AnuariosBO {
 			}
 		}	
 
-		//		AnuariosDAO anuariosDAO = new AnuariosDAO();
-		//		 String query =gerarSolicitacao(ckEstados, ckRamoAtividade, ckNivel, ckPorte, ckArea);
 
 		if(ckEstados.isEmpty() || ckArea.isEmpty() || ckNivel.isEmpty() || ckPorte.isEmpty() || ckRamoAtividade.isEmpty()){
 			System.out.println("e vazio");
@@ -118,7 +147,7 @@ public class AnuariosBO {
 		}
 		if(this.count(ckEstados, ckRamoAtividade, ckNivel, ckPorte, ckArea).toString().equals("0")){
 			GrowlView.nulo();
-			System.out.println("e zerooooooooooo");
+
 			return null;
 		}
 		else{
@@ -169,7 +198,6 @@ public class AnuariosBO {
 		String pIdPorte = idPorte.toString().replace("[","").replace("]", "");
 		String pIdArea  = idArea.toString().replace("[","").replace("]", "");
 
-
 		String query = "SELECT Count(*)" 
 				+ "FROM EMPRESA EMP "
 				+ "INNER JOIN EMPRESATIPOEMPRESA ETE ON ETE.CNPJ = EMP.CNPJ "
@@ -188,7 +216,6 @@ public class AnuariosBO {
 				+ "AND AA.IDAREA IN("+pIdArea+")";
 
 		AnuariosDAO anuarios = new AnuariosDAO();
-   
 
 		return anuarios.count(query);
 	}

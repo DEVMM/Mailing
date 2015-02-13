@@ -1,6 +1,9 @@
 package br.com.grupomm.mailing.controller;
 
 import java.io.Serializable;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -21,7 +24,13 @@ public class LoginMB implements Serializable {
 	Usuario usr = new Usuario();
 	String nome;
 
-	public String loginProject() {
+	public String loginProject() throws NoSuchAlgorithmException {
+		
+		String s = this.usr.getSenha();
+		MessageDigest m=MessageDigest.getInstance("MD5");
+		m.update(s.getBytes(),0,s.length());
+		String usuarioCrip=new BigInteger(1,m.digest()).toString(16);
+		usr.setSenha(usuarioCrip.toString());
 		Usuario result = LoginDAO.login(this.usr);
 		if (result!=null) {
 
@@ -29,12 +38,15 @@ public class LoginMB implements Serializable {
 			session.setAttribute("nomeUsuario", result.getLogin());
 			session.setAttribute("idUsuario", result.getId());
 			session.setAttribute("permissao", result.getPermissao().getNomePermissao().toString());
+			session.setAttribute("email", result.getEmail());
 			this.setNome(result.getNome());
-			System.out.println(result.getPermissao().getNomePermissao());
+			System.out.println("usuarioid "+Util.getUserId());
+			LoginDAO.expira();
+			
 			if(result.getPermissao().getNomePermissao().equalsIgnoreCase("Aprovador")){
-				return "aprovacoes";
+				return "aprovacoes?faces-redirect=true";
 			}else{
-				return "index";
+				return "index?faces-redirect=true";
 			}
 		} 
 		else {

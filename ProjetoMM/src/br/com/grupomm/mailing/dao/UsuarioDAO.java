@@ -42,19 +42,6 @@ public class UsuarioDAO {
 		{
 			GrowlView.validaLogin();
 		}
-
-		//		try {
-		//			result= query.getSingleResult();
-		//			GrowlView.validaLogin();
-		//		} catch (NoResultException e) {
-		//			em.getTransaction().begin();
-		//			Permissao permissao = new Permissao();
-		//			permissao.setId(idPermissao);
-		//			usuario.setPermissao(permissao);
-		//			em.persist(usuario);
-		//			em.getTransaction().commit();
-		//			em.close();
-		//		} 
 	}
 
 	@SuppressWarnings("unchecked")
@@ -81,6 +68,7 @@ public class UsuarioDAO {
 
 	}
 
+
 	@SuppressWarnings("unchecked")
 	public List<Usuario> listaUsuario(){
 
@@ -90,7 +78,7 @@ public class UsuarioDAO {
 		mysql.close();
 		return list;
 	}
-	
+
 	public Usuario listaBusca(int usuario){
 
 
@@ -128,7 +116,14 @@ public class UsuarioDAO {
 		em.close();
 		System.out.println("call");
 	}
-
+	public List<Usuario> usuarioADM(){
+		EntityManager em = new JPAUtil().getMySql();
+		Query query = em.createQuery("select c from Usuario c where c.permissao.id=1");
+		List<Usuario> list = query.getResultList();
+		em.close();
+		
+		return list;
+	}
 }
 
 

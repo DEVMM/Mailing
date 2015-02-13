@@ -1,5 +1,7 @@
 package br.com.grupomm.mailing.controller;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -36,10 +38,18 @@ public class UsuarioMB {
 		return user.getDepartamento();
 	}
 	
-	public void gravar() {
-		//this.usuario.setPermissao(user.getPermissaoByID(idPermissao));
+	public String gravar() throws Exception{
+	    
+		String s = this.usuario.getSenha();
+		MessageDigest m=MessageDigest.getInstance("MD5");
+		m.update(s.getBytes(),0,s.length());
+		String usuarioCrip=new BigInteger(1,m.digest()).toString(16);
+		usuario.setSenha(usuarioCrip.toString());
+		
 		user.adiciona(this.usuario, this.idPermissao, this.idDepartamento, this.solicitacao);
 		this.usuario = new Usuario();
+		
+		return "gerenciamento";
 	}
 
 	public String inativar() {
@@ -48,7 +58,7 @@ public class UsuarioMB {
 	 return "gerenciamento";
 	}
 
-	public void editar() {
+	public void editar() throws Exception {
 
 		if(idPermissao2!=null){
 			//this.usuarioEditado.setPermissao(user.getPermissaoByID(idPermissao2));
@@ -57,7 +67,6 @@ public class UsuarioMB {
 			usuarioEditado.setPermissao(permissao);
 		}
 		if(idDepartamento2!=null){
-			//this.usuarioEditado.setPermissao(user.getPermissaoByID(idPermissao2));
 			Departamento departamento = new Departamento();
 			departamento.setId(idDepartamento2);
 			usuarioEditado.setDepartamento(departamento);
@@ -65,6 +74,14 @@ public class UsuarioMB {
 		
 		if(usuarioEditado.getSenha().equals("")){
 			usuarioEditado.setSenha(buscaUsuario().getSenha());
+		}
+		if(usuarioEditado.getSenha()!=""){
+			
+			String s = this.usuarioEditado.getSenha();
+			MessageDigest m=MessageDigest.getInstance("MD5");
+			m.update(s.getBytes(),0,s.length());
+			String usuarioCrip=new BigInteger(1,m.digest()).toString(16);
+			usuarioEditado.setSenha(usuarioCrip.toString());
 		}
 		user.editar(usuarioEditado);
 		this.usuarioEditado = new Usuario();
@@ -98,7 +115,6 @@ public class UsuarioMB {
 	public void setIdPermissao2(Integer idPermissao2) {
 		this.idPermissao2 = idPermissao2;
 	}
-	
 	public UsuarioDAO getUser() {
 		return user;
 	}

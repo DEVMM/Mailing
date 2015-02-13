@@ -7,11 +7,7 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ValueChangeEvent;
-import javax.servlet.http.HttpSession;
 
-import br.com.grupomm.mailing.dao.IdUsuarioLogado;
-import br.com.grupomm.mailing.dao.LoginDAO;
-import br.com.grupomm.mailing.model.bo.AnuariosBO;
 import br.com.grupomm.mailing.model.bo.MmBO;
 import br.com.grupomm.mailing.model.entity.Solicitacao;
 import br.com.grupomm.mailing.model.enuns.Area;
@@ -20,7 +16,6 @@ import br.com.grupomm.mailing.model.enuns.Nivel;
 import br.com.grupomm.mailing.model.enuns.Porte;
 import br.com.grupomm.mailing.model.enuns.RamoAtividade;
 import br.com.grupomm.mailing.model.enuns.Sexo;
-import br.com.grupomm.mailing.util.Util;
 
 @ManagedBean
 @ViewScoped
