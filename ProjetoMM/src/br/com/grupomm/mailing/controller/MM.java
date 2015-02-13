@@ -35,7 +35,7 @@ public class MM {
 	}
 	
 	public String gerarRelatorio(){
-		System.out.println("TEste");
+		System.out.println("relatorio "+this.getSolicitacao().getId());
 		MmBO mmBO = new MmBO();
 		mmBO.gerar(valida, this.getSolicitacao());
 		return "index";

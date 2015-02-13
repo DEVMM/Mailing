@@ -71,7 +71,8 @@ public class MmBO {
 				}
 			}			
 		}	
-
+		MMDAO mmDAO = new MMDAO();
+		mmDAO.gerarSolicitacao(gerarSolicitacao(ckEstados, ckRamoAtividade, ckNivel, ckPorte, ckArea, ckSexo),solicitacao);
 		EnviaEmail enviaEmail = new EnviaEmail();
 
 		String msgUsr="<html>\n "
@@ -101,10 +102,6 @@ public class MmBO {
 		} catch (EmailException e) {
 			e.printStackTrace();
 		}
-		GrowlView.msgRelatorio();
-
-		MMDAO mmDAO = new MMDAO();
-		mmDAO.gerarSolicitacao(gerarSolicitacao(ckEstados, ckRamoAtividade, ckNivel, ckPorte, ckArea, ckSexo),solicitacao);
 		GrowlView.msgRelatorio();
 		return "index";	
 	}
