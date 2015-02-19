@@ -5,9 +5,11 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import br.com.grupomm.mailing.message.GrowlView;
 import br.com.grupomm.mailing.model.entity.Mapeamento;
 import br.com.grupomm.mailing.model.entity.MapeamentoMM;
 import br.com.grupomm.mailing.model.entity.Solicitacao;
+import br.com.grupomm.mailing.util.BuscaComposite;
 import br.com.grupomm.mailing.util.JPAUtil;
 import br.com.grupomm.mailing.util.Util;
 
@@ -56,5 +58,53 @@ public class IndexDAO {
 		solicitacao.setStatus("Baixado");
 		mysql.getTransaction().commit();
 		mysql.close();
+	}
+	
+	public List<Solicitacao> buscaAvancadaDAO (BuscaComposite busca){
+		System.out.println(busca.toString().length());
+		EntityManager mysql = new JPAUtil().getMySql();
+		StringBuilder sql = new StringBuilder("select s from Solicitacao s where 1 = 1 ");
+		if (busca.toString().length()!= 96){
+			if(busca.getNrSolicitacao() !=null ){
+				sql.append(" and s.id = "+busca.getNrSolicitacao());
+			}
+			
+			if(busca.getDescricao() != null && !busca.getDescricao().isEmpty()){		
+				sql.append(" and s.descricao like '%"+ busca.getDescricao() + "%'");
+			}
+			
+			if(busca.getStatus() != null && !busca.getStatus().isEmpty()){
+				sql.append(" and s.status in "+ busca.getStatus());
+				
+			}
+			
+			if (busca.getTipo() != null && !busca.getTipo().isEmpty()){
+				sql.append(" and s.tipoSolicitacao in "+busca.getTipo());
+			}
+			
+			if (busca.getDataFrom() != null && busca.getDataFor() !=null ){
+				sql.append(" and s.dt between "+busca.getDataFrom() + " and " + busca.getDataFor() +" ");
+			}
+			
+		}else{
+			GrowlView gv = new GrowlView();
+			gv.buscaAlerta();
+		}
+
+		
+			
+		
+		
+		String query = sql.toString().replace("[", "('").replace("]", "')").replace(",", "','");
+		System.out.println(query);
+		
+		Query qr =  mysql.createQuery(query);
+		return qr.getResultList();
+//		
+//		for (Solicitacao solicitacao : list) {
+//			
+//			System.out.println("id da solicitação: " +solicitacao.getId());
+//		}
+	
 	}
 }

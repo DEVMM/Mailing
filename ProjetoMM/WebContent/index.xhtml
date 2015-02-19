@@ -35,37 +35,41 @@ function buscar(){
 		<ui:include src="/WEB-INF/menu.xhtml" />
 
 		<div id="buscaAvancada">
-			
+			<h:form>
 			<h:panelGrid columns="4" cellspacing="10">
-				<p:outputLabel value="Número do Solicitação"/>
+				<p:outputLabel value="Número do Solicitação" for="nrSolicitacao"/>
+				<p:inputText id="nrSolicitacao" value="#{indexMB.busca.nrSolicitacao}" size="2"/>
 				
-				<p:inputText size="2"/>
-				<p:outputLabel value="Descrição"/>
-				<p:inputText size="15"/>
-				<p:outputLabel value="Data"/>
-        		<p:calendar id="popup" />
-        		<p:outputLabel value="Até"/>
-        		<p:calendar id="popup2" />
+				<p:outputLabel value="Descrição" for="descricao"/>
+				<p:inputText id="descricao" value="#{indexMB.busca.descricao}" size="15"/>
 				
-				<p:outputLabel value="Tipo"/>
-		        <p:selectManyCheckbox id="basic" >
-		            <f:selectItem itemLabel="MM Online" itemValue="mm" />
+				<p:outputLabel value="Data" for="dataFrom"/>
+        		<p:calendar id="dataFrom" value="#{indexMB.busca.dataFrom}" />
+
+
+        		<p:outputLabel value="Até" for="dataFor"/>
+        		<p:calendar id="dataFor" value="#{indexMB.busca.dataFor}"/>
+				
+				<p:outputLabel value="Tipo" for="tipo"/>
+		        <p:selectManyCheckbox id="tipo" value="#{indexMB.busca.tipo}">
+		            <f:selectItem itemLabel="MM Online" itemValue="MM-online" />
 		            <f:selectItem itemLabel="Anuários" itemValue="anuarios" />
         		</p:selectManyCheckbox>
         		<p:outputLabel value=""/>
         		<p:outputLabel value=""/>
-        		<p:outputLabel value="Status"/>
-		        <p:selectManyCheckbox id="basic2" >
+        		
+        		<p:outputLabel value="Status" for="status"/>
+		        <p:selectManyCheckbox id="status" value="#{indexMB.busca.status}">
 		            <f:selectItem itemLabel="Aprovado" itemValue="aprovado" />
 		            <f:selectItem itemLabel="Expirado" itemValue="expirado" />
 		            <f:selectItem itemLabel="Baixado" itemValue="baixado" />
         		</p:selectManyCheckbox>
 			</h:panelGrid>
+			
 			<h:panelGrid columns="5">
-		        
-				<p:commandButton value="Procurar"/>
+				<p:commandButton value="Procurar" action="#{indexMB.busca()}" />
         	</h:panelGrid>
-        	
+        	</h:form>
         		
         	<br/>
     		
@@ -130,6 +134,7 @@ function buscar(){
 				
 			</p:dataTable>
 		</h:form>
+
 	</div>
 
 </h:body>

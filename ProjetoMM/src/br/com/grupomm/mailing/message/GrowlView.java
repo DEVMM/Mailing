@@ -12,6 +12,24 @@ public class GrowlView {
 
 		RequestContext.getCurrentInstance().showMessageInDialog(message);
 	}
+	
+	public void data() {
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "A data inicial é maior que a data final");
+
+		RequestContext.getCurrentInstance().showMessageInDialog(message);
+	}
+	
+	public void dataAlerta() {
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Preencha as 2 datas");
+
+		RequestContext.getCurrentInstance().showMessageInDialog(message);
+	}
+
+	public void buscaAlerta() {
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Preencha pelo menos um campo");
+
+		RequestContext.getCurrentInstance().showMessageInDialog(message);
+	}
 
 	public void msgAdiciona() {
 		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuário", "Adicionado com sucesso");
