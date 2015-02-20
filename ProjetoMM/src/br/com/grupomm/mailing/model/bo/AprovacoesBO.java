@@ -1,9 +1,11 @@
 package br.com.grupomm.mailing.model.bo;
 
 import org.apache.commons.mail.EmailException;
+
 import br.com.grupomm.mailing.dao.AprovacaoDAO;
 import br.com.grupomm.mailing.message.GrowlView;
 import br.com.grupomm.mailing.model.entity.Solicitacao;
+import br.com.grupomm.mailing.model.enuns.StatusSolicitacao;
 import br.com.grupomm.mailing.util.Util;
 
 public class AprovacoesBO {
@@ -12,7 +14,7 @@ public class AprovacoesBO {
 		AprovacaoDAO aprovacaoDAO = new AprovacaoDAO();
 		EnviaEmail enviaEmail = new EnviaEmail();
 
-		if(solicitacao.getStatus().equalsIgnoreCase("Reprovado")){
+		if(solicitacao.getStatus().equals(StatusSolicitacao.Reprovado)){
 
 			String msgUsr="<html>\n "
 					+ "<body>\n  "

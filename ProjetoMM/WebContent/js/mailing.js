@@ -7,13 +7,13 @@ $(window).load(function() {
 
 })
 
-function lonading(){
+function loading(){
 	
 	$(".loader").fadeIn("slow");
 }
 
 function fechar(){
-	alert("fechar");
+
 	$(".loader").fadeOut("slow");
-	console.log("teste")
+	console.log("teste");
 }

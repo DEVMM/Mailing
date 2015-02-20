@@ -2,11 +2,13 @@ package br.com.grupomm.mailing.controller;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.util.List;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
+import org.apache.poi.hssf.util.HSSFColor.GOLD;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -16,7 +18,9 @@ import br.com.grupomm.mailing.message.GrowlView;
 import br.com.grupomm.mailing.model.entity.Mapeamento;
 import br.com.grupomm.mailing.model.entity.MapeamentoMM;
 
-public class GerarRelatorios {
+public class GerarRelatorios implements Serializable {
+
+	private static final long serialVersionUID = 1278883447919574365L;
 
 	public void excelAnuarios(int ids) throws IOException{          
 		FacesContext fc = FacesContext.getCurrentInstance();
@@ -73,14 +77,15 @@ public class GerarRelatorios {
 		ec.responseReset();         
 		ec.setResponseContentType("text/xlsx");
 		ec.setResponseHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");     
-
+        
 		workbook.write(ec.getResponseOutputStream());  
+		 
 		out.flush();
 		out.close();
 		fc.responseComplete();
 	}
 
-	public void excelMM(int ids) throws IOException{          
+	public boolean excelMM(int ids) throws IOException{          
 
 		FacesContext fc = FacesContext.getCurrentInstance();
 		ExternalContext ec = fc.getExternalContext();       
@@ -129,12 +134,24 @@ public class GerarRelatorios {
 		ec.responseReset();         
 		ec.setResponseContentType("text/xlsx");
 		ec.setResponseHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");     
-
-		workbook.write(ec.getResponseOutputStream());  
-		out.flush();
-		out.close();
-		fc.responseComplete();
-
+		
+		
+		
+		
+//		workbook.write(ec.getResponseOutputStream());  
+		
+//		out.flush();
+//		out.close();
+//		while(fc.isProcessingEvents()==true){
+//			ec.redirect("index.xhtml");
+//			break;
+//		}
+//		fc.responseComplete();
+		if(fc.isProcessingEvents()==true){
+			
+			System.out.println("sadfasdfas");
+		}
+		return fc.isProcessingEvents();
 	}
 }
 

@@ -1,5 +1,6 @@
 package br.com.grupomm.mailing.controller;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -18,8 +19,10 @@ import br.com.grupomm.mailing.model.enuns.RamoAtividadeAnuarios;
 
 @ManagedBean
 @ViewScoped
-public class Anuarios {
-
+public class Anuarios implements Serializable{
+	
+	private static final long serialVersionUID = 615820039331995591L;
+	
 	private List<String> valida = new ArrayList<String>();
 	Solicitacao solicitacao = new Solicitacao();
 

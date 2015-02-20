@@ -5,10 +5,6 @@
 	xmlns:p="http://primefaces.org/ui">
 	<h:head>
 		<link type="text/css" rel="stylesheet" href="estilo.css" />
-		<meta content="no-cache" http-equiv="Pragma"></meta>
-		<meta content="no-cache, no-store, must-revalidate"
-			http-equiv="Cache-Control"></meta>
-		<meta content="0" http-equiv="Expires"></meta>
 	</h:head>
 	<h:form>
 		<p:growl id="messages" />
@@ -19,11 +15,10 @@
 			</p:submenu>
 			<p:menuitem value="Home" url="index.xhtml" icon="ui-icon-home" />
 			<p:menuitem value="Solicitações" url="aprovacoes.xhtml"
-				rendered="#{util.permissao=='Aprovador'}" icon="ui-icon-alert" />
+				rendered="#{util.permissao eq 'Administrador'}" icon="ui-icon-alert" />
 			<p:menuitem value="Gerenciamento de Usuários"
-				url="gerenciamento.xhtml" rendered="#{util.permissao=='Aprovador'}"
+				url="gerenciamento.xhtml" rendered="#{util.permissao eq 'Administrador'}"
 				icon="ui-icon-person" />
-
 			<f:facet name="options">
 				<p:commandButton action="#{loginMB.logout}" value="Logout"
 					ajax="false"></p:commandButton>

@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import br.com.grupomm.mailing.dao.LoginDAO;
+import br.com.grupomm.mailing.model.enuns.TipoPermissao;
 import br.com.grupomm.mailing.util.Util;
 
 
@@ -28,19 +29,14 @@ public class Aprovacoes implements Filter {
 
 		HttpServletRequest req = (HttpServletRequest) request ;
 		HttpSession session = req.getSession();
-//		String usr = null;
-//		String permissao =null;
-
 		if(session.getAttribute("nomeUsuario") == null){
 			HttpServletResponse res=(HttpServletResponse) response;
 			res.sendRedirect("login.xhtml");
 		}
-               
+
 		if ( session.getAttribute("nomeUsuario") != null ){
-			//usr = session.getAttribute("nomeUsuario").toString();
-			
-                
-			if(session.getAttribute("permissao").equals("Usuario")){
+
+			if(!session.getAttribute("permissao").toString().equals(TipoPermissao.Administrador.toString())){
 				RequestDispatcher dd = request.getRequestDispatcher("negado.xhtml");
 				dd.forward(request, response);
 			}

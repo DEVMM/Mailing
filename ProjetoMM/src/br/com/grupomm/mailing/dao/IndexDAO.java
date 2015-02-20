@@ -1,5 +1,6 @@
 package br.com.grupomm.mailing.dao;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -8,10 +9,14 @@ import javax.persistence.Query;
 import br.com.grupomm.mailing.model.entity.Mapeamento;
 import br.com.grupomm.mailing.model.entity.MapeamentoMM;
 import br.com.grupomm.mailing.model.entity.Solicitacao;
+import br.com.grupomm.mailing.model.enuns.StatusSolicitacao;
 import br.com.grupomm.mailing.util.JPAUtil;
 import br.com.grupomm.mailing.util.Util;
 
-public class IndexDAO {
+public class IndexDAO  implements Serializable{
+
+
+	private static final long serialVersionUID = 6913275428350159148L;
 
 	@SuppressWarnings("unchecked")
 	public  List<Solicitacao> listaAprovados(/*String usuario*/){
@@ -53,7 +58,7 @@ public class IndexDAO {
 		EntityManager mysql = new JPAUtil().getMySql();
 		mysql.getTransaction().begin();
 		Solicitacao solicitacao = mysql.find(Solicitacao.class, id);
-		solicitacao.setStatus("Baixado");
+		solicitacao.setStatus(StatusSolicitacao.Baixando);
 		mysql.getTransaction().commit();
 		mysql.close();
 	}

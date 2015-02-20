@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Calendar;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -12,35 +14,38 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Type;
 
+import br.com.grupomm.mailing.model.enuns.StatusSolicitacao;
+
 @Entity
 public class Solicitacao implements Serializable{
-	
+
 	private static final long serialVersionUID = -1340155712400685744L;
 	@Id @GeneratedValue
-	   Integer id;
-	   String status;
-	   @Type(type="text")
-	   String query;
-	  String quantidade;
-	  String descricao;
-	   @Temporal(TemporalType.DATE)
-	   Calendar dt;
-	   @ManyToOne
-	   Usuario usuario;
-	   String tipoSolicitacao;
-	   
-	   
+	private Integer id;
+	@Enumerated(EnumType.STRING)   
+	private StatusSolicitacao status;
+	@Type(type="text")
+	private String query;
+	private String quantidade;
+	private String descricao;
+	@Temporal(TemporalType.DATE)
+	private Calendar dt;
+	@ManyToOne
+	private Usuario usuario;
+	private String tipoSolicitacao;
+
+
 	public Integer getId() {
 		return id;
 	}
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
-	public String getStatus() {
+
+	public StatusSolicitacao getStatus() {
 		return status;
 	}
-	public void setStatus(String status) {
+	public void setStatus(StatusSolicitacao status) {
 		this.status = status;
 	}
 	public String getQuery() {
@@ -52,7 +57,7 @@ public class Solicitacao implements Serializable{
 	public String aguardando() {
 		return quantidade;
 	}
-	
+
 	public Usuario getUsuario() {
 		return usuario;
 	}

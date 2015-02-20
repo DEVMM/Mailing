@@ -1,5 +1,6 @@
 package br.com.grupomm.mailing.controller;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.util.List;
@@ -15,8 +16,10 @@ import br.com.grupomm.mailing.model.entity.Usuario;
 
 @ManagedBean
 @ViewScoped
-public class UsuarioMB {
+public class UsuarioMB implements Serializable {
 
+	private static final long serialVersionUID = -2391669188062022157L;
+	
 	private Usuario usuario = new Usuario();
 	private String solicitacao = new String();
 	private Usuario usuarioEditado = new Usuario();
