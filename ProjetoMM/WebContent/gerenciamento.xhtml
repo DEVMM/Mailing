@@ -138,9 +138,9 @@ function voltar(){
 		</p:tabView>
 		<div>
 		<br />
-		<h:form >
+		<h:form>
 			<p:dataTable var="item" value="#{usuarioMB.solicitacaoList}" paginator="true" emptyMessage="Nenhum resultado encontrado" 
-			rows="10" >
+			rows="10" id="lista" >
 			    <f:facet name="header">
 			        Lista de Usuários
 			    </f:facet>
@@ -172,16 +172,16 @@ function voltar(){
 						<f:ajax execute="@this" render=":table:formEdit" ></f:ajax>		
 							
 						</p:commandButton>
-						</p:column>
+				</p:column>
 					<br />	
 					<p:column style="width:35px">
 					
-					<p:commandButton id="inativar" action="#{usuarioMB.inativar()}" icon="ui-icon-closethick" actionListener="#{growlView.usarioExcluido()}" rendered="#{item.status!='Inativo'}" >
+					<p:commandButton id="inativar" action="#{usuarioMB.inativar()}" icon="ui-icon-notice" actionListener="#{growlView.usarioExcluido()}" rendered="#{item.status!='Inativo'}" update="lista">
 					<p:tooltip id="toolTipFade" for="inativar" value="Inativar Usuário" />
 					<f:setPropertyActionListener value="#{item.id}" target="#{usuarioMB.usuarioBusca}" />								
 					</p:commandButton>
 					
-					<p:commandButton id="ativar" action="#{usuarioMB.ativar()}" icon="ui-icon-circle-check" actionListener="#{growlView.usarioAtivo()}" rendered="#{item.status!='Ativo'}">
+					<p:commandButton id="ativar" action="#{usuarioMB.ativar()}" icon="ui-icon-circle-check" actionListener="#{growlView.usarioAtivo()}" rendered="#{item.status!='Ativo'}" update="lista">
 					<p:tooltip id="toolTipFadeAtivar" for="ativar" value="Ativar Usuário" />
 					<f:setPropertyActionListener value="#{item.id}" target="#{usuarioMB.usuarioBusca}" />
 					</p:commandButton>

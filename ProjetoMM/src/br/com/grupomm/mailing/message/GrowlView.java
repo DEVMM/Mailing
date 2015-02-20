@@ -20,13 +20,13 @@ public class GrowlView {
 	}
 	
 	public void dataAlerta() {
-		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Preencha as 2 datas");
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Preencha as duas datas");
 
 		RequestContext.getCurrentInstance().showMessageInDialog(message);
 	}
 
 	public void buscaAlerta() {
-		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Preencha pelo menos um campo");
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Preencha pelo menos um campo para fazer a pesquisa");
 
 		RequestContext.getCurrentInstance().showMessageInDialog(message);
 	}

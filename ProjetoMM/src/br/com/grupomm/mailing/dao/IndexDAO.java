@@ -99,6 +99,7 @@ public class IndexDAO {
 		System.out.println(query);
 		
 		Query qr =  mysql.createQuery(query);
+		
 		return qr.getResultList();
 //		
 //		for (Solicitacao solicitacao : list) {

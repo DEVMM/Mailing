@@ -38,7 +38,8 @@ function buscar(){
 			<h:form>
 			<h:panelGrid columns="4" cellspacing="10">
 				<p:outputLabel value="Número do Solicitação" for="nrSolicitacao"/>
-				<p:inputText id="nrSolicitacao" value="#{indexMB.busca.nrSolicitacao}" size="2"/>
+				<p:inputText id="nrSolicitacao" value="#{indexMB.busca.nrSolicitacao}" size="2" />
+				
 				
 				<p:outputLabel value="Descrição" for="descricao"/>
 				<p:inputText id="descricao" value="#{indexMB.busca.descricao}" size="15"/>
@@ -67,28 +68,25 @@ function buscar(){
 			</h:panelGrid>
 			
 			<h:panelGrid columns="5">
-				<p:commandButton value="Procurar" action="#{indexMB.busca()}" />
+				<p:commandButton value="Procurar" action="#{indexMB.busca()}" update=":myDataTable" ajax="false"/>
         	</h:panelGrid>
         	</h:form>
         		
         	<br/>
-    		
-			
-			
-			
+		
 		</div>
 
 		<h:form id="formulario" method="get" >
 			<p:growl id="msgs" showDetail="true"/>
-			<p:dataTable value="#{indexMB.provacoesList}" id="myDataTable" 
+			<p:dataTable value="#{indexMB.provacoesList}" id="myDataTable"  
 				var="item" paginator="true" rows="10"
 				emptyMessage="Você não tem solicitacões para serem baixadas">
+				
 				<f:facet name="header">
 			        Busca Avançada
 			        <p:commandButton onclick="buscar()" icon="ui-icon-search"  />
 			    </f:facet>
 			 
-
 				<p:column headerText="Numero da Solicitação"
 					style="width:10%; margin:auto; text-align: center;">
 					<h:outputText value="#{item.id}" />
