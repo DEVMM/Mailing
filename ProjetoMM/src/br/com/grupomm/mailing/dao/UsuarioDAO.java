@@ -20,7 +20,7 @@ public class UsuarioDAO {
 		EntityManager em = new JPAUtil().getMySql();
 
 		Query query = null;
-		query = em.createQuery("select u from Usuario u where u.nome=:pUsuario").setParameter("pUsuario", usuario.getLogin());
+		query = em.createQuery("select u from Usuario u where u.login=:pUsuario").setParameter("pUsuario", usuario.getLogin());
 
 		Object result = null;
 
@@ -42,8 +42,7 @@ public class UsuarioDAO {
 		}
 		else
 		{
-			GrowlView.validaLogin();
-		}
+			GrowlView.erro("Erro", "Usuario ja cadastrado");		}
 	}
 
 	@SuppressWarnings("unchecked")
@@ -117,10 +116,17 @@ public class UsuarioDAO {
 		em.getTransaction().commit();
 		em.close();
 		System.out.println("call");
-		
+
 		return "gerenciamento";
 	}
-	
+	public List<Usuario> usuarioADM(){
+		EntityManager em = new JPAUtil().getMySql();
+		Query query = em.createQuery("select c from Usuario c where c.permissao.id=1");
+		List<Usuario> list = query.getResultList();
+		em.close();
+
+		return list;
+	}
 	public String ativarUsuario(int usuario){
 
 		EntityManager em = new JPAUtil().getMySql();
@@ -131,17 +137,8 @@ public class UsuarioDAO {
 		em.getTransaction().commit();
 		em.close();
 		System.out.println("call");
-		
+
 		return "gerenciamento";
-	}
-	
-	public List<Usuario> usuarioADM(){
-		EntityManager em = new JPAUtil().getMySql();
-		Query query = em.createQuery("select c from Usuario c where c.permissao.id=1");
-		List<Usuario> list = query.getResultList();
-		em.close();
-		
-		return list;
 	}
 }
 

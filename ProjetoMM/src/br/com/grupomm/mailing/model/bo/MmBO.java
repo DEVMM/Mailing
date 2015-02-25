@@ -18,7 +18,7 @@ import br.com.grupomm.mailing.model.enuns.Sexo;
 import br.com.grupomm.mailing.util.Util;
 
 public class MmBO {
-	
+
 	MM mm = new MM();
 
 
@@ -72,7 +72,13 @@ public class MmBO {
 			}			
 		}	
 		MMDAO mmDAO = new MMDAO();
-		mmDAO.gerarSolicitacao(gerarSolicitacao(ckEstados, ckRamoAtividade, ckNivel, ckPorte, ckArea, ckSexo),solicitacao);
+
+		try {
+			mmDAO.gerarSolicitacao(gerarSolicitacao(ckEstados, ckRamoAtividade, ckNivel, ckPorte, ckArea, ckSexo),solicitacao);
+		} catch (Exception e) {
+			GrowlView.erro("Erro","Tente Novamente");
+		}
+
 		EnviaEmail enviaEmail = new EnviaEmail();
 
 		String msgUsr="<html>\n "
@@ -102,7 +108,7 @@ public class MmBO {
 		} catch (EmailException e) {
 			e.printStackTrace();
 		}
-		GrowlView.msgRelatorio();
+		GrowlView.showMessage("Relatório Gerado com sucesso!", "Aguarde a aprovação");
 		return "index";	
 	}
 
@@ -160,12 +166,12 @@ public class MmBO {
 		}	
 
 		if(ckEstados.isEmpty() || ckArea.isEmpty() || ckNivel.isEmpty() || ckPorte.isEmpty() || ckRamoAtividade.isEmpty() || ckSexo.isEmpty()){
-			GrowlView.msgValidaCheckBox();
+			GrowlView.showMessage("Falha Ao enviar", "Selecione ao menos um item de cada categoria");
 			return "";
 		}
 		else{
 			gerarSolicitacao(ckEstados, ckNivel, ckRamoAtividade, ckPorte, ckArea, ckSexo);
-			GrowlView.msgRelatorio();
+			GrowlView.showMessage("Relatório Gerado com sucesso!", "Aguarde a aprovação");
 			return "index";
 		}	
 	}
@@ -233,7 +239,7 @@ public class MmBO {
 						+ " AND CA.CAD_ATIVO = 'S'"
 						+ " AND CB.sexo in ("+pSexo+")"
 						+ " order by cb.nivel";
-	
+
 
 
 		System.out.println("chamado o gerarSolicitação");
@@ -290,17 +296,14 @@ public class MmBO {
 			}
 		}	
 
-		//		AnuariosDAO anuariosDAO = new AnuariosDAO();
-		//		 String query =gerarSolicitacao(ckEstados, ckRamoAtividade, ckNivel, ckPorte, ckArea);
-
 		if(ckEstados.isEmpty() || ckArea.isEmpty() || ckNivel.isEmpty() || ckPorte.isEmpty() || ckRamoAtividade.isEmpty() || ckSexo.isEmpty()){
 			System.out.println("e vazio");
-			GrowlView.msgValidaCheckBox();
+			GrowlView.showMessage("Falha Ao enviar", "Selecione ao menos um item de cada categoria");
 			return null;
 		}
 		if(this.count(ckEstados, ckRamoAtividade, ckNivel, ckPorte, ckArea, ckSexo).toString().equals("0")){
-			GrowlView.nulo();
-			//System.out.println("e zerooooooooooo"+this.count(ckEstados, ckRamoAtividade, ckNivel, ckPorte, ckArea, ckSexo).toString());
+			GrowlView.showMessage("Resultado em branco ", "A busca não encontrou resultados");
+
 			return null;
 		}
 		else{
@@ -331,6 +334,13 @@ public class MmBO {
 
 		MMDAO mm = new MMDAO();
 
-		return mm.count(query);
+
+		try {
+			return mm.count(query);
+		} catch (Exception e) {
+			GrowlView.erro("Erro","Tente Novamente");
+			return null;
+		}
+
 	}
 }

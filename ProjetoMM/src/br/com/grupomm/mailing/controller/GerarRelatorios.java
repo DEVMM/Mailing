@@ -2,11 +2,13 @@ package br.com.grupomm.mailing.controller;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.util.List;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
+import org.apache.poi.hssf.util.HSSFColor.GOLD;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -16,7 +18,9 @@ import br.com.grupomm.mailing.message.GrowlView;
 import br.com.grupomm.mailing.model.entity.Mapeamento;
 import br.com.grupomm.mailing.model.entity.MapeamentoMM;
 
-public class GerarRelatorios {
+public class GerarRelatorios implements Serializable {
+
+	private static final long serialVersionUID = 1278883447919574365L;
 
 	public void excelAnuarios(int ids) throws IOException{          
 		FacesContext fc = FacesContext.getCurrentInstance();
@@ -75,16 +79,16 @@ public class GerarRelatorios {
 		ec.setResponseHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");     
 
 		workbook.write(ec.getResponseOutputStream());  
+
 		out.flush();
 		out.close();
 		fc.responseComplete();
 	}
 
-	public void excelMM(int ids) throws IOException{          
+	public boolean excelMM(int ids) throws IOException{          
 
 		FacesContext fc = FacesContext.getCurrentInstance();
 		ExternalContext ec = fc.getExternalContext();       
-		OutputStream out = ec.getResponseOutputStream();
 		String filename = "Mailing-mm.xlsx";
 
 		XSSFWorkbook workbook = new XSSFWorkbook(); 
@@ -130,11 +134,9 @@ public class GerarRelatorios {
 		ec.setResponseContentType("text/xlsx");
 		ec.setResponseHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");     
 
-		workbook.write(ec.getResponseOutputStream());  
-		out.flush();
-		out.close();
-		fc.responseComplete();
 
+		fc.responseComplete();
+		return fc.isProcessingEvents();
 	}
 }
 

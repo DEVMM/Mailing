@@ -7,8 +7,6 @@ import org.primefaces.context.RequestContext;
 @ManagedBean(name = "growlView")
 public class GrowlView {
 
-	
-	
 	public void showMessage() {
 		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aprovação", "Realizada com sucesso");
 
@@ -64,7 +62,9 @@ public class GrowlView {
 	}
 	
 	public static String usarioAtivo() {
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuário", "Ativado");
 
+		RequestContext.getCurrentInstance().showMessageInDialog(message);
 		
 		return "gerenciamento";
 	}

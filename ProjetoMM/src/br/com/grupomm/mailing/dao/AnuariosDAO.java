@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 
 import br.com.grupomm.mailing.model.entity.Solicitacao;
 import br.com.grupomm.mailing.model.entity.Usuario;
+import br.com.grupomm.mailing.model.enuns.StatusSolicitacao;
 import br.com.grupomm.mailing.util.JPAUtil;
 import br.com.grupomm.mailing.util.Util;
 
@@ -22,7 +23,7 @@ public class AnuariosDAO {
 
 		solicitacao.setDt(Calendar.getInstance());
 		solicitacao.setQuery(query);
-		solicitacao.setStatus("Aguardando");
+		solicitacao.setStatus(StatusSolicitacao.Aguardando);
 		solicitacao.setTipoSolicitacao("Anuarios");
 
 		solicitacao.setUsuario(usuario);

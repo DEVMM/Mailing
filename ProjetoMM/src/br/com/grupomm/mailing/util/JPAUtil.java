@@ -9,7 +9,6 @@ public class JPAUtil {
 private static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("grupomm-anuarios");
 private static EntityManagerFactory mmonline = Persistence.createEntityManagerFactory("grupomm-mmonline");
 public static EntityManagerFactory mySql = Persistence.createEntityManagerFactory("grupomm-mysql");	
-
 	public EntityManager getEntituManager(){
 		return entityManagerFactory.createEntityManager();
 	}

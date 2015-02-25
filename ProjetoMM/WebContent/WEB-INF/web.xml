@@ -25,10 +25,6 @@
   <param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
   <param-value>resources.application</param-value>
  </context-param>
- <context-param>  
-    <param-name>primefaces.THEME</param-name>  
-    <param-value>afternoon</param-value>  
-</context-param>  
  <listener>
   <listener-class>com.sun.faces.config.ConfigureListener</listener-class>
  </listener>
@@ -40,4 +36,17 @@
   <error-code>404</error-code>
   <location>/404.xhtml</location>
  </error-page>
+<mime-mapping>   
+ <extension>jpg</extension>   
+ <mime-type>image/jpeg</mime-type>   
+</mime-mapping>  
+<mime-mapping>   
+ <extension>jpg</extension>   
+ <mime-type>img/jpg</mime-type>   
+</mime-mapping> 
+<mime-mapping>   
+ <extension>png</extension>   
+ <mime-type>img/png</mime-type>   
+</mime-mapping> 
+
 </web-app>

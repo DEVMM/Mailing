@@ -11,13 +11,12 @@
 	<script src="js/mailing.js"></script>
 </h:head>
 <h:body>
+	
+	<ui:include src="/WEB-INF/menu.xhtml" />
 	<script src="js/mailing.js"></script>
 	<div id="pagina">
-
+        <p:messages />
 		<h:message for="selectCheck" />
-
-		<ui:include src="/WEB-INF/menu.xhtml" />
-
 		<h1>Anuários</h1>
 		<div id="formulario">
 			<h:form id="form">
@@ -32,7 +31,7 @@
 							<p:dataGrid value="#{anuarios.estados}" var="item" columns="4">
 								<h:column>
 									<h:selectManyCheckbox id="selectCheck"
-										valueChangeListener="#{anuarios.valida}">
+										valueChangeListener="#{distribuidor(item)}">
 										<f:selectItem id="uf" itemValue="#{item}" itemLabel="#{item}"  />
 									</h:selectManyCheckbox>
 								</h:column>
@@ -41,7 +40,7 @@
 						</div>
 					</p:tab>
 
-					<p:tab title="Nível Hierárquico">
+					<!-- <p:tab title="Nível Hierárquico">
 						<div id="nivelh">
 							<input type="checkbox" name="checkall" id="nivh"
 								onclick="checkByParent('nivelh', 'nivh')" /> Selecionar Todos<br />
@@ -101,13 +100,13 @@
 								</h:column>
 							</p:dataGrid>
 						</div>
-					</p:tab>
+					</p:tab> -->
 				
 				</p:accordionPanel>
 				</div>
 				<br />
 				
-				<p:commandButton value="Gerar Relatório" icon="ui-icon-circle-check"
+				<p:commandButton value="Gerar Contagem" icon="ui-icon-circle-check"
 						 action="#{anuarios.validacao()}" update="@form" onclick="mostrar()">
 					</p:commandButton>
 				</p:column>
@@ -118,16 +117,16 @@
 					<div id="resultado">	
 					<p:column rendered="#{not empty anuarios.solicitacao.quantidade}" >
 							
-						<p>Sua busca retornou ${anuarios.solicitacao.quantidade} registros</p>
+						<p class="resultado">Sua busca retornou <strong>${anuarios.solicitacao.quantidade} registros</strong></p>
 						<div id="confirmacao">
-							<p>Informe a descrição do Cliente/Campanha</p>
-							<p:inputTextarea rows="3" cols="50" value="#{anuarios.solicitacao.descricao}" required="true" requiredMessage="A descrição não pode ficar em branco"/>
+							<p>Dê um nome para a base de Cliente/Campanha</p>
+							<p:inputText value="#{anuarios.solicitacao.descricao}" required="true" requiredMessage="A descrição não pode ficar em branco"/>
 						</div>
 						<br/>
-						<p:commandButton value="Continuar" action="#{anuarios.gerarRelatorio()}" ajax="false" icon="ui-icon-check"/>
 						<p:commandButton value="Voltar" update="@parent @form" process="@this" icon="ui-icon-arrowreturnthick-1-w">
 								<f:setPropertyActionListener value="#{null}" target="#{anuarios.solicitacao.quantidade}" />
 						</p:commandButton>
+						<p:commandButton value="Continuar" action="#{anuarios.gerarRelatorio()}" ajax="false" icon="ui-icon-check"/>
 			
 					</p:column>
 					</div>

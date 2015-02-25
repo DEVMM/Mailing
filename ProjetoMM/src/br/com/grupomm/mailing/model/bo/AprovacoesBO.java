@@ -1,9 +1,11 @@
 package br.com.grupomm.mailing.model.bo;
 
 import org.apache.commons.mail.EmailException;
+
 import br.com.grupomm.mailing.dao.AprovacaoDAO;
 import br.com.grupomm.mailing.message.GrowlView;
 import br.com.grupomm.mailing.model.entity.Solicitacao;
+import br.com.grupomm.mailing.model.enuns.StatusSolicitacao;
 import br.com.grupomm.mailing.util.Util;
 
 public class AprovacoesBO {
@@ -12,11 +14,11 @@ public class AprovacoesBO {
 		AprovacaoDAO aprovacaoDAO = new AprovacaoDAO();
 		EnviaEmail enviaEmail = new EnviaEmail();
 
-		if(solicitacao.getStatus().equalsIgnoreCase("Reprovado")){
+		if(solicitacao.getStatus().equals(StatusSolicitacao.Reprovado)){
 
 			String msgUsr="<html>\n "
 					+ "<body>\n  "
-					+ "<h1>Solicitação Reprorvado por "+Util.getUserName()+"</h1>\n "
+					+ "<h1>Solicitação reprovada por "+Util.getUserName()+"</h1>\n "
 					+ "<br/>\n"
 					+ " Numero: "+solicitacao.getId()+""
 					+ "<p>descricao: "+solicitacao.getDescricao()+"</p>"
@@ -49,11 +51,11 @@ public class AprovacoesBO {
 		}
 
 		try {
-			
+
 			aprovacaoDAO.alterAprovacao(solicitacao, moString);
 
 		} catch (Exception e) {
-			GrowlView.erro(e);
+			GrowlView.erro("Erro","Tente Novamente!");
 		}
 	}
 }

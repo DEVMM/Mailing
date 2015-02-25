@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import br.com.grupomm.mailing.model.enuns.TipoPermissao;
+
 @WebFilter ("/gerenciamento.xhtml")
 public class Gerenciamento implements Filter {
 	@Override
@@ -30,7 +32,7 @@ public class Gerenciamento implements Filter {
 
 		if ( session.getAttribute("nomeUsuario") != null ){
 
-			if(session.getAttribute("permissao").equals("Usuario")){
+			if(!session.getAttribute("permissao").toString().equals(TipoPermissao.Administrador.toString())){
 				RequestDispatcher dd = request.getRequestDispatcher("negado.xhtml");
 				dd.forward(request, response);
 			}

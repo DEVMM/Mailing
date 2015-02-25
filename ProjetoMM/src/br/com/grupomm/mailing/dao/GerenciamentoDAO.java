@@ -8,16 +8,15 @@ import br.com.grupomm.mailing.util.JPAUtil;
 public class GerenciamentoDAO {
 
 
-      public void adicionar(Usuario usuario){
-    
-    	   EntityManager mysql = new JPAUtil().getMySql();
-    	   mysql.getTransaction().begin();
+	public void adicionar(Usuario usuario){
 
-    	   mysql.persist(usuario);
-    	   mysql.getTransaction().commit();
-    	  
-    	   mysql.close();
+		EntityManager mysql = new JPAUtil().getMySql();
+		mysql.getTransaction().begin();
 
-       }
+		mysql.persist(usuario);
+		mysql.getTransaction().commit();
+
+		mysql.close();
+	}
 }
 

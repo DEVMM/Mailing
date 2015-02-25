@@ -10,7 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-
 import br.com.grupomm.mailing.model.enuns.Status;
 
 @Entity
@@ -20,13 +19,13 @@ public class Usuario implements Serializable  {
 	private static final long serialVersionUID = -1482972456930062666L;
 
 	@Id @GeneratedValue
-	private  Integer id;
-	private  String login;
-	private String senha;
-	private String nome;
-	private  String email;
+	Integer id;
+	String login;
+	String senha;
+	String nome;
+	String email;
 	@Enumerated(EnumType.STRING)
-	private Status status;
+	Status status;
 	
 	@ManyToOne
 	Permissao permissao;
@@ -81,5 +80,5 @@ public class Usuario implements Serializable  {
 	public void setStatus(Status status) {
 		this.status = status;
 	}
-
+	
 }

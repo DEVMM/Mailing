@@ -1,5 +1,6 @@
 package br.com.grupomm.mailing.controller;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -11,8 +12,10 @@ import br.com.grupomm.mailing.model.entity.Solicitacao;
 
 @ManagedBean
 @ViewScoped
-public class Aprovacoes {
+public class Aprovacoes implements Serializable{
 
+	private static final long serialVersionUID = -9021626463283160636L;
+	
 	Solicitacao solicitacao;
 	String motivo;
 	
