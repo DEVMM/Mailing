@@ -23,7 +23,7 @@ public class AnuariosDAO {
 
 		solicitacao.setDt(Calendar.getInstance());
 		solicitacao.setQuery(query);
-		solicitacao.setStatus(StatusSolicitacao.Aprovado);
+		solicitacao.setStatus(StatusSolicitacao.Aguardando);
 		solicitacao.setTipoSolicitacao("Anuarios");
 
 		solicitacao.setUsuario(usuario);

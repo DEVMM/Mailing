@@ -1,39 +1,106 @@
-body{
-	background-color: #F8F8FF;
+body {
+	background-color: #FBFBFB;
+	margin: 0;
+	font-family: Arial, Helvetica, sans-serif;
+	color: #646264;
 }
 
-p{
-	font-size: 30px;
-	font-family: arial, verdana, sans-serif;
+p {
+	color: #646264;
+	font-size: 24px;
+	font-family: Arial, Helvetica, sans-serif;
 }
 
-#pagina{
+#aviso p {
+	font-size: 24px;
+}
+
+#pagina {
 	width: 70%;
-	margin: auto;
+	margin: 30px auto;
 }
 
-h1{
-	font-family: Century Gothic, sans-serif; 
+#menu {
+	width: 70%;
+	margin: 0 auto;
 }
 
-#formulario{
+h1 {
+	font-family: Arial, Helvetica, sans-serif;
+	color: #646264;
+	font-size: 24px;
+}
+
+#formulario {
 	float: left;
-	width: 100%;	
+	width: 100%;
 }
 
-#botao{
+#formulario h3:hover, #formulario h3.ui-state-active { 
+	background: #0076bc;
+	color:#fff;
+	box-shadow:none;
+	border:none;
+	text-shadow:none;
+}
+
+#formulario h3 .ui-state-active {}
+
+#botao {
 	float: right;
 }
 
-.ui-widget {  
-   font-size: 14px !important;  
+.ui-widget {
+	font-size: 14px !important;
 }
 
-#login{
+#menu button {
+	margin-top: 4px;
+}
+
+#menu .ui-menu {
+	background: none;
+	border: none;
+	border-bottom: 1px solid #e3e3e3;
+	padding: 7px 0;
+}
+
+#menu .ui-menu-list li a {
+	padding: 10px 20px;
+	font-size: 16px;
+}
+
+#menu .ui-menu-list li a:hover {
+	background: #0076bc;
+	color: #fff;
+	box-shadow: none !important;
+	border: none;
+	font-weight: normal;
+}
+
+#menu .ui-menu-list li a.ui-state-hover {
+	background: #0076bc;
+	color: #fff;
+	box-shadow: none;
+	font-weight: normal;
+	border: none;
+}
+
+#menu p {
+	color: #646264;
+}
+
+#menu p strong {
+	font-weight: normal;
+	color: #0076bc;
+}
+
+#login {
 	width: 100%;
 	margin: auto;
 	text-align: center;
-} 
+}
+
 .loader {
 	position: fixed;
 	left: 0px;
@@ -41,16 +108,88 @@ h1{
 	width: 100%;
 	height: 100%;
 	z-index: 9999;
-	background: url('img/page-loader.gif') 50% 50% no-repeat rgb(249,249,249);
-} 
+	background: url('img/page-loader.gif') 50% 50% no-repeat
+		rgb(249, 249, 249);
+}
 
-.welcome { float: left; }
-.logo { float: right; padding: 26px 0;}
+.welcome {
+	float: left;
+}
 
-#confirmacao p{
+.logo {
+	float: right;
+	padding: 26px 0;
+}
+
+#confirmacao p {
 	font-size: 18px;
 }
 
-img{
+img {
 	width: 100%;
 }
+
+header.topo {
+	background: #0076bc;
+	width: 100%;
+	height: 60px;
+	border-bottom: none;
+}
+
+header.topo h1 {
+	background: url("img/Logo-Mailing.png") no-repeat 0 12px;
+	text-indent: -9999px;
+	width: 945px;
+	height: 50px;
+	margin: 0 auto;
+}
+
+#resultado p {
+	font-size: 18px;
+	margin: 0;
+	line-heigth: 20px;
+}
+
+#resultado p.resultado {
+	font-size: 24px;
+	margin: 0 0 25px 0;
+}
+
+#resultado p strong {
+	color: #0076bc;
+	font-weight: normal;
+}
+
+#resultado input {
+	width: 500px;
+	height: 25px;
+	box-shadow: none;
+	margin-top: 6px;
+	font-weight: normal;
+	padding-left: 10px;
+}
+
+#buscaAvancada .form-left {
+	float: left;
+	width: 330px
+}
+
+#buscaAvancada .form-right {
+	float: left;
+	width:330px;
+}
+
+#buscaAvancada fieldset { 
+	float:left; 
+	border:none;
+	}
+
+#buscaAvancada label {
+	margin-right:10px;
+}
+
+#buscaAvancada table {
+	clear:both;
+}
+
+#buscaAvancada table tr td label.ui-outputlabel { font-weight:bold; }

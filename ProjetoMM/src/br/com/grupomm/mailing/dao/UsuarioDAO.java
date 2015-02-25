@@ -10,6 +10,7 @@ import br.com.grupomm.mailing.model.entity.Departamento;
 import br.com.grupomm.mailing.model.entity.Permissao;
 import br.com.grupomm.mailing.model.entity.Solicitacao;
 import br.com.grupomm.mailing.model.entity.Usuario;
+import br.com.grupomm.mailing.model.enuns.Status;
 import br.com.grupomm.mailing.util.JPAUtil;
 
 public class UsuarioDAO {
@@ -19,7 +20,7 @@ public class UsuarioDAO {
 		EntityManager em = new JPAUtil().getMySql();
 
 		Query query = null;
-		query = em.createQuery("select u from Usuario u where u.nome=:pUsuario").setParameter("pUsuario", usuario.getLogin());
+		query = em.createQuery("select u from Usuario u where u.login=:pUsuario").setParameter("pUsuario", usuario.getLogin());
 
 		Object result = null;
 
@@ -32,7 +33,7 @@ public class UsuarioDAO {
 			departamento.setId(idDepartamento);
 			usuario.setDepartamento(departamento);
 			usuario.setPermissao(permissao);
-			usuario.setStatus(usuario.getStatus());
+			usuario.setStatus(Status.Ativo);
 			Solicitacao solicitacao = new Solicitacao();
 			solicitacao.setDescricao(descricao);
 			em.persist(usuario);
@@ -41,8 +42,7 @@ public class UsuarioDAO {
 		}
 		else
 		{
-			GrowlView.validaLogin();
-		}
+			GrowlView.erro("Erro", "Usuario ja cadastrado");		}
 	}
 
 	@SuppressWarnings("unchecked")
@@ -111,12 +111,12 @@ public class UsuarioDAO {
 		EntityManager em = new JPAUtil().getMySql();
 		em.getTransaction().begin();
 		Usuario usuarioInativado = em.find(Usuario.class, usuario);
-		usuarioInativado.setStatus("Inativo");
+		usuarioInativado.setStatus(Status.Inativo);
 		em.merge(usuarioInativado);
 		em.getTransaction().commit();
 		em.close();
 		System.out.println("call");
-		
+
 		return "gerenciamento";
 	}
 	public List<Usuario> usuarioADM(){
@@ -124,8 +124,21 @@ public class UsuarioDAO {
 		Query query = em.createQuery("select c from Usuario c where c.permissao.id=1");
 		List<Usuario> list = query.getResultList();
 		em.close();
-		
+
 		return list;
+	}
+	public String ativarUsuario(int usuario){
+
+		EntityManager em = new JPAUtil().getMySql();
+		em.getTransaction().begin();
+		Usuario usuarioAtivado = em.find(Usuario.class, usuario);
+		usuarioAtivado.setStatus(Status.Ativo);
+		em.merge(usuarioAtivado);
+		em.getTransaction().commit();
+		em.close();
+		System.out.println("call");
+
+		return "gerenciamento";
 	}
 }
 

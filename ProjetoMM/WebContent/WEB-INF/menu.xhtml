@@ -6,27 +6,33 @@
 	<h:head>
 		<link type="text/css" rel="stylesheet" href="estilo.css" />
 	</h:head>
-	<h:form>
-		<p:growl id="messages" />
-		<p:menubar>
-			<p:submenu label="Relatório" icon="ui-icon-document">
-				<p:menuitem value="Anuários" url="anuarios.xhtml" />
-				<p:menuitem value="MM Online" url="MM.xhtml" />
-			</p:submenu>
-			<p:menuitem value="Home" url="index.xhtml" icon="ui-icon-home" />
-			<p:menuitem value="Solicitações" url="aprovacoes.xhtml"
-				rendered="#{util.permissao eq 'Administrador'}" icon="ui-icon-alert" />
-			<p:menuitem value="Gerenciamento de Usuários"
-				url="gerenciamento.xhtml" rendered="#{util.permissao eq 'Administrador'}"
-				icon="ui-icon-person" />
-			<f:facet name="options">
-				<p:commandButton action="#{loginMB.logout}" value="Logout"
-					ajax="false"></p:commandButton>
-			</f:facet>
-		</p:menubar>
-		<img src="img/grupomm.png" />
-		<p>Bem vindo, #{loginMB.nome}</p>
+	<header class="topo">
+		<h1>Grupo M&amp;M Mailing</h1>
+	</header>
+	<div id="menu">
+		<h:form>
+			<p:growl id="messages" />
+			<p:menubar>
+				<p:menuitem value="Home" url="index.xhtml" />
+				<p:menuitem value="Solicitações" url="aprovacoes.xhtml"
+					rendered="#{util.permissao eq 'Administrador'}"
+					 />
+				<p:submenu label="Extração de base">
+					<p:menuitem value="Anuários" url="anuarios.xhtml" style="width:135px;" />
+					<p:menuitem value="MM Online" url="MM.xhtml" style="width:135px;" />
+				</p:submenu>
+				<p:menuitem value="Gerenciamento de Usuários"
+					url="gerenciamento.xhtml"
+					rendered="#{util.permissao eq 'Administrador'}"
+					 />
+				<f:facet name="options">
+					<p:commandButton action="#{loginMB.logout}" value="Logout"
+						ajax="false"></p:commandButton>
+				</f:facet>
+			</p:menubar>
 
-	</h:form>
+			<p>Bem vindo, <strong>#{loginMB.nome}</strong></p>
 
+		</h:form>
+	</div>
 </ui:composition>

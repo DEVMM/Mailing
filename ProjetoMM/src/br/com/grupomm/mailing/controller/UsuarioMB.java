@@ -60,7 +60,12 @@ public class UsuarioMB implements Serializable {
 		this.usuario = new Usuario();
 	 return "gerenciamento";
 	}
-
+	public String ativar() {
+		user.ativarUsuario(this.usuarioBusca);
+		this.usuario = new Usuario();
+	 return "gerenciamento";
+	}
+	
 	public String editar() throws Exception {
 
 		if(idPermissao2!=null){

@@ -27,7 +27,14 @@ public class LoginDAO {
 			usuario = (Usuario)query.getSingleResult();
 			return usuario;
 
-		}catch(NoResultException e){
+		}
+		catch(NoResultException e){
+			e.printStackTrace();
+			return null;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
 			return null;
 		}
 
@@ -50,20 +57,11 @@ public class LoginDAO {
 	public void expira() {
 		System.out.println("chamou o expira");
 		EntityManager mysql = new JPAUtil().getMySql();
-		
-		Query query = mysql.createQuery("select c from logRegistro c  where CURDATE()-c.dt >= 2 and c.solicitacao.usuario.id= :pUsuario and c.solicitacao.status <> 'Expirado'");
+		mysql.getTransaction().begin();
+		Query query = mysql.createQuery("update Solicitacao s set s.status = 'Expirado'  where s.usuario.id= :pUsuario and s.status <> 'Expirado' and s.id in (select c.solicitacao.id from logRegistro c  where CURDATE()-c.dt >= 15)");
 		query.setParameter("pUsuario", Util.getUserId());
-		@SuppressWarnings("unchecked")
-		List<logRegistro> list = query.getResultList();
-
-		for (logRegistro logRegistro : list) {
-			mysql.getTransaction().begin();
-			mysql.flush();
-			Solicitacao solicitacao = mysql.find(Solicitacao.class, logRegistro.getSolicitacao().getId());
-			solicitacao.setStatus(StatusSolicitacao.Expirado);
-			mysql.persist(solicitacao);
-			mysql.getTransaction().commit();
-		}
+		query.executeUpdate();
+		mysql.getTransaction().commit();
 		mysql.close();
 	}
 }

@@ -1,9 +1,11 @@
 package br.com.grupomm.mailing.model.bo;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.mail.EmailException;
+import org.apache.poi.hssf.util.HSSFColor.GOLD;
 
 import br.com.grupomm.mailing.controller.Anuarios;
 import br.com.grupomm.mailing.dao.AnuariosDAO;
@@ -62,10 +64,15 @@ public class AnuariosBO {
 
 		AnuariosDAO anuariosDAO = new AnuariosDAO();
 
-		anuariosDAO.gerarSolicitacao(gerarSolicitacao(ckEstados, ckRamoAtividade, ckNivel, ckPorte, ckArea),solicitacao);
-		
+		try {
+			anuariosDAO.gerarSolicitacao(gerarSolicitacao(ckEstados, ckRamoAtividade, ckNivel, ckPorte, ckArea),solicitacao);
+		} catch (Exception e) {
+			GrowlView.erro("Erro", "Tente novamente");
+		}
+
+
 		EnviaEmail enviaEmail = new EnviaEmail();
-		
+
 		String msgUsr="<html>\n "
 				+ "<body>\n  "
 				+ "<h1>Solicitação gerada com sucesso!</h1>\n "
@@ -75,7 +82,7 @@ public class AnuariosBO {
 				+ "<br/> \n  <a>www.meioemensagem.com.br/mailing</a>\n"
 				+ " </body> \n "
 				+ "</html> \n";
-		
+
 		String msgAdm="<html>\n "
 				+ "<body>\n  "
 				+ "<h1>Gerado uma nova solicitação</h1>\n "
@@ -86,14 +93,14 @@ public class AnuariosBO {
 				+ "<br/> \n<a>www.meioemensagem.com.br/mailing</a>\n"
 				+ " </body> \n "
 				+ "</html> \n";
-		
+
 		try {
 			enviaEmail.enviarEmailSolicitante(Util.getEmail(),msgUsr, solicitacao);
 			enviaEmail.enviarEmailAdm(msgAdm, solicitacao);
 		} catch (EmailException e) {
 			e.printStackTrace();
 		}
-		GrowlView.msgRelatorio();
+		GrowlView.showMessage("Relatório Gerado com sucesso!", "Aguarde a aprovação");
 		return "index";	
 	}
 
@@ -142,16 +149,19 @@ public class AnuariosBO {
 
 		if(ckEstados.isEmpty() || ckArea.isEmpty() || ckNivel.isEmpty() || ckPorte.isEmpty() || ckRamoAtividade.isEmpty()){
 			System.out.println("e vazio");
-			GrowlView.msgValidaCheckBox();
+			GrowlView.showMessage("Falha Ao enviar", "Selecione ao menos um item de cada categoria");
 			return null;
 		}
-		if(this.count(ckEstados, ckRamoAtividade, ckNivel, ckPorte, ckArea).toString().equals("0")){
-			GrowlView.nulo();
+		
+		Integer qtd = Integer.valueOf(this.count(ckEstados, ckRamoAtividade, ckNivel, ckPorte, ckArea).toString());
+		
+		if(qtd == 0){
+			GrowlView.showMessage("Resultado em branco ", "A busca não encontrou resultados");
 
-			return null;
+			return "";
 		}
 		else{
-			return this.count(ckEstados, ckRamoAtividade, ckNivel, ckPorte, ckArea).toString();
+			return qtd.toString();
 		}
 
 	}
@@ -216,7 +226,13 @@ public class AnuariosBO {
 				+ "AND AA.IDAREA IN("+pIdArea+")";
 
 		AnuariosDAO anuarios = new AnuariosDAO();
-
-		return anuarios.count(query);
+         
+		try {
+			return anuarios.count(query);
+		} catch (Exception e) {
+			GrowlView.erro("Erro","Tente Novamente!");
+			return 0;
+		}
+		
 	}
 }

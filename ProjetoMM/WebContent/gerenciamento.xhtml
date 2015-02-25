@@ -27,12 +27,12 @@ function voltar(){
 </script>
 </h:head>
 <h:body>
-
+	<ui:include src="/WEB-INF/menu.xhtml" />
+	<p:messages />
 	<div id="pagina">
-		<ui:include src="/WEB-INF/menu.xhtml" />
-		<div class="loading"></div>
 		<p:growl id="msgs" showDetail="true" />
 		<p:tabView id="table">
+
 			<p:tab title="Busca">
 				<h:form id="formEdit">
 					<div id="editor">
@@ -79,17 +79,18 @@ function voltar(){
 								<f:selectItems value="#{usuarioMB.departamento}" var="p"
 									itemValue="#{p.id}" itemLabel="#{p.nome}" />
 							</p:selectOneMenu>
+
 							<p:commandButton value="Atualizar" action="#{usuarioMB.editar()}"
 								ajax="false" />
 							<a href="#" onclick="voltar()">Voltar</a>
 						</h:panelGrid>
 					</div>
-					<p:column rendered="#{usuarioMB.usuarioEditado.nome eq null}">
-					<div id="busca">
-						<h2>Nenhum usuário foi selecionado</h2>
-					
-					</div>
-					</p:column>
+					<h:column
+						rendered="#{usuarioMB.usuarioEditado.nome eq null or usuarioMB.usuarioEditado.nome eq ''}">
+						<div id="busca">
+							<h2>Nenhum usuário foi selecionado</h2>
+						</div>
+					</h:column>
 				</h:form>
 			</p:tab>
 			<div id="nUsuario">
@@ -128,6 +129,7 @@ function voltar(){
 									itemValue="#{p.id}" itemLabel="#{p.nomePermissao}" />
 							</p:selectOneMenu>
 							<p:outputLabel for="departamento" value="Departamento" />
+
 							<p:selectOneMenu id="departamento"
 								value="#{usuarioMB.idDepartamento}" style="width:125px"
 								required="true" requiredMessage="Selessione o tipo de permissão">
@@ -138,7 +140,8 @@ function voltar(){
 							</p:selectOneMenu>
 
 							<p:commandButton value="Cadastrar" action="#{usuarioMB.gravar}"
-								ajax="false" actionListener="#{growlView.msgAdiciona()}"
+								ajax="false"
+								actionListener="#{growlView.showMessage('Info','Usuario Adicionado com sucesso')}"
 								update="@form" onclick="location.reload()" />
 						</h:panelGrid>
 					</h:form>
@@ -150,7 +153,7 @@ function voltar(){
 			<h:form>
 				<p:dataTable var="item" value="#{usuarioMB.solicitacaoList}"
 					paginator="true" emptyMessage="Nenhum resultado encontrado"
-					rows="10">
+					rows="10" id="lista">
 					<f:facet name="header">
 			        Lista de Usuários
 			    </f:facet>
@@ -175,11 +178,6 @@ function voltar(){
 						<h:outputText value="#{item.departamento.nome}" />
 					</p:column>
 
-					<p:column filterBy="#{item.status}" headerText="Status"
-						filterMatchMode="contains">
-						<h:outputText value="#{item.status}" />
-					</p:column>
-
 					<p:column style="width:80px">
 
 
@@ -195,15 +193,28 @@ function voltar(){
 					</p:column>
 					<br />
 					<p:column style="width:35px">
+
 						<p:commandButton id="inativar" action="#{usuarioMB.inativar()}"
-							icon="ui-icon-closethick"
-							actionListener="#{growlView.usarioExcluido()}">
+							icon="ui-icon-notice"
+							actionListener="#{growlView.showMessage('Usuario','Inativado')}"
+							rendered="#{item.status!='Inativo'}" update="lista">
 							<p:tooltip id="toolTipFade" for="inativar"
 								value="Inativar Usuário" />
 							<f:setPropertyActionListener value="#{item.id}"
 								target="#{usuarioMB.usuarioBusca}" />
 						</p:commandButton>
+
+						<p:commandButton id="ativar" action="#{usuarioMB.ativar()}"
+							icon="ui-icon-circle-check"
+							actionListener="#{growlView.showMessage('Usuario','Atualizado com sucesso')}"
+							rendered="#{item.status!='Ativo'}" update="lista">
+							<p:tooltip id="toolTipFadeAtivar" for="ativar"
+								value="Ativar Usuário" />
+							<f:setPropertyActionListener value="#{item.id}"
+								target="#{usuarioMB.usuarioBusca}" />
+						</p:commandButton>
 					</p:column>
+
 
 				</p:dataTable>
 			</h:form>

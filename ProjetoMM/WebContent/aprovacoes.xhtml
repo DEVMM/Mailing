@@ -11,10 +11,10 @@
 	<script src="js/mailing.js"></script>
 </h:head>
 <h:body>
+	<ui:include src="/WEB-INF/menu.xhtml" />
+	<p:messages />
 	<div id="pagina">
 		<div class="loading"></div>
-		<ui:include src="/WEB-INF/menu.xhtml" />
-
 		<h:form id="form">
 			<p:dataTable value="#{aprovacoes.solicitacaoList}" var="item"
 				paginator="true" rows="10"
@@ -36,7 +36,7 @@
 				</p:column>
 				<p:column style="width:80px;">
 					<p:commandButton icon="ui-icon-check"
-						actionListener="#{growlView.showMessage}"
+						actionListener="#{growlView.showMessage('info','Aprovado com sucesso')}"
 						action="#{aprovacoes.aprovar}" ajax="false" immediate="true">
 						<f:setPropertyActionListener value="#{item}"
 							target="#{aprovacoes.solicitacao}" />

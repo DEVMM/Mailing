@@ -3,11 +3,14 @@ package br.com.grupomm.mailing.model.entity;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import br.com.grupomm.mailing.model.enuns.Status;
 
 @Entity
 @Table(name="Usuario", uniqueConstraints={@UniqueConstraint(columnNames={"nome"})})  
@@ -21,7 +24,8 @@ public class Usuario implements Serializable  {
 	String senha;
 	String nome;
 	String email;
-	String status;
+	@Enumerated(EnumType.STRING)
+	Status status;
 	
 	@ManyToOne
 	Permissao permissao;
@@ -70,10 +74,11 @@ public class Usuario implements Serializable  {
 	public void setDepartamento(Departamento departamento) {
 		this.departamento = departamento;
 	}
-	public String getStatus() {
+	public Status getStatus() {
 		return status;
 	}
-	public void setStatus(String status) {
+	public void setStatus(Status status) {
 		this.status = status;
 	}
+	
 }

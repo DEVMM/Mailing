@@ -77,9 +77,9 @@ public class GerarRelatorios implements Serializable {
 		ec.responseReset();         
 		ec.setResponseContentType("text/xlsx");
 		ec.setResponseHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");     
-        
+
 		workbook.write(ec.getResponseOutputStream());  
-		 
+
 		out.flush();
 		out.close();
 		fc.responseComplete();
@@ -89,7 +89,6 @@ public class GerarRelatorios implements Serializable {
 
 		FacesContext fc = FacesContext.getCurrentInstance();
 		ExternalContext ec = fc.getExternalContext();       
-		OutputStream out = ec.getResponseOutputStream();
 		String filename = "Mailing-mm.xlsx";
 
 		XSSFWorkbook workbook = new XSSFWorkbook(); 
@@ -134,23 +133,9 @@ public class GerarRelatorios implements Serializable {
 		ec.responseReset();         
 		ec.setResponseContentType("text/xlsx");
 		ec.setResponseHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");     
-		
-		
-		
-		
-//		workbook.write(ec.getResponseOutputStream());  
-		
-//		out.flush();
-//		out.close();
-//		while(fc.isProcessingEvents()==true){
-//			ec.redirect("index.xhtml");
-//			break;
-//		}
-//		fc.responseComplete();
-		if(fc.isProcessingEvents()==true){
-			
-			System.out.println("sadfasdfas");
-		}
+
+
+		fc.responseComplete();
 		return fc.isProcessingEvents();
 	}
 }

@@ -36,4 +36,17 @@
   <error-code>404</error-code>
   <location>/404.xhtml</location>
  </error-page>
+<mime-mapping>   
+ <extension>jpg</extension>   
+ <mime-type>image/jpeg</mime-type>   
+</mime-mapping>  
+<mime-mapping>   
+ <extension>jpg</extension>   
+ <mime-type>img/jpg</mime-type>   
+</mime-mapping> 
+<mime-mapping>   
+ <extension>png</extension>   
+ <mime-type>img/png</mime-type>   
+</mime-mapping> 
+
 </web-app>

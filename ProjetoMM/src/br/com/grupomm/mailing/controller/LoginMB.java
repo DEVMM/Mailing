@@ -12,6 +12,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
 import br.com.grupomm.mailing.dao.LoginDAO;
+import br.com.grupomm.mailing.model.bo.LoginBO;
 import br.com.grupomm.mailing.model.entity.Usuario;
 import br.com.grupomm.mailing.model.enuns.TipoPermissao;
 import br.com.grupomm.mailing.util.Util;
@@ -22,43 +23,12 @@ public class LoginMB implements Serializable {
 
 	private static final long serialVersionUID = -5165511376450230953L;
 	Usuario usr = new Usuario();
-	String nome;
+	private static String nome;
 
 	public String loginProject() throws NoSuchAlgorithmException {
-		
-		String s = this.usr.getSenha();
-		MessageDigest m=MessageDigest.getInstance("MD5");
-		m.update(s.getBytes(),0,s.length());
-		String usuarioCrip=new BigInteger(1,m.digest()).toString(16);
-		System.out.println(usuarioCrip.toString());
-		usr.setSenha(usuarioCrip.toString());
-		Usuario result = LoginDAO.login(this.usr);
-		if (result!=null) {
 
-			HttpSession session = Util.getSession();
-			session.setAttribute("nomeUsuario", result.getLogin());
-			session.setAttribute("idUsuario", result.getId());
-			session.setAttribute("permissao", result.getPermissao().getNomePermissao().toString());
-			session.setAttribute("email", result.getEmail());
-			this.setNome(result.getNome());
-			System.out.println("usuarioid "+Util.getUserId());
-			LoginDAO loginDAO = new LoginDAO();
-			loginDAO.expira();
-			
-			if(result.getPermissao().getNomePermissao().equals(TipoPermissao.Administrador)){
-				return "aprovacoes?faces-redirect=true";
-			}else{
-				return "index?faces-redirect=true";
-			}
-		} 
-		else {
-			FacesContext.getCurrentInstance().addMessage(
-					null,
-					new FacesMessage(FacesMessage.SEVERITY_WARN,
-							"Login inválido!",
-							"Por favor, tente de novo"));
-			return "login";
-		}
+		LoginBO loginBO = new LoginBO();	
+		return loginBO.autenticacao(this.usr);
 	}
 
 	public String logout() {
@@ -77,7 +47,7 @@ public class LoginMB implements Serializable {
 	public String getNome() {
 		return nome;
 	}
-	public void setNome(String nome) {
-		this.nome = nome;
+	public static void setNome(String n) {
+		nome = n;
 	}
 }

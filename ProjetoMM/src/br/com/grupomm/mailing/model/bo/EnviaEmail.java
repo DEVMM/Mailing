@@ -37,7 +37,7 @@ public class EnviaEmail {
 		email.setTLS(true);
 		email.setSmtpPort(587);
 		email.setFrom("mailingsystem@grupomm.com.br");
-		email.setSubject("Solicitação"+solicitacao.getId());
+		email.setSubject("Solicitação "+solicitacao.getId());
 		email.setHtmlMsg(msg);
 
 		email.setTextMsg("teste adm");
