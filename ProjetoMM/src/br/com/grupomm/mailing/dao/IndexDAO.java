@@ -1,5 +1,8 @@
 package br.com.grupomm.mailing.dao;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -83,10 +86,19 @@ public class IndexDAO {
 			}
 			
 			if (busca.getDataFrom() != null && busca.getDataFor() !=null ){
-				sql.append(" and s.dt between "+busca.getDataFrom() + " and " + busca.getDataFor() +" ");
-			}
+				
 			
-		}else{
+				  SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+				  String dataFrom = dateFormat.format(busca.getDataFrom());
+				  String dataFor = dateFormat.format(busca.getDataFor());
+			
+				sql.append(" and s.dt between "+dataFrom+ " and " +dataFor+" ");
+			    
+			}
+			sql.append("and Solicitacao.usuario.id = "+Util.getUserId()+"");
+		}
+		
+		else{
 			GrowlView gv = new GrowlView();
 			gv.buscaAlerta();
 		}

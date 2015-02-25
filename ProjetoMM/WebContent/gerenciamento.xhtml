@@ -145,7 +145,7 @@ function voltar(){
 			        Lista de Usuários
 			    </f:facet>
 			 
-			    <p:column filterBy="#{item.id}"  headerText="Id" filterMatchMode="contains">
+			    <p:column style="width:20px" headerText="Id">
 			        <h:outputText value="#{item.id}" />
 			    </p:column>
 			 
@@ -181,8 +181,8 @@ function voltar(){
 					<f:setPropertyActionListener value="#{item.id}" target="#{usuarioMB.usuarioBusca}" />								
 					</p:commandButton>
 					
-					<p:commandButton id="ativar" action="#{usuarioMB.ativar()}" icon="ui-icon-circle-check" actionListener="#{growlView.usarioAtivo()}" rendered="#{item.status!='Ativo'}" update="lista">
-					<p:tooltip id="toolTipFadeAtivar" for="ativar" value="Ativar Usuário" />
+					<p:commandButton id="ativar" action="#{usuarioMB.ativar()}" icon="ui-icon-circle-check" actionListener="#{growlView.usarioAtivo()}" rendered="#{item.status!='Ativo'}" update="lista" >
+					<p:tooltip id="toolTipFadeAtivar" for="ativar" value="Ativar Usuário"/>
 					<f:setPropertyActionListener value="#{item.id}" target="#{usuarioMB.usuarioBusca}" />
 					</p:commandButton>
 					</p:column>
