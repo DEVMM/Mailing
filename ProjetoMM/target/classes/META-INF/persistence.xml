@@ -36,7 +36,7 @@ http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
  </properties>
  </persistence-unit>
  
-<persistence-unit name="grupomm-mysql" transaction-type="RESOURCE_LOCAL">
+ <persistence-unit name="grupomm-mysql" transaction-type="RESOURCE_LOCAL">
  <provider>org.hibernate.ejb.HibernatePersistence</provider>
  <class>br.com.grupomm.mailing.enty.Solicitacao</class>
  <class>br.com.grupomm.mailing.enty.Usuario</class>
@@ -45,10 +45,10 @@ http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
  value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
  <property name="hibernate.show_sql" value="true"/>
  <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
- <property name ="javax.persistence.jdbc.user" value ="mailing"/>
- <property name ="javax.persistence.jdbc.password" value="M41lIn@672"/>
+ <property name ="javax.persistence.jdbc.user" value ="root"/>
+ <property name ="javax.persistence.jdbc.password" value="123@456@"/>
  <property name ="javax.persistence.jdbc.url"
- value ="jdbc:mysql://10.33.5.12/mailing" />
+ value ="jdbc:mysql://localhost/mailing" />
  </properties>
  </persistence-unit>
 

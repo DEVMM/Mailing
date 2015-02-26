@@ -27,9 +27,10 @@ function voltar(){
 </script>
 </h:head>
 <h:body>
-	<ui:include src="/WEB-INF/menu.xhtml" />
-	<p:messages />
+
 	<div id="pagina">
+		<ui:include src="/WEB-INF/menu.xhtml" />
+
 		<p:growl id="msgs" showDetail="true" />
 		<p:tabView id="table">
 
@@ -42,31 +43,26 @@ function voltar(){
 								required="true" requiredMessage="Infome o Usuario" />
 
 							<p:outputLabel for="email2" value="Email" />
-							<p:inputText id="email2"
-								value="#{usuarioMB.usuarioEditado.email}" required="true"
-								requiredMessage="Informe o email"
-								validatorMessage="Email invalido">
+							<p:inputText id="email2" value="#{usuarioMB.usuarioEditado.email}"
+								required="true" requiredMessage="Informe o email" validatorMessage="Email invalido" >
 								<f:validateRegex
 									pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
 							</p:inputText>
 
 							<p:outputLabel for="login2" value="Login" />
-							<p:inputText id="login2"
-								value="#{usuarioMB.usuarioEditado.login}" required="true"
-								requiredMessage="Infome o Usuario" />
+							<p:inputText id="login2" value="#{usuarioMB.usuarioEditado.login}"
+								required="true" requiredMessage="Infome o Usuario" />
 
 							<p:outputLabel for="pwd2" value="Senha" />
-							<p:password id="pwd2" value="#{usuarioMB.usuarioEditado.senha}"
-								type="" required="true"
-								requiredMessage="A senha não pode ser em branco" />
+							<p:password id="pwd2" value="#{usuarioMB.usuarioEditado.senha}" type=""
+								required="true" requiredMessage="A senha não pode ser em branco" />
 
 							<p:outputLabel for="permissao2" value="Permissão" />
 
-							<p:selectOneMenu id="permissao2"
-								value="#{usuarioMB.idPermissao2}" style="width:125px"
-								required="true" requiredMessage="Selessione o tipo de permissão">
-								<f:selectItem itemLabel="-- Selecione --"
-									noSelectionOption="true" />
+							<p:selectOneMenu id="permissao2" value="#{usuarioMB.idPermissao2}"
+								style="width:125px" required="true"
+								requiredMessage="Selessione o tipo de permissão">
+								<f:selectItem itemLabel="-- Selecione --" noSelectionOption="true" />
 								<f:selectItems value="#{usuarioMB.permissoes}" var="p"
 									itemValue="#{p.id}" itemLabel="#{p.nomePermissao}" />
 							</p:selectOneMenu>
@@ -74,23 +70,19 @@ function voltar(){
 							<p:selectOneMenu id="departamento2"
 								value="#{usuarioMB.idDepartamento2}" style="width:125px"
 								required="true" requiredMessage="Selessione o tipo de permissão">
-								<f:selectItem itemLabel="-- Selecione --"
-									noSelectionOption="true" />
+								<f:selectItem itemLabel="-- Selecione --" noSelectionOption="true" />
 								<f:selectItems value="#{usuarioMB.departamento}" var="p"
 									itemValue="#{p.id}" itemLabel="#{p.nome}" />
 							</p:selectOneMenu>
-
+							
 							<p:commandButton value="Atualizar" action="#{usuarioMB.editar()}"
 								ajax="false" />
 							<a href="#" onclick="voltar()">Voltar</a>
 						</h:panelGrid>
 					</div>
-					<h:column
-						rendered="#{usuarioMB.usuarioEditado.nome eq null or usuarioMB.usuarioEditado.nome eq ''}">
-						<div id="busca">
-							<h2>Nenhum usuário foi selecionado</h2>
-						</div>
-					</h:column>
+					<div id="busca">
+						<h2>Nenhum usuário foi selecionado</h2>
+					</div>
 				</h:form>
 			</p:tab>
 			<div id="nUsuario">
@@ -104,8 +96,7 @@ function voltar(){
 
 							<p:outputLabel for="email" value="Email" />
 							<p:inputText id="email" value="#{usuarioMB.usuario.email}"
-								required="true" requiredMessage="Informe o email"
-								validatorMessage="Email invalido">
+								required="true" requiredMessage="Informe o email" validatorMessage="Email invalido" >
 								<f:validateRegex
 									pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
 							</p:inputText>
@@ -123,25 +114,22 @@ function voltar(){
 							<p:selectOneMenu id="permissao" value="#{usuarioMB.idPermissao}"
 								style="width:125px" required="true"
 								requiredMessage="Selessione o tipo de permissão">
-								<f:selectItem itemLabel="-- Selecione --"
-									noSelectionOption="true" />
+								<f:selectItem itemLabel="-- Selecione --" noSelectionOption="true" />
 								<f:selectItems value="#{usuarioMB.permissoes}" var="p"
 									itemValue="#{p.id}" itemLabel="#{p.nomePermissao}" />
 							</p:selectOneMenu>
 							<p:outputLabel for="departamento" value="Departamento" />
-
+							
 							<p:selectOneMenu id="departamento"
 								value="#{usuarioMB.idDepartamento}" style="width:125px"
 								required="true" requiredMessage="Selessione o tipo de permissão">
-								<f:selectItem itemLabel="-- Selecione --"
-									noSelectionOption="true" />
+								<f:selectItem itemLabel="-- Selecione --" noSelectionOption="true" />
 								<f:selectItems value="#{usuarioMB.departamento}" var="p"
 									itemValue="#{p.id}" itemLabel="#{p.nome}" />
 							</p:selectOneMenu>
 
 							<p:commandButton value="Cadastrar" action="#{usuarioMB.gravar}"
-								ajax="false"
-								actionListener="#{growlView.showMessage('Info','Usuario Adicionado com sucesso')}"
+								ajax="false" actionListener="#{growlView.msgAdiciona()}"
 								update="@form" onclick="location.reload()" />
 						</h:panelGrid>
 					</h:form>
@@ -149,75 +137,59 @@ function voltar(){
 			</div>
 		</p:tabView>
 		<div>
-			<br />
-			<h:form>
-				<p:dataTable var="item" value="#{usuarioMB.solicitacaoList}"
-					paginator="true" emptyMessage="Nenhum resultado encontrado"
-					rows="10" id="lista">
-					<f:facet name="header">
+		<br />
+		<h:form>
+			<p:dataTable var="item" value="#{usuarioMB.solicitacaoList}" paginator="true" emptyMessage="Nenhum resultado encontrado" 
+			rows="10" id="lista" >
+			    <f:facet name="header">
 			        Lista de Usuários
 			    </f:facet>
-
-					<p:column filterBy="#{item.id}" headerText="Id"
-						filterMatchMode="contains">
-						<h:outputText value="#{item.id}" />
-					</p:column>
-
-					<p:column filterBy="#{item.login}" headerText="Usuário"
-						filterMatchMode="contains">
-						<h:outputText value="#{item.login}" />
-					</p:column>
-
-					<p:column filterBy="#{item.nome}" headerText="Nome"
-						filterMatchMode="contains">
-						<h:outputText value="#{item.nome}" />
-					</p:column>
-
-					<p:column filterBy="#{item.departamento.nome}"
-						headerText="Departamento" filterMatchMode="contains">
-						<h:outputText value="#{item.departamento.nome}" />
-					</p:column>
-
-					<p:column style="width:80px">
-
-
-						<p:commandButton onclick="editar()" value="Editar" ajax="true"
-							icon="ui-icon-refresh">
-
-							<f:setPropertyActionListener value="#{item}"
+			 
+			    <p:column filterBy="#{item.id}"  headerText="Id" filterMatchMode="contains">
+			        <h:outputText value="#{item.id}" />
+			    </p:column>
+			 
+			    <p:column filterBy="#{item.login}" headerText="Usuário" filterMatchMode="contains" >
+			        <h:outputText value="#{item.login}" />
+			    </p:column>
+			 
+			    <p:column filterBy="#{item.nome}" headerText="Nome" filterMatchMode="contains">
+			        <h:outputText value="#{item.nome}" />
+			    </p:column>
+			    
+			    <p:column filterBy="#{item.departamento.nome}" headerText="Departamento" filterMatchMode="contains">
+			        <h:outputText value="#{item.departamento.nome}" />
+			    </p:column>
+			 
+			    <p:column style="width:80px">
+			    	
+			    	
+						<p:commandButton onclick="editar()" value="Editar" ajax="true" icon="ui-icon-refresh">
+					
+						<f:setPropertyActionListener value="#{item}"
 								target="#{usuarioMB.usuarioEditado}" />
-
-							<f:ajax execute="@this" render=":table:formEdit"></f:ajax>
-
+							
+						<f:ajax execute="@this" render=":table:formEdit" ></f:ajax>		
+							
 						</p:commandButton>
-					</p:column>
-					<br />
+				</p:column>
+					<br />	
 					<p:column style="width:35px">
-
-						<p:commandButton id="inativar" action="#{usuarioMB.inativar()}"
-							icon="ui-icon-notice"
-							actionListener="#{growlView.showMessage('Usuario','Inativado')}"
-							rendered="#{item.status!='Inativo'}" update="lista">
-							<p:tooltip id="toolTipFade" for="inativar"
-								value="Inativar Usuário" />
-							<f:setPropertyActionListener value="#{item.id}"
-								target="#{usuarioMB.usuarioBusca}" />
-						</p:commandButton>
-
-						<p:commandButton id="ativar" action="#{usuarioMB.ativar()}"
-							icon="ui-icon-circle-check"
-							actionListener="#{growlView.showMessage('Usuario','Atualizado com sucesso')}"
-							rendered="#{item.status!='Ativo'}" update="lista">
-							<p:tooltip id="toolTipFadeAtivar" for="ativar"
-								value="Ativar Usuário" />
-							<f:setPropertyActionListener value="#{item.id}"
-								target="#{usuarioMB.usuarioBusca}" />
-						</p:commandButton>
+					
+					<p:commandButton id="inativar" action="#{usuarioMB.inativar()}" icon="ui-icon-notice" actionListener="#{growlView.usarioExcluido()}" rendered="#{item.status!='Inativo'}" update="lista">
+					<p:tooltip id="toolTipFade" for="inativar" value="Inativar Usuário" />
+					<f:setPropertyActionListener value="#{item.id}" target="#{usuarioMB.usuarioBusca}" />								
+					</p:commandButton>
+					
+					<p:commandButton id="ativar" action="#{usuarioMB.ativar()}" icon="ui-icon-circle-check" actionListener="#{growlView.usarioAtivo()}" rendered="#{item.status!='Ativo'}" update="lista">
+					<p:tooltip id="toolTipFadeAtivar" for="ativar" value="Ativar Usuário" />
+					<f:setPropertyActionListener value="#{item.id}" target="#{usuarioMB.usuarioBusca}" />
+					</p:commandButton>
 					</p:column>
-
-
-				</p:dataTable>
-			</h:form>
+					
+        		
+			</p:dataTable>
+		</h:form>
 		</div>
 	</div>
 </h:body>

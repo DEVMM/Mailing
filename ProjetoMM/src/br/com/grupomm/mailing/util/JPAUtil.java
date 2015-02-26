@@ -6,22 +6,17 @@ import javax.persistence.Persistence;
 
 public class JPAUtil {
 
-	private static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("grupomm-anuarios");
-	private static EntityManagerFactory mmonline = Persistence.createEntityManagerFactory("grupomm-mmonline");
-	public static EntityManagerFactory mySql = Persistence.createEntityManagerFactory("grupomm-mysql");	
-
+private static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("grupomm-anuarios");
+private static EntityManagerFactory mmonline = Persistence.createEntityManagerFactory("grupomm-mmonline");
+public static EntityManagerFactory mySql = Persistence.createEntityManagerFactory("grupomm-mysql");	
 	public EntityManager getEntituManager(){
 		return entityManagerFactory.createEntityManager();
 	}
-	public EntityManager getMySql(){
+public EntityManager getMySql(){
+	return mySql.createEntityManager();
+}
 
-		EntityManagerFactory mySql = Persistence.createEntityManagerFactory("grupomm-mysql");	
-		return mySql.createEntityManager();
-
-	}
-
-
-	public EntityManager getMMonline(){
-		return mmonline.createEntityManager();
-	}
+public EntityManager getMMonline(){
+	return mmonline.createEntityManager();
+}
 }

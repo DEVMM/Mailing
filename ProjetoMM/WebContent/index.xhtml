@@ -9,106 +9,92 @@
 	<title>Home</title>
 	<link type="text/css" rel="stylesheet" href="estilo.css" />
 	<script src="js/mailing.js"></script>
-	<script>
+<script>
 $(window).load(function() {
   $('#buscaAvancada').hide();
   
 });
 
 function buscar(){
- if($('#buscaAvancada').is( ":hidden" ))
- {
-  $('#buscaAvancada').show('slow');
- }
- else
- { 
-  $('#buscaAvancada').hide('slow');
- }
+	if($('#buscaAvancada').is( ":hidden" ))
+	{
+	 $('#buscaAvancada').show('slow');
+	}
+	else
+	{	
+		$('#buscaAvancada').hide('slow');
+	}
 }
 
 </script>
 </h:head>
 <h:body>
-	<div class="loader"></div>
-	<ui:include src="/WEB-INF/menu.xhtml" />
-	<p:messages />
-	<div id="pagina">
+	 <div class="loader"></div>
 
+	<div id="pagina">
+		<ui:include src="/WEB-INF/menu.xhtml" />
 
 		<div id="buscaAvancada">
 			<h:form>
-				<div class="form-left">
-					<fieldset>
-						<strong><p:outputLabel value="Número da Solicitação" for="nrSolicitacao" /></strong>
-						<p:inputText id="nrSolicitacao"
-							value="#{indexMB.busca.nrSolicitacao}" size="4" />
-					</fieldset>
-					<fieldset>
-						<strong><p:outputLabel value="Data" for="dataFrom" /></strong>
-						<p:calendar id="dataFrom" value="#{indexMB.busca.dataFrom}" />
-					</fieldset>
-				</div>
-
-				<div class="form-right">
-					<fieldset>
-						<strong><p:outputLabel value="Nome" for="descricao" /></strong>
-						<p:inputText id="descricao" value="#{indexMB.busca.descricao}"
-							size="18" />
-					</fieldset>
-					<fieldset>
-						<strong><p:outputLabel value="Até" for="dataFor" /></strong>
-						<p:calendar id="dataFor" value="#{indexMB.busca.dataFor}" />
-					</fieldset>
-				</div>
-				<h:panelGrid columns="4" cellspacing="10">
-					<strong><p:outputLabel value="Tipo" for="tipo" /></strong>
-					<p:selectManyCheckbox id="tipo" value="#{indexMB.busca.tipo}">
-						<f:selectItem itemLabel="MM Online" itemValue="MM-online" />
-						<f:selectItem itemLabel="Anuários" itemValue="anuarios" />
-					</p:selectManyCheckbox>
+			<h:panelGrid columns="4" cellspacing="10">
+				<p:outputLabel value="Número do Solicitação" for="nrSolicitacao"/>
+				<p:inputText id="nrSolicitacao" value="#{indexMB.busca.nrSolicitacao}" size="2" />
+				
+				
+				<p:outputLabel value="Descrição" for="descricao"/>
+				<p:inputText id="descricao" value="#{indexMB.busca.descricao}" size="15"/>
+				
+				<p:outputLabel value="Data" for="dataFrom"/>
+        		<p:calendar id="dataFrom" value="#{indexMB.busca.dataFrom}" />
 
 
-					<strong><p:outputLabel value="Status" for="status" /></strong>
-					<p:selectManyCheckbox id="status" value="#{indexMB.busca.status}">
-
-						<f:selectItem itemLabel="Aprovado" itemValue="aprovado" />
-						<f:selectItem itemLabel="Expirado" itemValue="expirado" />
-						<f:selectItem itemLabel="Baixado" itemValue="baixado" />
-						<f:selectItem itemLabel="Removido" itemValue="Removido" />
-						<f:selectItem itemLabel="Aguardando" itemValue="Aguardando" />
-						<f:selectItem itemLabel="Reprovado" itemValue="Reprovado" />
-					</p:selectManyCheckbox>
-				</h:panelGrid>
-
-				<h:panelGrid columns="5">
-					<p:commandButton value="Procurar" action="#{indexMB.busca()}"
-						update=":formulario" />
-				</h:panelGrid>
-			</h:form>
-			<br />
-
+        		<p:outputLabel value="Até" for="dataFor"/>
+        		<p:calendar id="dataFor" value="#{indexMB.busca.dataFor}"/>
+				
+				<p:outputLabel value="Tipo" for="tipo"/>
+		        <p:selectManyCheckbox id="tipo" value="#{indexMB.busca.tipo}">
+		            <f:selectItem itemLabel="MM Online" itemValue="MM-online" />
+		            <f:selectItem itemLabel="Anuários" itemValue="anuarios" />
+        		</p:selectManyCheckbox>
+        		<p:outputLabel value=""/>
+        		<p:outputLabel value=""/>
+        		
+        		<p:outputLabel value="Status" for="status"/>
+		        <p:selectManyCheckbox id="status" value="#{indexMB.busca.status}">
+		            <f:selectItem itemLabel="Aprovado" itemValue="aprovado" />
+		            <f:selectItem itemLabel="Expirado" itemValue="expirado" />
+		            <f:selectItem itemLabel="Baixado" itemValue="baixado" />
+        		</p:selectManyCheckbox>
+			</h:panelGrid>
+			
+			<h:panelGrid columns="5">
+				<p:commandButton value="Procurar" action="#{indexMB.busca()}" update=":myDataTable" ajax="false"/>
+        	</h:panelGrid>
+        	</h:form>
+        		
+        	<br/>
+		
 		</div>
 
-		<h:form id="formulario" method="get">
-			<p:growl id="msgs" showDetail="true" />
-			<p:dataTable value="#{indexMB.provacoesList}" id="myDataTable"
+		<h:form id="formulario" method="get" >
+			<p:growl id="msgs" showDetail="true"/>
+			<p:dataTable value="#{indexMB.provacoesList}" id="myDataTable"  
 				var="item" paginator="true" rows="10"
 				emptyMessage="Você não tem solicitacões para serem baixadas">
-
+				
 				<f:facet name="header">
-           Busca Avançada
-           <p:commandButton onclick="buscar()" icon="ui-icon-search" />
-				</f:facet>
-
+			        Busca Avançada
+			        <p:commandButton onclick="buscar()" icon="ui-icon-search"  />
+			    </f:facet>
+			 
 				<p:column headerText="Numero da Solicitação"
 					style="width:10%; margin:auto; text-align: center;">
 					<h:outputText value="#{item.id}" />
 				</p:column>
-				<p:column headerText="Nome"
+				<p:column headerText="Descrição"
 					style="width:10%; margin:auto; text-align: center;">
 					<h:outputText value="#{item.descricao}" />
 				</p:column>
-
 				<p:column headerText="Data da solicitação"
 					style="width:20%; margin:auto; text-align:center;">
 					<h:outputText value="#{item.dt.time}">
@@ -120,54 +106,30 @@ function buscar(){
 					style="width:10%; margin:auto; text-align: center;">
 					<h:outputText value="#{item.tipoSolicitacao}" />
 				</p:column>
-				<p:column headerText="Status"
-					style="width:10%; margin:auto; text-align: center;">
-					<h:outputText value="#{item.status}" />
-				</p:column>
-				<p:column style="width:45px; text-align:center;" id="aprovados">
-					<h:outputLink id="fade">
-						<p:commandButton icon="ui-icon-arrowthickstop-1-s"
-							action="#{indexMB.gerarRelatorio()}" ajax="false"
-							onclick="lonading()"
-							rendered="#{item.status eq 'Aprovado' or item.status eq 'Baixado'}">
-							<f:setPropertyActionListener value="#{item.id}"
-								target="#{indexMB.ids}" />
-							<f:setPropertyActionListener value="#{item.tipoSolicitacao}"
-								target="#{indexMB.tipoSolicitacao}" />
-						</p:commandButton>
+				
+					
+				<p:column style="width:45px; text-align:center;" >
+				<h:outputLink id="fade" >
+					<p:commandButton icon="ui-icon-arrowthickstop-1-s"  action="#{indexMB.gerarRelatorio()}" 
+						ajax="false" onclick="lonading()" >
+						<f:setPropertyActionListener value="#{item.id}"
+							target="#{indexMB.ids}" />
+						<f:setPropertyActionListener value="#{item.tipoSolicitacao}"
+							target="#{indexMB.tipoSolicitacao}" />
+							
+					</p:commandButton>
 					</h:outputLink>
-
-					<h:outputLink id="remover"
-						rendered="#{item.status eq 'Aprovado' or item.status eq 'Baixado'}">
-						<p:commandButton icon="ui-icon-closethick" disabled="false"
-							action="#{indexMB.alterStatus}" process="@this" update="@form"
-							actionListener="#{growlView.showMessage('info','Não Aprovado')}">
-							<f:setPropertyActionListener value="#{item}"
-								target="#{indexMB.solicitacao}" />
-							<f:setPropertyActionListener value="Removido"
-								target="#{indexMB.solicitacao.status}" />
-						</p:commandButton>
-					</h:outputLink>
-
-					<h:outputLink id="Ativar">
-						<p:commandButton icon="ui-icon-arrowrefresh-1-n" disabled="false"
-							action="#{indexMB.alterStatus}" process="@this" update="@form"
-							rendered="#{item.status eq 'Expirado' or item.status  eq 'Removido'}"
-							actionListener="#{growlView.showMessage('info','Não Aprovado')}">
-							<f:setPropertyActionListener value="#{item}"
-								target="#{indexMB.solicitacao}" />
-							<f:setPropertyActionListener value="Aguardando"
-								target="#{indexMB.solicitacao.status}" />
-
-						</p:commandButton>
-					</h:outputLink>
-
 					<p:tooltip id="toolTipFade" for="fade" value="Download" />
-					<p:tooltip id="toolRemover" for="remover"
-						value="Remover solicitação" />
-					<p:tooltip id="toolExpirar" for="Ativar"
-						value="Solicitar novamente" />
-				</p:column>
+               <p:remoteCommand name="testeira" onstart="alert('teste2')" ></p:remoteCommand>
+               
+               <p:commandButton icon="ui-icon-closethick" 
+						action="#{indexMB.removerSolicitacao}" disabled="false"
+						process="@this" update="@form">
+						<f:setPropertyActionListener value="#{item.id}"
+							target="#{indexMB.ids}" />
+					</p:commandButton>
+					</p:column>
+				
 			</p:dataTable>
 		</h:form>
 
