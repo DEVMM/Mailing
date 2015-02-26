@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.ValueChangeEvent;
 
 import br.com.grupomm.mailing.model.bo.AnuariosBO;
 import br.com.grupomm.mailing.model.entity.Solicitacao;
@@ -28,36 +29,27 @@ public class Anuarios implements Serializable{
 	public String validacao(){
 		AnuariosBO anuariosControl = new AnuariosBO();
 
-//		if(anuariosControl.Valida(valida)!=null){
-//			System.out.println(anuariosControl.Valida(valida));
-//			this.solicitacao.setQuantidade(anuariosControl.Valida(valida));
-//		}
-		System.out.println(Distribuidor.listEstados.size());
+		if(anuariosControl.Valida(valida)!=null){
+			System.out.println(anuariosControl.Valida(valida));
+			this.solicitacao.setQuantidade(anuariosControl.Valida(valida));
+		}
 		return "";
 	}
 	
 	public String gerarRelatorio(){
 
-//		AnuariosBO anuariosBO = new AnuariosBO();
-//		anuariosBO.gerar(valida, this.getSolicitacao());
+		AnuariosBO anuariosBO = new AnuariosBO();
+		anuariosBO.gerar(valida, this.getSolicitacao());
 	     
 		return "index";
 	}
 
-	/*public void valida(ValueChangeEvent event){
-		
-		List newValue = (List) event;
-		
-		 for(int i =0; i< check.length; i++){
+	public void valida(ValueChangeEvent event){
+		String[] check = (String[]) event.getNewValue();
+		for(int i =0; i< check.length; i++){
 			valida.add(check[i]);
 		}
-	}*/
-//	public void valida(List<EnumRaiz> es){
-//		//this.setValida(es);
-//		System.out.println(es);
-//	}
-	
-	
+	}
 
 	public List<Estados> getEstados(){
 		return (List<Estados>) Arrays.asList(Estados.values());

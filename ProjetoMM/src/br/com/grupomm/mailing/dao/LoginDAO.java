@@ -1,6 +1,7 @@
 package br.com.grupomm.mailing.dao;
 import java.util.List;
 
+import javax.faces.application.ViewExpiredException;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
@@ -15,10 +16,12 @@ import br.com.grupomm.mailing.util.Util;
 
 public class LoginDAO {      
 
-	public static Usuario login(Usuario usr) {
+	public static Usuario login(Usuario usr) throws ViewExpiredException {
 
 		EntityManager mysql = new JPAUtil().getMySql();
-
+        System.out.println(usr.getLogin());
+        System.out.println(usr.getSenha());
+		
 		Query query = mysql.createQuery("SELECT c FROM Usuario c where c.login=:pLogin and c.senha=:pSenha", Usuario.class).setParameter("pLogin", usr.getLogin()).setParameter("pSenha",usr.getSenha());
 
 		Usuario usuario = null;
@@ -37,7 +40,6 @@ public class LoginDAO {
 			e.printStackTrace();
 			return null;
 		}
-
 		finally{
 			mysql.close();
 		}

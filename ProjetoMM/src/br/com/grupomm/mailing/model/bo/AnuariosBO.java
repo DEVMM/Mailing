@@ -1,6 +1,7 @@
 package br.com.grupomm.mailing.model.bo;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,26 +74,128 @@ public class AnuariosBO {
 
 		EnviaEmail enviaEmail = new EnviaEmail();
 
-		String msgUsr="<html>\n "
-				+ "<body>\n  "
-				+ "<h1>Solicitação gerada com sucesso!</h1>\n "
-				+ "<br/>\n"
-				+ " Numero: "+solicitacao.getId()+""
-				+ "<p>descricao: "+solicitacao.getDescricao()+"</p>"
-				+ "<br/> \n  <a>www.meioemensagem.com.br/mailing</a>\n"
-				+ " </body> \n "
-				+ "</html> \n";
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+	    String dataFrom = dateFormat.format(solicitacao.getDt().getTime());
+		
+		String msgUsr="<!DOCTYPE html>"
+				+ "	<html>"
+				+ "		<head>"
+				+ "		<meta charset='utf-8'>"
+				+ "		<title>Mailing gerado com sucesso!</title>"
+				+ "		</head>"
+				+ "		<body>"
+				+ "		<table cellpadding='0' cellspacing='0' width='590'>"
+				+ "		<tr>"
+				+ "		<td width='20' bgcolor='#0076bc'>&nbsp;</td>"
+				+ "		<td valign='middle' bgcolor='#0076bc' height='55'>"
+				+ "<img style='margin-top:6px;' src='http://mmimg.meioemensagem.com.br/EMK/Logo-MailingEmail.png' height='33' width='251' alt='Grupo M&M Mailing'/></td>"
+				+ "		</tr>"
+				+ "		<tr>"
+				+ "		<td width='20'></td>"
+				+ "		<td>"
+				+ "		<table>"
+				+ "		<tr>"
+				+ "		<td height='20'>&nbsp;</td>"
+				+ "		</tr>"
+				+ "		<tr>"
+				+ "		<td><font color='#0076bc' face='Arial, Helvetica, sans-serif' style='font-size:20px;'>"+Util.getUserName()+",</font></td>"
+				+ "		</tr>"
+				+ "		<tr>"
+				+ "		<td><font color='#646264' face='Arial, Helvetica, sans-serif' style='font-size:18px;'>"
+				+ "Seu mailing foi gerado com sucesso!</font></p></td>"
+				+ "		</tr>"
+				+ "				</table>"
+				+ "		<table cellpadding='12' cellspacing='5'>"
+				+ "		<tr bgcolor='#eaeaea'>"
+				+ "		<td><font color='#646264' face='Arial, Helvetica, sans-serif' size='3'>"
+				+ "<strong>Status</strong></font></td>"
+				+ "		<td><font color='#646264' face='Arial, Helvetica, sans-serif' size='3'>Aguardando aprovação"
+				+ "</font></td>"
+				+ "		</tr>"
+				+ "		<tr bgcolor='#fbfbfb'>"
+				+ "		<td><font color='#646264' face='Arial, Helvetica, sans-serif' size='3'><strong>ID da solicitação</strong></font></td>"
+				+ "		<td><font color='#646264' face='Arial, Helvetica, sans-serif' size='3'>"+solicitacao.getId()+"</font></td>"
+				+ "		</tr>"
+				+ "		<tr bgcolor='#eaeaea'>"
+				+ "		<td><font color='#646264' face='Arial, Helvetica, sans-serif' size='3'>"
+				+ "<strong>Nome</strong></font></td>"
+				+ "		<td><font color='#646264' face='Arial, Helvetica, sans-serif' size='3'>"+solicitacao.getDescricao()+"</font>"
+				+ "</td>"
+				+ "		</tr>"
+				+ "		<tr bgcolor='#fbfbfb'>"
+				+ "		<td><font color='#646264' face='Arial, Helvetica, sans-serif' size='3'>"
+				+ "<strong>Data</strong></font></td>"
+				+ "		<td><font color='#646264' face='Arial, Helvetica, sans-serif' size='3'>"+dataFrom+"</font></td>"
+				+ "		</tr>"
+				+ "		</table>"
+				+ "		</td>"
+				+ "		</tr>"
+				+ "		<tr>"
+				+ "		<td width='20'>&nbsp;</td>"
+				+ "		<td><p><font color='#646264' face='Arial, Helvetica, sans-serif' size='4'>Para mais informações acesse: <a style='color:#0076bc;' href='http://www.meioemensagem.com.br/mailing' title='Grupo M&M Mailing'>www.meioemensagem.com.br/mailing</a>"
+				+ "</font></p></td>"
+				+ "		</tr>"
+				+ "		</table>"
+				+ "		</body>"
+				+ "		</html>";
 
-		String msgAdm="<html>\n "
-				+ "<body>\n  "
-				+ "<h1>Gerado uma nova solicitação</h1>\n "
-				+ "<br/>\n"
-				+ " Numero: "+solicitacao.getId()+""
-				+ "<p>descricao: "+solicitacao.getDescricao()+"</p>"
-				+ "<p>solicitante: "+Util.getEmail()+"</p>"
-				+ "<br/> \n<a>www.meioemensagem.com.br/mailing</a>\n"
-				+ " </body> \n "
-				+ "</html> \n";
+		String msgAdm="<!doctype html>"
+				+ "<html>"
+				+ "<head>"
+				+ "<meta charset='utf-8'>"
+				+ "<title>Um novo mailing foi gerado no sistema!</title>"
+				+ "</head>"
+				+ "<body>"
+				+ "	<table cellpadding='0' cellspacing='0' width='590'>"
+				+ "    	<tr>"
+				+ "        	<td width='20' bgcolor='#0076bc'>&nbsp;</td>"
+				+ "        	<td valign='middle' bgcolor='#0076bc' height='55'>"
+				+ "<img style='margin-top:6px;' src='http://mmimg.meioemensagem.cm.br/EMK/Logo-MailingEmail.png' height='33' width='251' alt='Grupo M&M Mailing'/></td>"
+				+ "</tr>"
+				+ "        <tr>"
+				+ "        	<td width='20'></td>"
+				+ "            <td>"
+				+ "            	<table>"
+				+ "               	<tr>"
+				+ "                    	<td height='20'>&nbsp;</td>"
+				+ "                    </tr>"
+				+ "                	<tr>"
+				+ "                    	<td><font color='#646264' face='Arial, Helvetica, sans-serif' style='font-size:18px;'>Um novo mailing foi gerado no sistema!</font></p></td>"
+				+ "                    </tr>"
+				+ "                </table>"
+				+ "                <table cellpadding='12' cellspacing='5'>"
+				+ "                	<tr bgcolor='#eaeaea'>"
+				+ "                    	<td><font color='#646264' face='Arial, Helvetica, sans-serif' size='3'>"
+				+ "<strong>Solicitante</strong></font></td>"
+				+ "                        <td>"
+				+ "<font color='#646264' face='Arial, Helvetica, sans-serif' size='3'>"+Util.getUserName()+"</font></td>"
+				+ "                    </tr>"
+				+ "                    <tr bgcolor='#fbfbfb'>"
+				+ "                    	<td><font color='#646264' face='Arial, Helvetica, sans-serif' size='3'>"
+				+ "<strong>ID da solicitação</strong></font></td>"
+				+ "                        <td><font color='#646264' face='Arial, Helvetica, sans-serif' size='3'>"+solicitacao.getId()+"</font></td> "
+				+ "</tr>"
+				+ "                    <tr bgcolor='#eaeaea'>"
+				+ "                    	<td><font color='#646264' face='Arial, Helvetica, sans-serif' size='3'>"
+				+ "<strong>Nome</strong></font></td>"
+				+ "<td><font color='#646264' face='Arial, Helvetica, sans-serif' size='3'>"+solicitacao.getDescricao()+"</font></td>"
+				+ " </tr>"
+				+ " <tr bgcolor='#fbfbfb'>"
+				+ "  	<td><font color='#646264' face='Arial, Helvetica, sans-serif' size='3'><strong>Data</strong>"
+				+ "</font></td>"
+				+ "<td><font color='#646264' face='Arial, Helvetica, sans-serif' size='3'>"+dataFrom+"</font></td>"
+				+ "  </tr>"
+				+ "   </table>"
+				+ " </td>"
+				+ " </tr>"
+				+ "  <tr>"
+				+ " 	<td width='20'>&nbsp;</td>"
+				+ "        	<td><p><font color='#646264' face='Arial, Helvetica, sans-serif' size='4'>Favor verificar no sistema: <a style='color:#0076bc;' href='http://www.meioemensagem.com.br/mailing' title='Grupo M&M Mailing'>www.meioemensagem.com.br/mailing</a>"
+				+ "</font></p></td>"
+				+ "  </tr>"
+				+ "  </table>"
+				+ "</body>"
+				+ "</html>";
 
 		try {
 			enviaEmail.enviarEmailSolicitante(Util.getEmail(),msgUsr, solicitacao);
@@ -152,9 +255,9 @@ public class AnuariosBO {
 			GrowlView.showMessage("Falha Ao enviar", "Selecione ao menos um item de cada categoria");
 			return null;
 		}
-		
+
 		Integer qtd = Integer.valueOf(this.count(ckEstados, ckRamoAtividade, ckNivel, ckPorte, ckArea).toString());
-		
+
 		if(qtd == 0){
 			GrowlView.showMessage("Resultado em branco ", "A busca não encontrou resultados");
 
@@ -226,13 +329,13 @@ public class AnuariosBO {
 				+ "AND AA.IDAREA IN("+pIdArea+")";
 
 		AnuariosDAO anuarios = new AnuariosDAO();
-         
+
 		try {
 			return anuarios.count(query);
 		} catch (Exception e) {
 			GrowlView.erro("Erro","Tente Novamente!");
 			return 0;
 		}
-		
+
 	}
 }

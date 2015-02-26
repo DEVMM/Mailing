@@ -19,7 +19,7 @@ public class EnviaEmail {
 	public void enviarEmailSolicitante(String solicitante,String msg, Solicitacao solicitacao) throws EmailException{
 
 		HtmlEmail email = new HtmlEmail();
-		email.setHostName("mail.grupomm.com.br");
+		email.setHostName("mail.exchange.locaweb.com.br");
 		email.setAuthenticator(new DefaultAuthenticator("mailingsystem@grupomm.com.br", "123@456@mm"));
 		email.setTLS(true);
 		email.setSmtpPort(587);
@@ -32,7 +32,7 @@ public class EnviaEmail {
 	public void enviarEmailAdm(String msg, Solicitacao solicitacao) throws EmailException{
 
 		HtmlEmail email = new HtmlEmail();
-		email.setHostName("mail.grupomm.com.br");
+		email.setHostName("mail.exchange.locaweb.com.br");
 		email.setAuthenticator(new DefaultAuthenticator("mailingsystem@grupomm.com.br", "123@456@mm"));
 		email.setTLS(true);
 		email.setSmtpPort(587);

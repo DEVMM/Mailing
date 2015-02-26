@@ -28,8 +28,8 @@ public class LoginBO {
 		System.out.println(usuarioCrip.toString());
 		usr.setSenha(usuarioCrip.toString());
          
-		System.out.println(usr.getLogin());
-		System.out.println(usr.getSenha());
+		System.out.println("Login"+usr.getLogin());
+		System.out.println("senha+"+usr.getSenha());
 //		try {
 
 			Usuario result = LoginDAO.login(usr);
@@ -37,7 +37,7 @@ public class LoginBO {
 			if (result!=null) {
 
 				HttpSession session = Util.getSession();
-				session.setAttribute("nomeUsuario", result.getLogin());
+				session.setAttribute("nomeUsuario", result.getNome());
 				session.setAttribute("idUsuario", result.getId());
 				session.setAttribute("permissao", result.getPermissao().getNomePermissao().toString());
 				session.setAttribute("email", result.getEmail());
